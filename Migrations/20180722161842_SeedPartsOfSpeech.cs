@@ -14,7 +14,7 @@ namespace Hereglish.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql("DELETE FROM Feature WHERE Name IN ('Rzeczownik', 'Czasownik', 'Przymiotnik', 'Przysłówek')");
+            migrationBuilder.Sql("DELETE FROM PartsOfSpeech WHERE Name IN ('Rzeczownik', 'Czasownik', 'Przymiotnik', 'Przysłówek')");
         }
     }
 }
