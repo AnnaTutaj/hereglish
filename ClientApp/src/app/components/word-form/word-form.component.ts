@@ -7,14 +7,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./word-form.component.css']
 })
 export class WordFormComponent implements OnInit {
-  categories;
+  categories : any[];
+  subcategories : any[];
+  word: any = {};
 
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit() {
-    this.categoryService.getCategories().subscribe(categories => {
+    this.categoryService.getCategories().subscribe(categories => 
       this.categories = categories
-    } );
+    );
+  }
+
+  onCategoryChange(){
+    let selectedCategory = this.categories.find(c => c.id == this.word.category);
+    this.subcategories = selectedCategory ? selectedCategory.subcategories : [];
   }
 
 }
