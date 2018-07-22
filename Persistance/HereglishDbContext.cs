@@ -1,3 +1,4 @@
+using Hereglish.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hereglish.Persistance
@@ -9,5 +10,8 @@ namespace Hereglish.Persistance
         {
 
         }
+
+        public DbSet <Category> Categories{ get; set; }
+
     }
 }
