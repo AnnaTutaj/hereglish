@@ -23,12 +23,21 @@
     </select>
   </div>
   <div class="form-group">
-      <label for="partOfSpeech">Part of speech</label>
-      <select id="partOfSpeech" name="partOfSpeech" class="form-control">
-        <option value=""></option>
-        <option *ngFor="let p of partsOfSpeech" value="{{p.id}}">{{ p.name }}</option>
-      </select>
-    </div>
+    <label for="partOfSpeech">Part of speech</label>
+    <select id="partOfSpeech" name="partOfSpeech" class="form-control">
+      <option value=""></option>
+      <option *ngFor="let p of partsOfSpeech" value="{{p.id}}">{{ p.name }}</option>
+    </select>
+  </div>
+  <label> Mark as learned?</label>
+  <div class="radio">
+    <label for="learned" class="radio-inline">
+      <input type="radio" id="learned" name="isLerned" value="true"> Yes
+    </label>
+    <label for="notLearned" class="radio-inline">
+      <input type="radio" id="notLearned" name="isLerned" value="false"> No
+    </label>
+  </div>
   <h2>Features</h2>
   <div *ngFor="let f of features" class="checkbox">
     <label for="feature {{ f.id }}">
