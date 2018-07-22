@@ -10,6 +10,7 @@ namespace Hereglish.Mapping
         {
             CreateMap<Category, CategoryResource>();
             CreateMap<Subcategory, SubcategoryResource>();
+            CreateMap<Feature, FeatureResource>();
         }
     }
 }
