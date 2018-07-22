@@ -1,5 +1,6 @@
 import { CategoryService } from './services/category.service'
 import { FeatureService } from './services/feature.service'
+import { PartOfSpeechService } from './services/part-of-speech.service'
 
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
@@ -38,7 +39,8 @@ import { WordFormComponent } from './components/word-form/word-form.component';
   ],
   providers: [
     CategoryService,
-    FeatureService
+    FeatureService,
+    PartOfSpeechService
   ],
   bootstrap: [AppComponent]
 })
