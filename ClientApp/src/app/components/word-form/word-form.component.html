@@ -5,12 +5,12 @@
     <input id="word" type="text" class="form-control">
   </div>
   <div class="form-group">
-      <label for="meaning">Meaning</label>
-      <input id="meaning" type="text" class="form-control">
-    </div>
+    <label for="meaning">Meaning</label>
+    <input id="meaning" type="text" class="form-control">
+  </div>
   <div class="form-group">
     <label for="category">Category</label>
-    <select id="category" name="category" class="form-control"(change)="onCategoryChange()"[(ngModel)]="word.category">
+    <select id="category" name="category" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.category">
       <option value=""></option>
       <option *ngFor="let c of categories" value="{{c.id}}">{{ c.name }}</option>
     </select>
@@ -18,8 +18,14 @@
   <div class="form-group">
     <label for="subcategory">Subcategory</label>
     <select id="subcategory" class="form-control">
-        <option value=""></option>
-        <option *ngFor="let s of subcategories" value="{{s.id}}">{{ s.name }}</option>
+      <option value=""></option>
+      <option *ngFor="let s of subcategories" value="{{s.id}}">{{ s.name }}</option>
     </select>
+  </div>
+  <h2>Features</h2>
+  <div *ngFor="let f of features" class="checkbox">
+    <label for="feature {{ f.id }}">
+      <input type="checkbox" id="feature {{ f.id}}"> {{ f.name }}
+    </label>
   </div>
 </form>
