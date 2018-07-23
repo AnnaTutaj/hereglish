@@ -4,14 +4,16 @@ using Hereglish.Persistance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hereglish.Migrations
 {
     [DbContext(typeof(HereglishDbContext))]
-    partial class HereglishDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180723165909_AddWord")]
+    partial class AddWord
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
