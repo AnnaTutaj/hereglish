@@ -9,6 +9,18 @@
     <input id="meaning" type="text" class="form-control">
   </div>
   <div class="form-group">
+    <label for="pronunciationUK">Pronunciation UK</label>
+    <input id="pronunciationUK" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="pronunciationUS">Pronunciation US</label>
+    <input id="pronunciationUS" type="text" class="form-control">
+  </div>
+  <div class="form-group">
+    <label for="exmples">Examples</label>
+    <textarea id="exmples" class="form-control" rows="4"></textarea>
+  </div>
+  <div class="form-group">
     <label for="category">Category</label>
     <select id="category" name="category" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.category">
       <option value=""></option>
@@ -44,4 +56,5 @@
       <input type="checkbox" id="feature {{ f.id}}"> {{ f.name }}
     </label>
   </div>
+  <button class="btn btn-primary">Save</button>
 </form>
