@@ -26,7 +26,7 @@ namespace Hereglish.Controllers.Resources
         [StringLength(255)]
         public string Meaning { get; set; }
 
-        public PronunciationResource PronunciationResource { get; set; }
+        public PronunciationResource Pronunciation { get; set; }
         
         public ICollection<int> Features { get; set; }
 

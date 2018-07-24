@@ -8,6 +8,8 @@ namespace Hereglish.Persistance
         public DbSet<Category> Categories { get; set; }
         public DbSet<Feature> Features { get; set; }
         public DbSet<PartOfSpeech> PartsOfSpeech { get; set; }
+        public DbSet<Word> Words { get; set; }
+
 
         public HereglishDbContext(DbContextOptions<HereglishDbContext> options)
             : base(options)
