@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hereglish.Controllers.Resources;
@@ -23,6 +24,20 @@ namespace Hereglish.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateWord([FromBody] WordResource wordResource)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var commasCount = wordResource.Meaning.TakeWhile(c => c == ',').Count();
+            var limitOfCommas = 3;
+
+            if (commasCount > limitOfCommas)
+            {
+                ModelState.AddModelError("error", "Cannot add a word with more than three commas in meaning");
+                return BadRequest(ModelState);
+            }
+
             var word = mapper.Map<WordResource, Word>(wordResource);
 
             word.CreatedAt = DateTime.Now;
