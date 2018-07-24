@@ -27,16 +27,21 @@ namespace Hereglish.Mapping
             .ForMember(w => w.Features, opt => opt.Ignore())
             .AfterMap((wr, w) =>
             {
-                var removedFeatures = new List<WordFeature>();
-                foreach (var f in w.Features)
+                // Remove features
+                var removedFeatures = w.Features.Where(f => !wr.Features.Contains(f.FeatureId)).ToList();
+                foreach (var f in removedFeatures)
                 {
-                    if (!wr.Features.Contains(f.FeatureId))
-                    {
-                        w.Features.Remove(f);
-                    }
+                    w.Features.Remove(f);
                 }
 
-               
+                // Add features
+                var addedFeatures = wr.Features
+                .Where(id => !w.Features.Any(f => f.FeatureId == id))
+                .Select(id => new WordFeature { FeatureId = id });
+                foreach (var f in addedFeatures)
+                {
+                    w.Features.Add(f);
+                }
             });
         }
     }
