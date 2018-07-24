@@ -6,6 +6,7 @@ using Hereglish.Controllers.Resources;
 using Hereglish.Models;
 using Hereglish.Persistance;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Hereglish.Controllers
 {
@@ -50,6 +51,36 @@ namespace Hereglish.Controllers
 
             return Ok(result);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateWord(int id, [FromBody] WordResource wordResource)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var commasCount = wordResource.Meaning.TakeWhile(c => c == ',').Count();
+            var limitOfCommas = 3;
+
+            if (commasCount > limitOfCommas)
+            {
+                ModelState.AddModelError("error", "Cannot add a word with more than three commas in meaning");
+                return BadRequest(ModelState);
+            }
+
+            var word = await context.Words.Include(w => w.Features).SingleOrDefaultAsync(v => v.Id == id);
+            mapper.Map<WordResource, Word>(wordResource, word);
+
+            word.UpdatedAt = DateTime.Now; ;
+
+            await context.SaveChangesAsync();
+
+            var result = mapper.Map<Word, WordResource>(word);
+
+            return Ok(result);
+        }
+
 
     }
 }

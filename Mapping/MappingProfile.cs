@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Hereglish.Controllers.Resources;
@@ -20,9 +21,23 @@ namespace Hereglish.Mapping
 
             //API Resource to Domain
             CreateMap<WordResource, Word>()
+            .ForMember(w => w.Id, opt => opt.Ignore())
             .ForMember(w => w.PronunciationUK, opt => opt.MapFrom(wr => wr.Pronunciation.Uk))
             .ForMember(w => w.PronunciationUS, opt => opt.MapFrom(wr => wr.Pronunciation.Us))
-            .ForMember(w => w.Features, opt => opt.MapFrom(wr => wr.Features.Select(id => new WordFeature { FeatureId = id })));
+            .ForMember(w => w.Features, opt => opt.Ignore())
+            .AfterMap((wr, w) =>
+            {
+                var removedFeatures = new List<WordFeature>();
+                foreach (var f in w.Features)
+                {
+                    if (!wr.Features.Contains(f.FeatureId))
+                    {
+                        w.Features.Remove(f);
+                    }
+                }
+
+               
+            });
         }
     }
 }
