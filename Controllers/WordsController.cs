@@ -25,7 +25,12 @@ namespace Hereglish.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWord(int id)
         {
-            var word = await context.Words.Include(w => w.Features).SingleOrDefaultAsync(w => w.Id == id);
+            var word = await context.Words
+            .Include(w => w.Features)
+                .ThenInclude(wf => wf.Feature)
+            .Include(w => w.Subcategory)
+                .ThenInclude(m => m.Category)
+            .SingleOrDefaultAsync(w => w.Id == id);
 
             if (word == null)
             {
@@ -38,7 +43,7 @@ namespace Hereglish.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateWord([FromBody] WordResource wordResource)
+        public async Task<IActionResult> CreateWord([FromBody] SaveWordResource wordResource)
         {
             if (!ModelState.IsValid)
             {
@@ -54,7 +59,7 @@ namespace Hereglish.Controllers
                 return BadRequest(ModelState);
             }
 
-            var word = mapper.Map<WordResource, Word>(wordResource);
+            var word = mapper.Map<SaveWordResource, Word>(wordResource);
 
             word.CreatedAt = DateTime.Now;
             word.UpdatedAt = null;
@@ -62,13 +67,13 @@ namespace Hereglish.Controllers
             context.Words.Add(word);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Word, WordResource>(word);
+            var result = mapper.Map<Word, SaveWordResource>(word);
 
             return Ok(result);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateWord(int id, [FromBody] WordResource wordResource)
+        public async Task<IActionResult> UpdateWord(int id, [FromBody] SaveWordResource wordResource)
         {
             if (!ModelState.IsValid)
             {
@@ -91,13 +96,13 @@ namespace Hereglish.Controllers
                 return NotFound();
             }
 
-            mapper.Map<WordResource, Word>(wordResource, word);
+            mapper.Map<SaveWordResource, Word>(wordResource, word);
 
             word.UpdatedAt = DateTime.Now; ;
 
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Word, WordResource>(word);
+            var result = mapper.Map<Word, SaveWordResource>(word);
 
             return Ok(result);
         }

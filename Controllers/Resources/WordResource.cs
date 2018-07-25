@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations;
-using Hereglish.Models;
 
 namespace Hereglish.Controllers.Resources
 {
@@ -10,29 +8,31 @@ namespace Hereglish.Controllers.Resources
     {
         public int Id { get; set; }
 
-        public int SubcategoryId { get; set; }
+        public KeyValuePairResource Subcategory { get; set; }
+       
+        public KeyValuePairResource Category { get; set; }
 
-        public int PartOfSpeechId { get; set; }
+        public PartOfSpeechResource PartOfSpeech { get; set; }
 
         public bool IsLearned { get; set; }
 
         public string Example { get; set; }
 
-        [Required]
-        [StringLength(255)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(255)]
         public string Meaning { get; set; }
 
         public PronunciationResource Pronunciation { get; set; }
-        
-        public ICollection<int> Features { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+
+        public DateTime? UpdatedAt { get; set; }
+
+        public ICollection<KeyValuePairResource> Features { get; set; }
 
         public WordResource()
         {
-            Features = new Collection<int>();
+            Features = new Collection<KeyValuePairResource>();
         }
     }
 }

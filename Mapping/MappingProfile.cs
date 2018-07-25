@@ -12,15 +12,19 @@ namespace Hereglish.Mapping
         {
             //Domain to API Resource
             CreateMap<Category, CategoryResource>();
-            CreateMap<Subcategory, SubcategoryResource>();
-            CreateMap<Feature, FeatureResource>();
+            CreateMap<Subcategory, KeyValuePairResource>();
+            CreateMap<Feature, KeyValuePairResource>();
             CreateMap<PartOfSpeech, PartOfSpeechResource>();
-            CreateMap<Word, WordResource>()
+            CreateMap<Word, SaveWordResource>()
             .ForMember(wr => wr.Pronunciation, opt => opt.MapFrom(w => new PronunciationResource { Uk = w.PronunciationUK, Us = w.PronunciationUS }))
             .ForMember(wr => wr.Features, opt => opt.MapFrom(w => w.Features.Select(wf => wf.FeatureId)));
+            CreateMap<Word, WordResource>()
+            .ForMember(wr => wr.Pronunciation, opt => opt.MapFrom(w => new PronunciationResource { Uk = w.PronunciationUK, Us = w.PronunciationUS }))
+            .ForMember(wr => wr.Features, opt => opt.MapFrom(w => w.Features.Select(wf => new KeyValuePairResource {Id = wf.FeatureId, Name = wf.Feature.Name})))
+            .ForMember(wr => wr.Category, opt => opt.MapFrom(w => w.Subcategory.Category));
 
             //API Resource to Domain
-            CreateMap<WordResource, Word>()
+            CreateMap<SaveWordResource, Word>()
             .ForMember(w => w.Id, opt => opt.Ignore())
             .ForMember(w => w.PronunciationUK, opt => opt.MapFrom(wr => wr.Pronunciation.Uk))
             .ForMember(w => w.PronunciationUS, opt => opt.MapFrom(wr => wr.Pronunciation.Us))
