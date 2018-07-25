@@ -70,6 +70,12 @@ namespace Hereglish.Controllers
             }
 
             var word = await context.Words.Include(w => w.Features).SingleOrDefaultAsync(v => v.Id == id);
+
+            if (word == null)
+            {
+                return NotFound();
+            }
+
             mapper.Map<WordResource, Word>(wordResource, word);
 
             word.UpdatedAt = DateTime.Now; ;
@@ -80,6 +86,23 @@ namespace Hereglish.Controllers
 
             return Ok(result);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteWord(int id)
+        {
+            var word = await context.Words.FindAsync(id);
+
+            if (word == null)
+            {
+                return NotFound();
+            }
+
+            context.Remove(word);
+            await context.SaveChangesAsync();
+
+            return Ok(id);
+        }
+
 
 
     }
