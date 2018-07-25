@@ -22,6 +22,21 @@ namespace Hereglish.Controllers
             this.context = context;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetWord(int id)
+        {
+            var word = await context.Words.Include(w => w.Features).SingleOrDefaultAsync(w => w.Id == id);
+
+            if (word == null)
+            {
+                return NotFound();
+            }
+
+            var wordResource = mapper.Map<Word, WordResource>(word);
+
+            return Ok(wordResource);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateWord([FromBody] WordResource wordResource)
         {
@@ -102,8 +117,5 @@ namespace Hereglish.Controllers
 
             return Ok(id);
         }
-
-
-
     }
 }
