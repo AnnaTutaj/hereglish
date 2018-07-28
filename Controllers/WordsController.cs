@@ -15,22 +15,19 @@ namespace Hereglish.Controllers
     {
         private readonly IMapper mapper;
         private readonly HereglishDbContext context;
+        private readonly IWordRepository repository;
 
-        public WordsController(IMapper mapper, HereglishDbContext context)
+        public WordsController(IMapper mapper, HereglishDbContext context, IWordRepository repository)
         {
             this.mapper = mapper;
             this.context = context;
+            this.repository = repository;
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetWord(int id)
         {
-            var word = await context.Words
-            .Include(w => w.Features)
-                .ThenInclude(wf => wf.Feature)
-            .Include(w => w.Subcategory)
-                .ThenInclude(m => m.Category)
-            .SingleOrDefaultAsync(w => w.Id == id);
+            var word = await repository.GetWord(id);
 
             if (word == null)
             {
@@ -67,7 +64,9 @@ namespace Hereglish.Controllers
             context.Words.Add(word);
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Word, SaveWordResource>(word);
+            word = await repository.GetWord(word.Id);
+
+            var result = mapper.Map<Word, WordResource>(word);
 
             return Ok(result);
         }
@@ -89,7 +88,7 @@ namespace Hereglish.Controllers
                 return BadRequest(ModelState);
             }
 
-            var word = await context.Words.Include(w => w.Features).SingleOrDefaultAsync(v => v.Id == id);
+            var word = await repository.GetWord(id);
 
             if (word == null)
             {
@@ -102,7 +101,7 @@ namespace Hereglish.Controllers
 
             await context.SaveChangesAsync();
 
-            var result = mapper.Map<Word, SaveWordResource>(word);
+            var result = mapper.Map<Word, WordResource>(word);
 
             return Ok(result);
         }
