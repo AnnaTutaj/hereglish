@@ -61,7 +61,7 @@ namespace Hereglish.Controllers
             word.CreatedAt = DateTime.Now;
             word.UpdatedAt = null;
 
-            context.Words.Add(word);
+            repository.Add(word);
             await context.SaveChangesAsync();
 
             word = await repository.GetWord(word.Id);
@@ -109,14 +109,14 @@ namespace Hereglish.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteWord(int id)
         {
-            var word = await context.Words.FindAsync(id);
+            var word = await repository.GetWord(id, includeRelated: false);
 
             if (word == null)
             {
                 return NotFound();
             }
 
-            context.Remove(word);
+            repository.Remove(word);
             await context.SaveChangesAsync();
 
             return Ok(id);
