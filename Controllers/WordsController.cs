@@ -102,6 +102,8 @@ namespace Hereglish.Controllers
 
             await unitOfWork.CompleteAsync();
 
+            word = await repository.GetWord(word.Id);
+
             var result = mapper.Map<Word, WordResource>(word);
 
             return Ok(result);
