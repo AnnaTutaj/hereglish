@@ -24,6 +24,7 @@ namespace Hereglish
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IWordRepository, WordRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper();
             services.AddDbContext<HereglishDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

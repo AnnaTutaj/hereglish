@@ -14,14 +14,14 @@ namespace Hereglish.Controllers
     public class WordsController : Controller
     {
         private readonly IMapper mapper;
-        private readonly HereglishDbContext context;
         private readonly IWordRepository repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public WordsController(IMapper mapper, HereglishDbContext context, IWordRepository repository)
+        public WordsController(IMapper mapper, IWordRepository repository, IUnitOfWork unitOfWork)
         {
             this.mapper = mapper;
-            this.context = context;
             this.repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet("{id}")]
@@ -62,7 +62,8 @@ namespace Hereglish.Controllers
             word.UpdatedAt = null;
 
             repository.Add(word);
-            await context.SaveChangesAsync();
+
+            await unitOfWork.CompleteAsync();
 
             word = await repository.GetWord(word.Id);
 
@@ -99,7 +100,7 @@ namespace Hereglish.Controllers
 
             word.UpdatedAt = DateTime.Now; ;
 
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             var result = mapper.Map<Word, WordResource>(word);
 
@@ -117,7 +118,7 @@ namespace Hereglish.Controllers
             }
 
             repository.Remove(word);
-            await context.SaveChangesAsync();
+            await unitOfWork.CompleteAsync();
 
             return Ok(id);
         }
