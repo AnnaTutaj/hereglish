@@ -63,15 +63,6 @@ export class WordFormComponent implements OnInit {
 
   submit() {
     this.wordService.create(this.word)
-      .subscribe(
-        x => console.log(x),
-        err => {
-          this.toastyService.error({
-            title: 'Error',
-            msg: 'An unexpected error happened.',
-            showClose: true,
-            timeout: 5000
-          });
-        });
+      .subscribe(x => console.log(x));
   }
 }

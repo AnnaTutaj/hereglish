@@ -7,7 +7,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 
@@ -17,6 +17,7 @@ import { HomeComponent } from './components/home/home.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { FetchDataComponent } from './components/fetch-data/fetch-data.component';
 import { WordFormComponent } from './components/word-form/word-form.component';
+import { AppErrorHandler } from './app.error-hander';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { WordFormComponent } from './components/word-form/word-form.component';
     ToastyModule.forRoot()
   ],
   providers: [
+    { provide: ErrorHandler, useClass: AppErrorHandler },
     CategoryService,
     FeatureService,
     PartOfSpeechService,
