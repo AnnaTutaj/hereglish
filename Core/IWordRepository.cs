@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Hereglish.Models;
 
-namespace Hereglish.Persistance
+namespace Hereglish.Core
 {
     public interface IWordRepository
     {

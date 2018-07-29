@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Hereglish.Core;
 using Hereglish.Models;
 using Microsoft.EntityFrameworkCore;
 

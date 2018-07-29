@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Hereglish.Core;
 
 namespace Hereglish.Persistance
 {

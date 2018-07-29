@@ -1,4 +1,5 @@
 using AutoMapper;
+using Hereglish.Core;
 using Hereglish.Persistance;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

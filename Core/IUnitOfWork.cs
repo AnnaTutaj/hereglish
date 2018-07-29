@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace Hereglish.Persistance
+namespace Hereglish.Core
 {
 
     public interface IUnitOfWork

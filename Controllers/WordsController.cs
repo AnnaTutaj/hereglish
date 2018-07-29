@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Hereglish.Controllers.Resources;
 using Hereglish.Models;
-using Hereglish.Persistance;
+using Hereglish.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
