@@ -1,27 +1,24 @@
 <h1>New Word</h1>
-<p>
-  {{ word | json }}
-</p>
-<form>
+<form (ngSubmit)="submit()">
   <div class="form-group">
     <label for="word">Word</label>
-    <input id="word" name ="word" type="text" class="form-control" [(ngModel)]="word.word">
+    <input id="word" name="name" type="text" class="form-control" [(ngModel)]="word.name">
   </div>
   <div class="form-group">
     <label for="meaning">Meaning</label>
-    <input id="meaning" name ="meaning" type="text" class="form-control" [(ngModel)]="word.meaning">
+    <input id="meaning" name="meaning" type="text" class="form-control" [(ngModel)]="word.meaning">
   </div>
   <div class="form-group">
     <label for="pronunciationUK">Pronunciation UK</label>
-    <input id="pronunciationUK" name ="pronunciationUK" type="text" class="form-control" [(ngModel)]="word.pronunciation.Uk">
+    <input id="pronunciationUK" name="pronunciationUK" type="text" class="form-control" [(ngModel)]="word.pronunciation.Uk">
   </div>
   <div class="form-group">
     <label for="pronunciationUS">Pronunciation US</label>
-    <input id="pronunciationUS" name ="pronunciationUS" type="text" class="form-control" [(ngModel)]="word.pronunciation.Us">
+    <input id="pronunciationUS" name="pronunciationUS" type="text" class="form-control" [(ngModel)]="word.pronunciation.Us">
   </div>
   <div class="form-group">
     <label for="exmples">Examples</label>
-    <textarea id="exmples"  name ="exmples" class="form-control" rows="4" [(ngModel)]="word.exmples"></textarea>
+    <textarea id="exmples" name="exmples" class="form-control" rows="4" [(ngModel)]="word.exmples"></textarea>
   </div>
   <div class="form-group">
     <label for="category">Category</label>
