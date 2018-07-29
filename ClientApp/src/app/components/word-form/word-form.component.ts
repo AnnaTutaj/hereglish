@@ -2,6 +2,7 @@ import { PartOfSpeechService } from '../../services/part-of-speech.service';
 import { FeatureService } from '../../services/feature.service';
 import { CategoryService } from '../../services/category.service';
 import { WordService } from '../../services/word.service';
+import { ToastyService, ToastyConfig } from "ng2-toasty";
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -23,7 +24,12 @@ export class WordFormComponent implements OnInit {
     private categoryService: CategoryService,
     private featureService: FeatureService,
     private partOfSpeechService: PartOfSpeechService,
-    private wordService: WordService) { }
+    private toastyService: ToastyService,
+    private toastyConfig: ToastyConfig,
+    private wordService: WordService
+  ) {
+    this.toastyConfig.theme = 'bootstrap';
+  }
 
   ngOnInit() {
     this.categoryService.getCategories().subscribe(categories =>
@@ -57,7 +63,15 @@ export class WordFormComponent implements OnInit {
 
   submit() {
     this.wordService.create(this.word)
-      .subscribe(x => console.log(x));
+      .subscribe(
+        x => console.log(x),
+        err => {
+          this.toastyService.error({
+            title: 'Error',
+            msg: 'An unexpected error happened.',
+            showClose: true,
+            timeout: 5000
+          });
+        });
   }
-
 }

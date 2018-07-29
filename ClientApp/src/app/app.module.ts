@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ToastyModule } from 'ng2-toasty';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
@@ -36,7 +37,8 @@ import { WordFormComponent } from './components/word-form/word-form.component';
       { path: 'words/new', component: WordFormComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-    ])
+    ]),
+    ToastyModule.forRoot()
   ],
   providers: [
     CategoryService,
