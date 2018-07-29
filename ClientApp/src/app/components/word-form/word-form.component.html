@@ -1,13 +1,15 @@
 <h1>New Word</h1>
-<form (ngSubmit)="submit()">
+<form #f="ngForm" (ngSubmit)="submit()">
   <div class="form-group">
     <label for="word">Word</label>
-    <input id="word" name="name" type="text" class="form-control" [(ngModel)]="word.name">
+    <input id="word" name="name" type="text" class="form-control" [(ngModel)]="word.name" required #name="ngModel">
   </div>
+  <div class="alert alert-danger" *ngIf="name.touched && !name.valid">Please type a name</div>
   <div class="form-group">
     <label for="meaning">Meaning</label>
-    <input id="meaning" name="meaning" type="text" class="form-control" [(ngModel)]="word.meaning">
+    <input id="meaning" name="meaning" type="text" class="form-control" [(ngModel)]="word.meaning" required #meaning="ngModel">
   </div>
+  <div class="alert alert-danger" *ngIf="meaning.touched && !meaning.valid">Please type a meaning</div>
   <div class="form-group">
     <label for="pronunciationUK">Pronunciation UK</label>
     <input id="pronunciationUK" name="pronunciationUK" type="text" class="form-control" [(ngModel)]="word.pronunciation.Uk">
@@ -22,11 +24,12 @@
   </div>
   <div class="form-group">
     <label for="category">Category</label>
-    <select id="category" name="categoryId" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.categoryId">
+    <select id="category" name="categoryId" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.categoryId" required #category="ngModel">
       <option value=""></option>
       <option *ngFor="let c of categories" value="{{c.id}}">{{ c.name }}</option>
     </select>
   </div>
+  <div class="alert alert-danger" *ngIf="category.touched && !category.valid">Please select the category</div>
   <div class="form-group">
     <label for="subcategory">Subcategory</label>
     <select id="subcategory" name="subcategoryId" class="form-control" [(ngModel)]="word.subcategoryId">
@@ -56,5 +59,5 @@
       <input type="checkbox" id="feature {{ f.id}}" (change)="onFeatureToggle(f.id, $event)"> {{ f.name }}
     </label>
   </div>
-  <button class="btn btn-primary">Save</button>
+  <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
 </form>
