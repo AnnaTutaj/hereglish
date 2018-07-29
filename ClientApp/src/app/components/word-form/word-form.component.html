@@ -1,42 +1,45 @@
 <h1>New Word</h1>
+<p>
+  {{ word | json }}
+</p>
 <form>
   <div class="form-group">
     <label for="word">Word</label>
-    <input id="word" type="text" class="form-control">
+    <input id="word" name ="word" type="text" class="form-control" [(ngModel)]="word.word">
   </div>
   <div class="form-group">
     <label for="meaning">Meaning</label>
-    <input id="meaning" type="text" class="form-control">
+    <input id="meaning" name ="meaning" type="text" class="form-control" [(ngModel)]="word.meaning">
   </div>
   <div class="form-group">
     <label for="pronunciationUK">Pronunciation UK</label>
-    <input id="pronunciationUK" type="text" class="form-control">
+    <input id="pronunciationUK" name ="pronunciationUK" type="text" class="form-control" [(ngModel)]="word.pronunciation.Uk">
   </div>
   <div class="form-group">
     <label for="pronunciationUS">Pronunciation US</label>
-    <input id="pronunciationUS" type="text" class="form-control">
+    <input id="pronunciationUS" name ="pronunciationUS" type="text" class="form-control" [(ngModel)]="word.pronunciation.Us">
   </div>
   <div class="form-group">
     <label for="exmples">Examples</label>
-    <textarea id="exmples" class="form-control" rows="4"></textarea>
+    <textarea id="exmples"  name ="exmples" class="form-control" rows="4" [(ngModel)]="word.exmples"></textarea>
   </div>
   <div class="form-group">
     <label for="category">Category</label>
-    <select id="category" name="category" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.category">
+    <select id="category" name="categoryId" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.categoryId">
       <option value=""></option>
       <option *ngFor="let c of categories" value="{{c.id}}">{{ c.name }}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="subcategory">Subcategory</label>
-    <select id="subcategory" class="form-control">
+    <select id="subcategory" name="subcategoryId" class="form-control" [(ngModel)]="word.subcategoryId">
       <option value=""></option>
       <option *ngFor="let s of subcategories" value="{{s.id}}">{{ s.name }}</option>
     </select>
   </div>
   <div class="form-group">
     <label for="partOfSpeech">Part of speech</label>
-    <select id="partOfSpeech" name="partOfSpeech" class="form-control">
+    <select id="partOfSpeech" name="partOfSpeechId" class="form-control" [(ngModel)]="word.partOfSpeechId">
       <option value=""></option>
       <option *ngFor="let p of partsOfSpeech" value="{{p.id}}">{{ p.name }}</option>
     </select>
@@ -44,16 +47,16 @@
   <label> Mark as learned?</label>
   <div class="radio">
     <label for="learned" class="radio-inline">
-      <input type="radio" id="learned" name="isLerned" value="true"> Yes
+      <input type="radio" id="learned" name="isLerned" value="true" [(ngModel)]="word.isLerned"> Yes
     </label>
     <label for="notLearned" class="radio-inline">
-      <input type="radio" id="notLearned" name="isLerned" value="false"> No
+      <input type="radio" id="notLearned" name="isLerned" value="false" [(ngModel)]="word.isLerned"> No
     </label>
   </div>
   <h2>Features</h2>
   <div *ngFor="let f of features" class="checkbox">
     <label for="feature {{ f.id }}">
-      <input type="checkbox" id="feature {{ f.id}}"> {{ f.name }}
+      <input type="checkbox" id="feature {{ f.id}}" (change)="onFeatureToggle(f.id, $event)"> {{ f.name }}
     </label>
   </div>
   <button class="btn btn-primary">Save</button>

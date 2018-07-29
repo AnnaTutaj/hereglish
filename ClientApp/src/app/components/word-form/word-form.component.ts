@@ -13,7 +13,10 @@ export class WordFormComponent implements OnInit {
   subcategories: any[];
   features: any[];
   partsOfSpeech: any[];
-  word: any = {};
+  word: any = {
+    features: [],
+    pronunciation: {}
+  };
 
   constructor(
     private categoryService: CategoryService,
@@ -35,8 +38,19 @@ export class WordFormComponent implements OnInit {
   }
 
   onCategoryChange() {
-    let selectedCategory = this.categories.find(c => c.id == this.word.category);
+    let selectedCategory = this.categories.find(c => c.id == this.word.categoryId);
     this.subcategories = selectedCategory ? selectedCategory.subcategories : [];
+    delete this.word.subcategoryId;
+  }
+
+  onFeatureToggle(featureId, $event) {
+    if ($event.target.checked) {
+      this.word.features.push(featureId);
+    }
+    else {
+      var index = this.word.features.indexOf(featureId);
+      this.word.features.splice(index, 1);
+    }
   }
 
 }
