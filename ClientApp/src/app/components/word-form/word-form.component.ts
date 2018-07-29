@@ -1,6 +1,7 @@
 import { PartOfSpeechService } from '../../services/part-of-speech.service';
 import { FeatureService } from '../../services/feature.service';
 import { CategoryService } from '../../services/category.service';
+import { WordService } from '../../services/word.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -21,7 +22,8 @@ export class WordFormComponent implements OnInit {
   constructor(
     private categoryService: CategoryService,
     private featureService: FeatureService,
-    private partOfSpeechService: PartOfSpeechService) { }
+    private partOfSpeechService: PartOfSpeechService,
+    private wordService: WordService) { }
 
   ngOnInit() {
     this.categoryService.getCategories().subscribe(categories =>
@@ -51,6 +53,11 @@ export class WordFormComponent implements OnInit {
       var index = this.word.features.indexOf(featureId);
       this.word.features.splice(index, 1);
     }
+  }
+
+  submit() {
+    this.wordService.create(this.word)
+      .subscribe(x => console.log(x));
   }
 
 }
