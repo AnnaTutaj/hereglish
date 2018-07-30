@@ -32,18 +32,20 @@
   <div class="alert alert-danger" *ngIf="category.touched && !category.valid">Please select the category</div>
   <div class="form-group">
     <label for="subcategory">Subcategory</label>
-    <select id="subcategory" name="subcategoryId" class="form-control" [(ngModel)]="word.subcategoryId">
+    <select id="subcategory" name="subcategoryId" class="form-control" [(ngModel)]="word.subcategoryId" required #subcategory="ngModel">
       <option value=""></option>
       <option *ngFor="let s of subcategories" value="{{s.id}}">{{ s.name }}</option>
     </select>
   </div>
+  <div class="alert alert-danger" *ngIf="subcategory.touched && !subcategory.valid">Please select the subcategory</div>
   <div class="form-group">
     <label for="partOfSpeech">Part of speech</label>
-    <select id="partOfSpeech" name="partOfSpeechId" class="form-control" [(ngModel)]="word.partOfSpeechId">
+    <select id="partOfSpeech" name="partOfSpeechId" class="form-control" [(ngModel)]="word.partOfSpeechId" required #partOfSpeech="ngModel">
       <option value=""></option>
       <option *ngFor="let p of partsOfSpeech" value="{{p.id}}">{{ p.name }}</option>
     </select>
   </div>
+  <div class="alert alert-danger" *ngIf="partOfSpeech.touched && !partOfSpeech.valid">Please select the part of speech</div>
   <label> Mark as learned?</label>
   <div class="radio">
     <label for="learned" class="radio-inline">
