@@ -141,4 +141,14 @@ export class WordFormComponent implements OnInit {
         });
     }
   }
+
+  delete(){
+    if(confirm ("Are you sure you want to delete that word?")){
+      this.wordService.delete(this.word.id)
+      .subscribe(x => {
+        this.router.navigate(['']);
+      });
+
+    }
+  }
 }

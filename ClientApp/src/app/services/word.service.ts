@@ -22,6 +22,10 @@ export class WordService {
     return this.http.put('/api/words/' + word.id, word)
       .map(res => res.json());
   }
-  
-  
+
+  delete(id) {
+    return this.http.delete('/api/words/' + id)
+      .map(res => res.json());
+  }
+
 }
