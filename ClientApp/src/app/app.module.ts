@@ -1,3 +1,4 @@
+import * as Raven from 'raven-js'
 import { CategoryService } from './services/category.service'
 import { FeatureService } from './services/feature.service'
 import { PartOfSpeechService } from './services/part-of-speech.service'
@@ -18,6 +19,10 @@ import { CounterComponent } from './components/counter/counter.component';
 import { FetchDataComponent } from './components/fetch-data/fetch-data.component';
 import { WordFormComponent } from './components/word-form/word-form.component';
 import { AppErrorHandler } from './app.error-hander';
+
+Raven
+.config('https://3428ccb1649d48e38ad21196ba93758c@sentry.io/1252571')
+.install();
 
 @NgModule({
   declarations: [
