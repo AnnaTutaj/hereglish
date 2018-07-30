@@ -115,7 +115,30 @@ export class WordFormComponent implements OnInit {
   }
 
   submit() {
-    this.wordService.create(this.word)
-      .subscribe(x => console.log(x));
+    if (this.word.id) {
+      this.wordService.update(this.word)
+        .subscribe(x => {
+          this.toastyService.success({
+            title: 'Success',
+            msg: 'The word has been sucessfully updated',
+            showClose: true,
+            timeout: 3000,
+          }
+          )
+        });
+    }
+    else {
+      delete this.word.id;
+      this.wordService.create(this.word)
+        .subscribe(x => {
+          this.toastyService.success({
+            title: 'Success',
+            msg: 'The word has been sucessfully added',
+            showClose: true,
+            timeout: 3000,
+          }
+          )
+        });
+    }
   }
 }

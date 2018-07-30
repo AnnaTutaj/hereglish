@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http'; 
 import 'rxjs/add/operator/map';
+import { SaveWord } from '../models/SaveWord';
 
 @Injectable()
 export class WordService {
@@ -13,9 +14,14 @@ export class WordService {
   }
 
   get(id) {
-    console.log(id);
     return this.http.get('/api/words/' + id)
       .map(res => res.json());
   }
+
+  update(word : SaveWord) {
+    return this.http.put('/api/words/' + word.id, word)
+      .map(res => res.json());
+  }
+  
   
 }
