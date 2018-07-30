@@ -41,6 +41,7 @@ Raven
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'words/new', component: WordFormComponent },
+      { path: 'words/:id', component: WordFormComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),

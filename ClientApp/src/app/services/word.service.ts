@@ -11,5 +11,11 @@ export class WordService {
     return this.http.post('/api/words', word)
       .map(res => res.json());
   }
+
+  get(id) {
+    console.log(id);
+    return this.http.get('/api/words/' + id)
+      .map(res => res.json());
+  }
   
 }
