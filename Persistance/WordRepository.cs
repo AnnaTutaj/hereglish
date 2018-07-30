@@ -22,6 +22,7 @@ namespace Hereglish.Persistance
             }
 
             return await context.Words
+                .Include(w => w.PartOfSpeech)
                 .Include(w => w.Features)
                     .ThenInclude(wf => wf.Feature)
                 .Include(w => w.Subcategory)

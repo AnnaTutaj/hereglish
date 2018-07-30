@@ -20,11 +20,11 @@ namespace Hereglish.Controllers
         }
 
         [HttpGet("api/parts-of-speech")]
-        public async Task<IEnumerable<PartOfSpeechResource>> GetFeature()
+        public async Task<IEnumerable<KeyValuePairResource>> GetFeature()
         {
             var partsOfSpeech = await context.PartsOfSpeech.ToListAsync();
 
-            return mapper.Map<List<PartOfSpeech>, List<PartOfSpeechResource>>(partsOfSpeech);
+            return mapper.Map<List<PartOfSpeech>, List<KeyValuePairResource>>(partsOfSpeech);
         }
     }
 }

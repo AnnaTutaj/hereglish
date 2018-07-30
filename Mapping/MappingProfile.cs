@@ -14,7 +14,7 @@ namespace Hereglish.Mapping
             CreateMap<Category, CategoryResource>();
             CreateMap<Subcategory, KeyValuePairResource>();
             CreateMap<Feature, KeyValuePairResource>();
-            CreateMap<PartOfSpeech, PartOfSpeechResource>();
+            CreateMap<PartOfSpeech, KeyValuePairResource>();
             CreateMap<Word, SaveWordResource>()
             .ForMember(wr => wr.Pronunciation, opt => opt.MapFrom(w => new PronunciationResource { Uk = w.PronunciationUK, Us = w.PronunciationUS }))
             .ForMember(wr => wr.Features, opt => opt.MapFrom(w => w.Features.Select(wf => wf.FeatureId)));
