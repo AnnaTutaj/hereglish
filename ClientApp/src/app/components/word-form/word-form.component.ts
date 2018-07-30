@@ -40,30 +40,29 @@ export class WordFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    var sources = [
+      this.categoryService.getCategories(),
+      this.featureService.getFeatures(),
+      this.partOfSpeechService.getPartsOfSpeech()
+    ];
+
     if (this.word.id) {
-      this.wordService.get(this.word.id)
-        .subscribe(w => {
-          this.word = w;
-        },
-          err => {
-            if (err.status == 404) {
-              this.router.navigate(['']);
-            }
-          });
+      sources.push(this.wordService.get(this.word.id))
     }
-
-    this.categoryService.getCategories().subscribe(categories =>
-      this.categories = categories
-    );
-
-    this.featureService.getFeatures().subscribe(features =>
-      this.features = features
-    );
-
-    this.partOfSpeechService.getPartsOfSpeech().subscribe(partsOfSpeech =>
-      this.partsOfSpeech = partsOfSpeech
-    );
-  }
+    Observable.forkJoin(sources).subscribe(data => {
+      this.categories = data[0];
+      this.features = data[1];
+      this.partsOfSpeech = data[2];
+      if (this.word.id) {
+        this.word = data[3];
+      }
+    },
+      err => {
+        if (err.status == 404) {
+          this.router.navigate(['']);
+        }
+      });
+    }
 
   onCategoryChange() {
     let selectedCategory = this.categories.find(c => c.id == this.word.categoryId);

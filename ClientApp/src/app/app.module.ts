@@ -20,6 +20,8 @@ import { FetchDataComponent } from './components/fetch-data/fetch-data.component
 import { WordFormComponent } from './components/word-form/word-form.component';
 import { AppErrorHandler } from './app.error-hander';
 
+import 'rxjs/add/Observable/forkJoin';
+
 Raven
 .config('https://3428ccb1649d48e38ad21196ba93758c@sentry.io/1252571')
 .install();
