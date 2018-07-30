@@ -1,11 +1,15 @@
+import * as _ from 'underscore';
+import { SaveWord } from './../../models/SaveWord';
+import { Word } from '../../models/Word';
 import { PartOfSpeechService } from '../../services/part-of-speech.service';
 import { FeatureService } from '../../services/feature.service';
 import { CategoryService } from '../../services/category.service';
 import { WordService } from '../../services/word.service';
 import { ToastyService, ToastyConfig } from "ng2-toasty";
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '../../../../node_modules/@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from '../../../../node_modules/rxjs/Observable';
+import '../../../../node_modules/rxjs/add/observable/forkJoin';
 
 @Component({
   selector: 'app-word-form',
@@ -17,9 +21,20 @@ export class WordFormComponent implements OnInit {
   subcategories: any[];
   features: any[];
   partsOfSpeech: any[];
-  word: any = {
+  word: SaveWord = {
+    id: 0,
+    name: '',
+    meaning: '',
+    example: '',
+    isLearned: false,
+    categoryId: 0,
+    subcategoryId: 0,
+    partOfSpeechId: 0,
     features: [],
-    pronunciation: {}
+    pronunciation: {
+      Uk: '',
+      Us: ''
+    }
   };
 
   constructor(
@@ -49,12 +64,14 @@ export class WordFormComponent implements OnInit {
     if (this.word.id) {
       sources.push(this.wordService.get(this.word.id))
     }
+
     Observable.forkJoin(sources).subscribe(data => {
       this.categories = data[0];
       this.features = data[1];
       this.partsOfSpeech = data[2];
       if (this.word.id) {
-        this.word = data[3];
+        this.setWord(data[3]);
+        this.populateSubcategories();
       }
     },
       err => {
@@ -62,12 +79,29 @@ export class WordFormComponent implements OnInit {
           this.router.navigate(['']);
         }
       });
-    }
+  }
+
+  setWord(w: Word) {
+    this.word.id = w.id;
+    this.word.name = w.name,
+      this.word.meaning = w.meaning,
+      this.word.example = w.example,
+      this.word.isLearned = w.isLearned,
+      this.word.categoryId = w.category.id;
+    this.word.subcategoryId = w.subcategory.id;
+    this.word.partOfSpeechId = w.partOfSpeech.id;
+    this.word.pronunciation = w.pronunciation;
+    this.word.features = _.pluck(w.features, 'id');
+  }
 
   onCategoryChange() {
+    this.populateSubcategories();
+    delete this.word.subcategoryId;
+  }
+
+  private populateSubcategories() {
     let selectedCategory = this.categories.find(c => c.id == this.word.categoryId);
     this.subcategories = selectedCategory ? selectedCategory.subcategories : [];
-    delete this.word.subcategoryId;
   }
 
   onFeatureToggle(featureId, $event) {

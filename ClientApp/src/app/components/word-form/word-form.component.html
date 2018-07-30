@@ -12,15 +12,15 @@
   <div class="alert alert-danger" *ngIf="meaning.touched && !meaning.valid">Please type a meaning</div>
   <div class="form-group">
     <label for="pronunciationUK">Pronunciation UK</label>
-    <input id="pronunciationUK" name="pronunciationUK" type="text" class="form-control" [(ngModel)]="word.pronunciation.Uk">
+    <input id="pronunciationUK" name="pronunciationUk" type="text" class="form-control" [(ngModel)]="word.pronunciation.uk">
   </div>
   <div class="form-group">
     <label for="pronunciationUS">Pronunciation US</label>
-    <input id="pronunciationUS" name="pronunciationUS" type="text" class="form-control" [(ngModel)]="word.pronunciation.Us">
+    <input id="pronunciationUS" name="pronunciationUs" type="text" class="form-control" [(ngModel)]="word.pronunciation.us">
   </div>
   <div class="form-group">
-    <label for="exmples">Examples</label>
-    <textarea id="exmples" name="exmples" class="form-control" rows="4" [(ngModel)]="word.exmples"></textarea>
+    <label for="examples">Examples</label>
+    <textarea id="examples" name="example" class="form-control" rows="4" [(ngModel)]="word.example"></textarea>
   </div>
   <div class="form-group">
     <label for="category">Category</label>
@@ -49,16 +49,16 @@
   <label> Mark as learned?</label>
   <div class="radio">
     <label for="learned" class="radio-inline">
-      <input type="radio" id="learned" name="isLerned" value="true" [(ngModel)]="word.isLerned"> Yes
+      <input type="radio" id="learned" name="isLearned" [value]="true" [(ngModel)]="word.isLearned"> Yes
     </label>
     <label for="notLearned" class="radio-inline">
-      <input type="radio" id="notLearned" name="isLerned" value="false" [(ngModel)]="word.isLerned"> No
+      <input type="radio" id="notLearned" name="isLearned" [value]="false" [(ngModel)]="word.isLearned"> No
     </label>
   </div>
   <h2>Features</h2>
   <div *ngFor="let f of features" class="checkbox">
     <label for="feature {{ f.id }}">
-      <input type="checkbox" id="feature {{ f.id}}" (change)="onFeatureToggle(f.id, $event)"> {{ f.name }}
+      <input type="checkbox" id="feature {{ f.id}}" (change)="onFeatureToggle(f.id, $event)" [checked]="word.features.includes(f.id)"> {{ f.name }}
     </label>
   </div>
   <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
