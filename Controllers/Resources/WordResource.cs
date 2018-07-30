@@ -12,7 +12,7 @@ namespace Hereglish.Controllers.Resources
        
         public KeyValuePairResource Category { get; set; }
 
-        public PartOfSpeechResource PartOfSpeech { get; set; }
+        public KeyValuePairResource PartOfSpeech { get; set; }
 
         public bool IsLearned { get; set; }
 
