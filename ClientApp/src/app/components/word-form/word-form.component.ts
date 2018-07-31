@@ -62,7 +62,7 @@ export class WordFormComponent implements OnInit {
     ];
 
     if (this.word.id) {
-      sources.push(this.wordService.get(this.word.id))
+      sources.push(this.wordService.getById(this.word.id))
     }
 
     Observable.forkJoin(sources).subscribe(data => {

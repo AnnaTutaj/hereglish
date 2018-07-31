@@ -15,15 +15,14 @@ export class WordService {
       .map(res => res.json());
   }
 
-  get(id?) {
-    if (id) {
+  getById(id) {
       return this.http.get(this.wordEndpoint + '/' + id)
         .map(res => res.json());
-    }
-    else {
-      return this.http.get(this.wordEndpoint)
-        .map(res => res.json());
-    }
+  }
+
+  get(){
+    return this.http.get(this.wordEndpoint)
+    .map(res => res.json());
   }
 
   update(word: SaveWord) {
