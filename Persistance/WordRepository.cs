@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -50,6 +51,26 @@ namespace Hereglish.Persistance
             if (filter.SubcategoryId.HasValue)
             {
                 query = query.Where(w => w.SubcategoryId == filter.SubcategoryId.Value);
+            }
+
+            if (filter.PartOfSpeechId.HasValue)
+            {
+                query = query.Where(w => w.PartOfSpeechId == filter.PartOfSpeechId.Value);
+            }
+
+            if (!String.IsNullOrEmpty(filter.Name))
+            {
+                query = query.Where(w => w.Name.Contains(filter.Name));
+            }
+
+            if (!String.IsNullOrEmpty(filter.Meaning))
+            {
+                query = query.Where(w => w.Meaning.Contains(filter.Meaning));
+            }
+
+            if (!String.IsNullOrEmpty(filter.Example))
+            {
+                query = query.Where(w => w.Example.Contains(filter.Example));
             }
 
             return await query.ToListAsync();
