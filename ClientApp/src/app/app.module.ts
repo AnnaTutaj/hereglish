@@ -19,6 +19,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { FetchDataComponent } from './components/fetch-data/fetch-data.component';
 import { WordFormComponent } from './components/word-form/word-form.component';
 import { AppErrorHandler } from './app.error-hander';
+import { WordListComponent } from './components/word-list/word-list.component';
 
 Raven
 .config('https://3428ccb1649d48e38ad21196ba93758c@sentry.io/1252571')
@@ -31,7 +32,8 @@ Raven
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    WordFormComponent
+    WordFormComponent,
+    WordListComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -39,9 +41,11 @@ Raven
     HttpModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
+      { path: '', redirectTo: 'words', pathMatch: 'full' },
+      { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: 'words/new', component: WordFormComponent },
       { path: 'words/:id', component: WordFormComponent },
+      { path: 'words', component: WordListComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),

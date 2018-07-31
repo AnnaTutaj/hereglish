@@ -22,6 +22,11 @@
                         <span class='glyphicon glyphicon-plus'></span> New Word
                     </a>
                 </li>
+                <li [routerLinkActive]='["link-active"]'  [routerLinkActiveOptions]='{ exact: true }'>
+                    <a [routerLink]='["/words"]' (click)='collapse()'>
+                        <span class='glyphicon glyphicon-list'></span> Words
+                    </a>
+                </li>
                 <li [routerLinkActive]='["link-active"]'>
                     <a [routerLink]='["/counter"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-education'></span> Counter

@@ -1,0 +1,34 @@
+<h2>Vehicles</h2>
+<p>
+  <a [routerLink]="['/words/new']" class="btn btn-primary">Add a Word</a>
+</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Word</th>
+      <th>Meaning</th>
+      <th>UK</th>
+      <th>US</th>
+      <th>Example</th>
+      <th>Subcat.</th>
+      <th>Cat.</th>
+      <th>Created At</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let w of words">
+      <td>{{ w.name }}</td>
+      <td>{{ w.meaning }}</td>
+      <td>{{ w.pronunciation.uk }}</td>
+      <td>{{ w.pronunciation.us }}</td>
+      <td>{{ w.example }}</td>
+      <td>{{ w.subcategory.name }}</td>
+      <td>{{ w.category.name }}</td>
+      <td>{{ w.createdAt }}</td>
+      <td>
+        <a [routerLink]="['/words/', w.id]">Edit</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http'; 
+import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { SaveWord } from '../models/SaveWord';
 
@@ -13,12 +13,18 @@ export class WordService {
       .map(res => res.json());
   }
 
-  get(id) {
-    return this.http.get('/api/words/' + id)
-      .map(res => res.json());
+  get(id?) {
+    if (id) {
+      return this.http.get('/api/words/' + id)
+        .map(res => res.json());
+    }
+    else {
+      return this.http.get('/api/words')
+        .map(res => res.json());
+    }
   }
 
-  update(word : SaveWord) {
+  update(word: SaveWord) {
     return this.http.put('/api/words/' + word.id, word)
       .map(res => res.json());
   }

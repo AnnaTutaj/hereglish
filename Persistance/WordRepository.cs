@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hereglish.Core;
 using Hereglish.Models;
@@ -28,6 +29,17 @@ namespace Hereglish.Persistance
                 .Include(w => w.Subcategory)
                     .ThenInclude(m => m.Category)
                 .SingleOrDefaultAsync(w => w.Id == id);
+        }
+
+        public async Task<IEnumerable<Word>> GetWords()
+        {
+            return await context.Words
+            .Include(w => w.PartOfSpeech)
+            .Include(w => w.Features)
+                .ThenInclude(wf => wf.Feature)
+            .Include(w => w.Subcategory)
+                .ThenInclude(m => m.Category)
+            .ToListAsync();
         }
 
         public void Add(Word word)

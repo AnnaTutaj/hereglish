@@ -7,6 +7,7 @@ using Hereglish.Models;
 using Hereglish.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Hereglish.Controllers
 {
@@ -37,6 +38,14 @@ namespace Hereglish.Controllers
             var wordResource = mapper.Map<Word, WordResource>(word);
 
             return Ok(wordResource);
+        }
+
+        
+        [HttpGet]
+        public async Task<IEnumerable<WordResource>> GetWords()
+        {
+            var words = await repository.GetWords();
+            return mapper.Map<IEnumerable<Word>, IEnumerable<WordResource>>(words);
         }
 
         [HttpPost]
