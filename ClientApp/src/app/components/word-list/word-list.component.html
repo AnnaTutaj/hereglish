@@ -2,6 +2,16 @@
 <p>
   <a [routerLink]="['/words/new']" class="btn btn-primary">Add a Word</a>
 </p>
+<div class="well">
+  <div class="form-group">
+    <label for="category">Category</label>
+    <select name="" id="category" class="form-control" [(ngModel)]="filter.categoryId" (change)="onFilterChange()">
+      <option value=""></option>
+      <option *ngFor="let c of categories" value="{{ c.id }}">{{ c.name }}</option>
+    </select>
+  </div>
+  <button class="btn btn-default" (click)="clearFilter()">Clear</button>
+</div>
 <table class="table">
   <thead>
     <tr>

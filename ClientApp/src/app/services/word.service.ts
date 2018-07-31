@@ -16,13 +16,25 @@ export class WordService {
   }
 
   getById(id) {
-      return this.http.get(this.wordEndpoint + '/' + id)
-        .map(res => res.json());
+    return this.http.get(this.wordEndpoint + '/' + id)
+      .map(res => res.json());
   }
 
-  get(){
-    return this.http.get(this.wordEndpoint)
-    .map(res => res.json());
+  get(filter) {
+    return this.http.get(this.wordEndpoint + '?' + this.toQueryString(filter))
+      .map(res => res.json());
+  }
+
+  toQueryString(obj) {
+    var queryParts = [];
+    for (var property in obj) {
+      var value = obj[property];
+      if (value != null && value != undefined) {
+        queryParts.push(encodeURIComponent(property) + "=" + encodeURIComponent(value));
+      }
+    }
+
+    return queryParts.join('&');
   }
 
   update(word: SaveWord) {

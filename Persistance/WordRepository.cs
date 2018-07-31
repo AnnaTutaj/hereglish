@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Hereglish.Core;
 using Hereglish.Core.Models;
@@ -31,15 +32,27 @@ namespace Hereglish.Persistance
                 .SingleOrDefaultAsync(w => w.Id == id);
         }
 
-        public async Task<IEnumerable<Word>> GetWords()
+        public async Task<IEnumerable<Word>> GetWords(Filter filter)
         {
-            return await context.Words
+            var query = context.Words
             .Include(w => w.PartOfSpeech)
             .Include(w => w.Features)
                 .ThenInclude(wf => wf.Feature)
             .Include(w => w.Subcategory)
                 .ThenInclude(m => m.Category)
-            .ToListAsync();
+                .AsQueryable();
+
+            if (filter.CategoryId.HasValue)
+            {
+                query = query.Where(w => w.Subcategory.CategoryId == filter.CategoryId.Value);
+            }
+
+            if (filter.SubcategoryId.HasValue)
+            {
+                query = query.Where(w => w.SubcategoryId == filter.SubcategoryId.Value);
+            }
+
+            return await query.ToListAsync();
         }
 
         public void Add(Word word)

@@ -55,9 +55,6 @@ namespace Hereglish.Mapping
 
             CreateMap<FilterResource, Filter>();
 
-
-
-
         }
     }
 }
