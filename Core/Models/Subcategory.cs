@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Hereglish.Models
+namespace Hereglish.Core.Models
 {
     [Table("Subcategories")]
     public class Subcategory

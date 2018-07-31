@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using Hereglish.Controllers.Resources;
-using Hereglish.Models;
+using Hereglish.Core.Models;
 
 namespace Hereglish.Mapping
 {
@@ -12,12 +12,17 @@ namespace Hereglish.Mapping
         {
             //Domain to API Resource
             CreateMap<Category, CategoryResource>();
+
             CreateMap<Subcategory, KeyValuePairResource>();
+
             CreateMap<Feature, KeyValuePairResource>();
+
             CreateMap<PartOfSpeech, KeyValuePairResource>();
+
             CreateMap<Word, SaveWordResource>()
             .ForMember(wr => wr.Pronunciation, opt => opt.MapFrom(w => new PronunciationResource { Uk = w.PronunciationUK, Us = w.PronunciationUS }))
             .ForMember(wr => wr.Features, opt => opt.MapFrom(w => w.Features.Select(wf => wf.FeatureId)));
+           
             CreateMap<Word, WordResource>()
             .ForMember(wr => wr.Pronunciation, opt => opt.MapFrom(w => new PronunciationResource { Uk = w.PronunciationUK, Us = w.PronunciationUS }))
             .ForMember(wr => wr.Features, opt => opt.MapFrom(w => w.Features.Select(wf => new KeyValuePairResource {Id = wf.FeatureId, Name = wf.Feature.Name})))
@@ -47,6 +52,12 @@ namespace Hereglish.Mapping
                     w.Features.Add(f);
                 }
             });
+
+            CreateMap<FilterResource, Filter>();
+
+
+
+
         }
     }
 }

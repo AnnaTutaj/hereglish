@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Hereglish.Models
+namespace Hereglish.Core.Models
 {
     [Table("WordFeatures")]
     public class WordFeature

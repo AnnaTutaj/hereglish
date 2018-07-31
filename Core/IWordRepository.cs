@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Hereglish.Models;
+using Hereglish.Core.Models;
 
 namespace Hereglish.Core
 {

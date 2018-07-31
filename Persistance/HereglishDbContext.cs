@@ -1,4 +1,4 @@
-using Hereglish.Models;
+using Hereglish.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hereglish.Persistance

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Hereglish.Core;
-using Hereglish.Models;
+using Hereglish.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Hereglish.Persistance

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hereglish.Controllers.Resources;
-using Hereglish.Models;
+using Hereglish.Core.Models;
 using Hereglish.Persistance;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
