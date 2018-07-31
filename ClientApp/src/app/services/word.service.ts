@@ -6,31 +6,33 @@ import { SaveWord } from '../models/SaveWord';
 @Injectable()
 export class WordService {
 
+  private readonly wordEndpoint = '/api/words'
+
   constructor(private http: Http) { }
 
   create(word) {
-    return this.http.post('/api/words', word)
+    return this.http.post(this.wordEndpoint, word)
       .map(res => res.json());
   }
 
   get(id?) {
     if (id) {
-      return this.http.get('/api/words/' + id)
+      return this.http.get(this.wordEndpoint + '/' + id)
         .map(res => res.json());
     }
     else {
-      return this.http.get('/api/words')
+      return this.http.get(this.wordEndpoint)
         .map(res => res.json());
     }
   }
 
   update(word: SaveWord) {
-    return this.http.put('/api/words/' + word.id, word)
+    return this.http.put(this.wordEndpoint + '/' + word.id, word)
       .map(res => res.json());
   }
 
   delete(id) {
-    return this.http.delete('/api/words/' + id)
+    return this.http.delete(this.wordEndpoint + '/' + id)
       .map(res => res.json());
   }
 
