@@ -82,16 +82,21 @@ namespace Hereglish.Persistance
                 ["meaning"] = v => v.Meaning
             };
 
+            query = ApplyOrdering(queryObj, query, columnsMap);
+
+            return await query.ToListAsync();
+        }
+
+        private IQueryable<Word> ApplyOrdering(WordQuery queryObj, IQueryable<Word> query, Dictionary<string, Expression<Func<Word, object>>> columnsMap)
+        {
             if (queryObj.IsSortAscending)
             {
-                query = query.OrderBy(columnsMap[queryObj.SortBy]);
+                return query = query.OrderBy(columnsMap[queryObj.SortBy]);
             }
             else
             {
-                query = query.OrderByDescending(columnsMap[queryObj.SortBy]);
+                return query = query.OrderByDescending(columnsMap[queryObj.SortBy]);
             }
-
-            return await query.ToListAsync();
         }
 
         public void Add(Word word)
