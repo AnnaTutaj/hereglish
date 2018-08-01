@@ -1,6 +1,6 @@
 namespace Hereglish.Controllers.Resources
 {
-    public class FilterResource
+    public class WordQueryResource
     {
         public int? CategoryId { get; set; }
         public int? SubcategoryId { get; set; }
@@ -8,5 +8,7 @@ namespace Hereglish.Controllers.Resources
         public string Name { get; set; }
         public string Meaning { get; set; }
         public string Example { get; set; }
+        public string SortBy { get; set; }
+        public bool IsSortAscending { get; set; }
     }
 }

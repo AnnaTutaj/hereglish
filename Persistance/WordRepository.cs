@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Hereglish.Core;
 using Hereglish.Core.Models;
@@ -33,7 +34,7 @@ namespace Hereglish.Persistance
                 .SingleOrDefaultAsync(w => w.Id == id);
         }
 
-        public async Task<IEnumerable<Word>> GetWords(Filter filter)
+        public async Task<IEnumerable<Word>> GetWords(WordQuery queryObj)
         {
             var query = context.Words
             .Include(w => w.PartOfSpeech)
@@ -43,34 +44,51 @@ namespace Hereglish.Persistance
                 .ThenInclude(m => m.Category)
                 .AsQueryable();
 
-            if (filter.CategoryId.HasValue)
+            if (queryObj.CategoryId.HasValue)
             {
-                query = query.Where(w => w.Subcategory.CategoryId == filter.CategoryId.Value);
+                query = query.Where(w => w.Subcategory.CategoryId == queryObj.CategoryId.Value);
             }
 
-            if (filter.SubcategoryId.HasValue)
+            if (queryObj.SubcategoryId.HasValue)
             {
-                query = query.Where(w => w.SubcategoryId == filter.SubcategoryId.Value);
+                query = query.Where(w => w.SubcategoryId == queryObj.SubcategoryId.Value);
             }
 
-            if (filter.PartOfSpeechId.HasValue)
+            if (queryObj.PartOfSpeechId.HasValue)
             {
-                query = query.Where(w => w.PartOfSpeechId == filter.PartOfSpeechId.Value);
+                query = query.Where(w => w.PartOfSpeechId == queryObj.PartOfSpeechId.Value);
             }
 
-            if (!String.IsNullOrEmpty(filter.Name))
+            if (!String.IsNullOrEmpty(queryObj.Name))
             {
-                query = query.Where(w => w.Name.Contains(filter.Name));
+                query = query.Where(w => w.Name.Contains(queryObj.Name));
             }
 
-            if (!String.IsNullOrEmpty(filter.Meaning))
+            if (!String.IsNullOrEmpty(queryObj.Meaning))
             {
-                query = query.Where(w => w.Meaning.Contains(filter.Meaning));
+                query = query.Where(w => w.Meaning.Contains(queryObj.Meaning));
             }
 
-            if (!String.IsNullOrEmpty(filter.Example))
+            if (!String.IsNullOrEmpty(queryObj.Example))
             {
-                query = query.Where(w => w.Example.Contains(filter.Example));
+                query = query.Where(w => w.Example.Contains(queryObj.Example));
+            }
+
+            var columnsMap = new Dictionary<string, Expression<Func<Word, object>>>()
+            {
+                ["category"] = w => w.Subcategory.Category.Name,
+                ["subcategory"] = v => v.Subcategory.Name,
+                ["name"] = v => v.Name,
+                ["meaning"] = v => v.Meaning
+            };
+
+            if (queryObj.IsSortAscending)
+            {
+                query = query.OrderBy(columnsMap[queryObj.SortBy]);
+            }
+            else
+            {
+                query = query.OrderByDescending(columnsMap[queryObj.SortBy]);
             }
 
             return await query.ToListAsync();

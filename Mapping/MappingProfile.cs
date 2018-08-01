@@ -53,7 +53,7 @@ namespace Hereglish.Mapping
                 }
             });
 
-            CreateMap<FilterResource, Filter>();
+            CreateMap<WordQueryResource, WordQuery>();
 
         }
     }

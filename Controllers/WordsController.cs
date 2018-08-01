@@ -42,9 +42,9 @@ namespace Hereglish.Controllers
 
         
         [HttpGet]
-        public async Task<IEnumerable<WordResource>> GetWords(FilterResource filterResource)
+        public async Task<IEnumerable<WordResource>> GetWords(WordQueryResource filterResource)
         {
-            var filter = mapper.Map<FilterResource, Filter>(filterResource);
+            var filter = mapper.Map<WordQueryResource, WordQuery>(filterResource);
             var words = await repository.GetWords(filter);
 
             return mapper.Map<IEnumerable<Word>, IEnumerable<WordResource>>(words);
