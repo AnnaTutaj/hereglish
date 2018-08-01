@@ -1,6 +1,8 @@
+using Hereglish.Extensions;
+
 namespace Hereglish.Core.Models
 {
-    public class WordQuery
+    public class WordQuery : IQueryObject
     {
         public int? CategoryId { get; set; }
         public int? SubcategoryId { get; set; }

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Hereglish.Core;
 using Hereglish.Core.Models;
 using Microsoft.EntityFrameworkCore;
+using Hereglish.Extensions;
 
 namespace Hereglish.Persistance
 {
@@ -77,27 +78,17 @@ namespace Hereglish.Persistance
             var columnsMap = new Dictionary<string, Expression<Func<Word, object>>>()
             {
                 ["category"] = w => w.Subcategory.Category.Name,
-                ["subcategory"] = v => v.Subcategory.Name,
-                ["name"] = v => v.Name,
-                ["meaning"] = v => v.Meaning
+                ["subcategory"] = w => w.Subcategory.Name,
+                ["name"] = w => w.Name,
+                ["meaning"] = w => w.Meaning
             };
 
-            query = ApplyOrdering(queryObj, query, columnsMap);
+            query = query.ApplyOrdering(queryObj, columnsMap);
 
             return await query.ToListAsync();
         }
 
-        private IQueryable<Word> ApplyOrdering(WordQuery queryObj, IQueryable<Word> query, Dictionary<string, Expression<Func<Word, object>>> columnsMap)
-        {
-            if (queryObj.IsSortAscending)
-            {
-                return query = query.OrderBy(columnsMap[queryObj.SortBy]);
-            }
-            else
-            {
-                return query = query.OrderByDescending(columnsMap[queryObj.SortBy]);
-            }
-        }
+       
 
         public void Add(Word word)
         {
