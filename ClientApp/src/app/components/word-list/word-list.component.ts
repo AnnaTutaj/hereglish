@@ -17,7 +17,7 @@ export class WordListComponent implements OnInit {
   categories: any[];
   subcategories: KeyValuePair[];
   partsOfSpeech: KeyValuePair[];
-  filter: any = {};
+  query: any = {};
 
   constructor(
     private wordService: WordService,
@@ -31,14 +31,14 @@ export class WordListComponent implements OnInit {
     this.partOfSpeechService.getPartsOfSpeech()
       .subscribe(partsOfSpeech => this.partsOfSpeech = partsOfSpeech);
 
-    this.wordService.get(this.filter)
+    this.wordService.get(this.query)
       .subscribe(words => this.words = words);
 
     this.populateWords();
   }
 
   private populateWords() {
-    this.wordService.get(this.filter)
+    this.wordService.get(this.query)
       .subscribe(words => this.words = words);
   }
 
@@ -48,19 +48,29 @@ export class WordListComponent implements OnInit {
 
   onCategoryChange() {
     this.populateSubcategories();
-    delete this.filter.subcategoryId;
+    delete this.query.subcategoryId;
     this.onFilterChange();
   }
 
   private populateSubcategories() {
-    let selectedCategory = this.categories.find(c => c.id == this.filter.categoryId);
+    let selectedCategory = this.categories.find(c => c.id == this.query.categoryId);
     this.subcategories = selectedCategory ? selectedCategory.subcategories : [];
   }
 
   clearFilter() {
-    this.filter = {};
+    this.query = {};
     this.subcategories = [];
     this.onFilterChange();
+  }
+
+  sortBy(colName) {
+    if (this.query.sortBy === colName) {
+      this.query.isSortAscending = false;
+    } else {
+      this.query.sortBy = colName;
+      this.query.isSortAscending = true;
+    }
+    this.populateWords();
   }
 
 }

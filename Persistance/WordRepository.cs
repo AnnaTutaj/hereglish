@@ -80,7 +80,8 @@ namespace Hereglish.Persistance
                 ["category"] = w => w.Subcategory.Category.Name,
                 ["subcategory"] = w => w.Subcategory.Name,
                 ["name"] = w => w.Name,
-                ["meaning"] = w => w.Meaning
+                ["meaning"] = w => w.Meaning,
+                ["createdAt"] = w => w.CreatedAt
             };
 
             query = query.ApplyOrdering(queryObj, columnsMap);
