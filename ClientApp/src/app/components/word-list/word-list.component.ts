@@ -18,6 +18,17 @@ export class WordListComponent implements OnInit {
   subcategories: KeyValuePair[];
   partsOfSpeech: KeyValuePair[];
   query: any = {};
+  headers = [
+    {title: 'Word', key: 'name', isSortable: true},
+    {title: 'Meaning', key: 'meaning', isSortable: true},
+    {title: 'UK'},
+    {title: 'US'},
+    {title: 'Example'},
+    {title: 'Subcat.', key: 'subcategory', isSortable: true},
+    {title: 'Cat.', key: 'category', isSortable: true},
+    {title: 'Created At'},
+    {}
+  ];
 
   constructor(
     private wordService: WordService,
