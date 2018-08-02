@@ -66,7 +66,7 @@
       <td>{{ w.example }}</td>
       <td>{{ w.subcategory.name }}</td>
       <td>{{ w.category.name }}</td>
-      <td>{{ w.createdAt }}</td>
+      <td>{{ w.createdAt | date :'short'}}</td>
       <td>
         <a [routerLink]="['/words/', w.id]">Edit</a>
       </td>
