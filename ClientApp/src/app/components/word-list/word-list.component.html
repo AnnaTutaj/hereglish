@@ -45,7 +45,15 @@
 <table class="table">
   <thead>
     <tr>
-      <th (click)="sortBy('name')">Word</th>
+      <th (click)="sortBy('name')">
+        Word
+        <i *ngIf="query.sortBy === 'name'" 
+        class="fa"
+        [class.fa-sort-asc]="query.isSortAscending"
+        [class.fa-sort-desc]="!query.isSortAscending"
+        >
+      </i>
+      </th>
       <th (click)="sortBy('meaning')">Meaning</th>
       <th>UK</th>
       <th>US</th>

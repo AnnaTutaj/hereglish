@@ -65,7 +65,7 @@ export class WordListComponent implements OnInit {
 
   sortBy(colName) {
     if (this.query.sortBy === colName) {
-      this.query.isSortAscending = false;
+      this.query.isSortAscending = !this.query.isSortAscending;
     } else {
       this.query.sortBy = colName;
       this.query.isSortAscending = true;
