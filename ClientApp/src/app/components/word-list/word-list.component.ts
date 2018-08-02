@@ -26,7 +26,7 @@ export class WordListComponent implements OnInit {
     {title: 'Example'},
     {title: 'Subcat.', key: 'subcategory', isSortable: true},
     {title: 'Cat.', key: 'category', isSortable: true},
-    {title: 'Created At'},
+    {title: 'Created At', key: 'createdAt', isSortable: true},
     {}
   ];
 
