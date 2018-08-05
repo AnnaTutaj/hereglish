@@ -7,7 +7,7 @@ namespace Hereglish.Core
     public interface IWordRepository
     {
         Task<Word> GetWord(int id, bool includeRelated = true);
-        Task<IEnumerable<Word>> GetWords(WordQuery filter);
+        Task<QueryResult<Word>> GetWords(WordQuery filter);
         void Add(Word word);
         void Remove(Word word);
 

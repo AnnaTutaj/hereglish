@@ -35,8 +35,10 @@ namespace Hereglish.Persistance
                 .SingleOrDefaultAsync(w => w.Id == id);
         }
 
-        public async Task<IEnumerable<Word>> GetWords(WordQuery queryObj)
+        public async Task<QueryResult<Word>> GetWords(WordQuery queryObj)
         {
+            var result = new QueryResult<Word>();
+
             var query = context.Words
             .Include(w => w.PartOfSpeech)
             .Include(w => w.Features)
@@ -85,9 +87,14 @@ namespace Hereglish.Persistance
             };
 
             query = query.ApplyOrdering(queryObj, columnsMap);
+
+            result.TotalItems = await query.CountAsync();
+            
             query = query.ApplyPaging(queryObj);
 
-            return await query.ToListAsync();
+            result.Items =  await query.ToListAsync();
+
+            return result;
         }
 
 

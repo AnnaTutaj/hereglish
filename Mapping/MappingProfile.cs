@@ -22,12 +22,14 @@ namespace Hereglish.Mapping
             CreateMap<Word, SaveWordResource>()
             .ForMember(wr => wr.Pronunciation, opt => opt.MapFrom(w => new PronunciationResource { Uk = w.PronunciationUK, Us = w.PronunciationUS }))
             .ForMember(wr => wr.Features, opt => opt.MapFrom(w => w.Features.Select(wf => wf.FeatureId)));
-           
+
             CreateMap<Word, WordResource>()
             .ForMember(wr => wr.Pronunciation, opt => opt.MapFrom(w => new PronunciationResource { Uk = w.PronunciationUK, Us = w.PronunciationUS }))
-            .ForMember(wr => wr.Features, opt => opt.MapFrom(w => w.Features.Select(wf => new KeyValuePairResource {Id = wf.FeatureId, Name = wf.Feature.Name})))
+            .ForMember(wr => wr.Features, opt => opt.MapFrom(w => w.Features.Select(wf => new KeyValuePairResource { Id = wf.FeatureId, Name = wf.Feature.Name })))
             .ForMember(wr => wr.Category, opt => opt.MapFrom(w => w.Subcategory.Category));
 
+            CreateMap(typeof(QueryResult<>), typeof(QueryResultResource<>));
+           
             //API Resource to Domain
             CreateMap<SaveWordResource, Word>()
             .ForMember(w => w.Id, opt => opt.Ignore())
