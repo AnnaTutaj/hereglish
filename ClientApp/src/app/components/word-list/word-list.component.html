@@ -58,7 +58,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let w of words">
+    <tr *ngFor="let w of queryResult.items">
       <td>{{ w.name }}</td>
       <td>{{ w.meaning }}</td>
       <td>{{ w.pronunciation.uk }}</td>
@@ -73,4 +73,4 @@
     </tr>
   </tbody>
 </table>
-<pagination [total-items]="10" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination> 
+<pagination [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination> 

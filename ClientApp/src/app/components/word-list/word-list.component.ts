@@ -13,7 +13,7 @@ import { WordService } from './../../services/word.service';
   styleUrls: ['./word-list.component.css']
 })
 export class WordListComponent implements OnInit {
-  words: Word[];
+  queryResult: any = {};
   categories: any[];
   subcategories: KeyValuePair[];
   partsOfSpeech: KeyValuePair[];
@@ -44,15 +44,12 @@ export class WordListComponent implements OnInit {
     this.partOfSpeechService.getPartsOfSpeech()
       .subscribe(partsOfSpeech => this.partsOfSpeech = partsOfSpeech);
 
-    this.wordService.get(this.query)
-      .subscribe(words => this.words = words);
-
     this.populateWords();
   }
 
   private populateWords() {
     this.wordService.get(this.query)
-      .subscribe(words => this.words = words);
+      .subscribe(result => this.queryResult = result);
   }
 
   onFilterChange() {
