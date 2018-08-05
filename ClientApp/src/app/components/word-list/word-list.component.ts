@@ -13,12 +13,14 @@ import { WordService } from './../../services/word.service';
   styleUrls: ['./word-list.component.css']
 })
 export class WordListComponent implements OnInit {
+  private readonly PAGE_SIZE = 20;
+
   queryResult: any = {};
   categories: any[];
   subcategories: KeyValuePair[];
   partsOfSpeech: KeyValuePair[];
   query: any = {
-    pageSize: 5
+    pageSize:this.PAGE_SIZE
   };
   headers = [
     {title: 'Word', key: 'name', isSortable: true},
@@ -53,6 +55,7 @@ export class WordListComponent implements OnInit {
   }
 
   onFilterChange() {
+    this.query.page = 1;
     this.populateWords();
   }
 
@@ -68,9 +71,12 @@ export class WordListComponent implements OnInit {
   }
 
   clearFilter() {
-    this.query = {};
+    this.query = {
+      page:1,
+      pageSize: this.PAGE_SIZE
+    };
     this.subcategories = [];
-    this.onFilterChange();
+    this.populateWords();
   }
 
   sortBy(colName) {
