@@ -17,7 +17,9 @@ export class WordListComponent implements OnInit {
   categories: any[];
   subcategories: KeyValuePair[];
   partsOfSpeech: KeyValuePair[];
-  query: any = {};
+  query: any = {
+    pageSize: 5
+  };
   headers = [
     {title: 'Word', key: 'name', isSortable: true},
     {title: 'Meaning', key: 'meaning', isSortable: true},
@@ -81,6 +83,11 @@ export class WordListComponent implements OnInit {
       this.query.sortBy = colName;
       this.query.isSortAscending = true;
     }
+    this.populateWords();
+  }
+
+  onPageChange(page) {
+    this.query.page = page; 
     this.populateWords();
   }
 
