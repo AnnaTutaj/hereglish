@@ -48,7 +48,7 @@ export class WordFormComponent implements OnInit {
     private wordService: WordService
   ) {
     route.params.subscribe(p => {
-      this.word.id = +p['id'];
+      this.word.id = +p['id'] || 0;
     });
 
     this.toastyConfig.theme = 'bootstrap';
@@ -83,11 +83,11 @@ export class WordFormComponent implements OnInit {
 
   setWord(w: Word) {
     this.word.id = w.id;
-    this.word.name = w.name,
-      this.word.meaning = w.meaning,
-      this.word.example = w.example,
-      this.word.isLearned = w.isLearned,
-      this.word.categoryId = w.category.id;
+    this.word.name = w.name;
+    this.word.meaning = w.meaning;
+    this.word.example = w.example;
+    this.word.isLearned = w.isLearned;
+    this.word.categoryId = w.category.id;
     this.word.subcategoryId = w.subcategory.id;
     this.word.partOfSpeechId = w.partOfSpeech.id;
     this.word.pronunciation = w.pronunciation;
@@ -115,40 +115,17 @@ export class WordFormComponent implements OnInit {
   }
 
   submit() {
-    if (this.word.id) {
-      this.wordService.update(this.word)
-        .subscribe(x => {
-          this.toastyService.success({
-            title: 'Success',
-            msg: 'The word has been sucessfully updated',
-            showClose: true,
-            timeout: 3000,
-          }
-          )
-        });
-    }
-    else {
-      delete this.word.id;
-      this.wordService.create(this.word)
-        .subscribe(x => {
-          this.toastyService.success({
-            title: 'Success',
-            msg: 'The word has been sucessfully added',
-            showClose: true,
-            timeout: 3000,
-          }
-          )
-        });
-    }
-  }
+    var message = (this.word.id) ? 'The word has been sucessfully updated' : 'The word has been sucessfully added'; 
+    var result$ = (this.word.id) ? this.wordService.update(this.word) : this.wordService.create(this.word); 
 
-  delete(){
-    if(confirm ("Are you sure you want to delete that word?")){
-      this.wordService.delete(this.word.id)
-      .subscribe(x => {
-        this.router.navigate(['']);
+    result$.subscribe(word => {
+      this.toastyService.success({
+        title: 'Success', 
+        msg: message,
+        showClose: true,
+        timeout: 3000
       });
-
-    }
+      this.router.navigate(['/words/', word.id])
+    });
   }
 }
