@@ -21,6 +21,7 @@ import { WordFormComponent } from './components/word-form/word-form.component';
 import { AppErrorHandler } from './app.error-hander';
 import { WordListComponent } from './components/word-list/word-list.component';
 import { PaginationComponent } from './components/shared/pagination.component';
+import { WordViewComponent } from './components/word-view/word-view.component';
 
 
 Raven
@@ -36,7 +37,8 @@ Raven
     FetchDataComponent,
     PaginationComponent,
     WordFormComponent,
-    WordListComponent
+    WordListComponent,
+    WordViewComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -47,7 +49,8 @@ Raven
       { path: '', redirectTo: 'words', pathMatch: 'full' },
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: 'words/new', component: WordFormComponent },
-      { path: 'words/:id', component: WordFormComponent },
+      { path: 'words/update/:id', component: WordFormComponent },
+      { path: 'words/:id', component: WordViewComponent },
       { path: 'words', component: WordListComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },

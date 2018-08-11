@@ -1,0 +1,52 @@
+<h1>Word</h1>
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active">
+      <a href="#basicInfo" aria-controls="basic" role="tab" data-toggle="tab">Word</a>
+    </li>
+    <li role="presentation">
+      <a href="#photos" aria-controls="photos" role="tab" data-toggle="tab">Photos</a>
+    </li>
+  </ul>
+  <div class="tab-content" *ngIf="word">
+    <div role="tabpanel" class="tab-pane active" id="basicInfo">
+      <h2>Word</h2>
+      <ul>
+        <li>Word: {{ word.name }}</li>
+        <li>Meaning: {{ word.meaning }}</li>
+      </ul>
+      <h2>Pronunciation</h2>
+      <ul>
+        <li>UK: {{ word.pronunciation.uk }}</li>
+        <li>US: {{ word.pronunciation.us }}</li>
+      </ul>
+      <h2>Example</h2>
+      <div [innerHTML]="word.example"></div>
+      <h2>Basic Info</h2>
+      <ul>
+        <li>Category: {{ word.category.name }}</li>
+        <li>Subcategory: {{ word.subcategory.name }}</li>
+        <li>Part of speech: {{ word.partOfSpeech.name }}</li>
+        <li>Learned: {{ word.isLearned ? 'Yes' : 'No' }}
+      </ul>
+      <h2>Features</h2>
+      <ul>
+        <li *ngFor="let f of word.features">{{ f.name }}</li>
+      </ul>
+      <h2>Dates</h2>
+      <ul>
+        <li>Created at: {{ word.createdAt | date :'short' }}</li>
+        <li>Updated at: {{ word.updatedAt | date :'short' }}</li>
+      </ul>
+      <br/>
+      <p>
+        <a class="btn btn-primary" [routerLink]="['/words/update/', word.id]">Update</a>
+        <button class="btn btn-danger" (click)="delete()">Delete</button>
+        <a class="btn btn-default" [routerLink]="['/words']">View All Words</a>
+      </p>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="photos">
+      <h2>Photos</h2>
+    </div>
+  </div>
+</div>
