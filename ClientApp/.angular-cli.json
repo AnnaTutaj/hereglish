@@ -22,7 +22,10 @@
         "../node_modules/bootstrap/dist/css/bootstrap.min.css",
         "../node_modules/ng2-toasty/bundles/style-bootstrap.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/bootstrap/dist/js/bootstrap.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
