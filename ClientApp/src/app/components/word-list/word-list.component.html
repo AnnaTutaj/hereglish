@@ -45,14 +45,14 @@
 <table class="table table-stripped">
   <thead>
     <tr>
-      <th *ngFor="let h of headers" >
+      <th *ngFor="let h of headers">
         <span *ngIf="h.isSortable" (click)="sortBy(h.key)" class="cur_p">
-            {{ h.title }}
-            <i *ngIf="query.sortBy != h.key" class="fa fa-sort"></i>
-            <i *ngIf="query.sortBy === h.key" class="fa" [class.fa-sort-asc]="query.isSortAscending" [class.fa-sort-desc]="!query.isSortAscending"></i>
+          {{ h.title }}
+          <i *ngIf="query.sortBy != h.key" class="fa fa-sort"></i>
+          <i *ngIf="query.sortBy === h.key" class="fa" [class.fa-sort-asc]="query.isSortAscending" [class.fa-sort-desc]="!query.isSortAscending"></i>
         </span>
         <span *ngIf="!h.isSortable">
-            {{ h.title }}
+          {{ h.title }}
         </span>
       </th>
     </tr>
@@ -68,9 +68,14 @@
       <td>{{ w.category.name }}</td>
       <td>{{ w.createdAt | date :'short'}}</td>
       <td>
-        <a [routerLink]="['/words/', w.id]">Edit</a>
+        <a [routerLink]="['/words/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="View">
+          <i class="fa fa-search" aria-hidden="true"></i>
+        </a>
+        <a [routerLink]="['/words/update/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Edit">
+          <i class="fa fa-pencil"></i>
+        </a>
       </td>
     </tr>
   </tbody>
 </table>
-<pagination [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination> 
+<pagination [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+declare var $: any;
 
 import { KeyValuePair } from './../../models/KeyValuePair';
 import { Word } from '../../models/Word';
@@ -20,17 +21,17 @@ export class WordListComponent implements OnInit {
   subcategories: KeyValuePair[];
   partsOfSpeech: KeyValuePair[];
   query: any = {
-    pageSize:this.PAGE_SIZE
+    pageSize: this.PAGE_SIZE
   };
   headers = [
-    {title: 'Word', key: 'name', isSortable: true},
-    {title: 'Meaning', key: 'meaning', isSortable: true},
-    {title: 'UK'},
-    {title: 'US'},
-    {title: 'Example'},
-    {title: 'Subcat.', key: 'subcategory', isSortable: true},
-    {title: 'Cat.', key: 'category', isSortable: true},
-    {title: 'Created At', key: 'createdAt', isSortable: true},
+    { title: 'Word', key: 'name', isSortable: true },
+    { title: 'Meaning', key: 'meaning', isSortable: true },
+    { title: 'UK' },
+    { title: 'US' },
+    { title: 'Example' },
+    { title: 'Subcat.', key: 'subcategory', isSortable: true },
+    { title: 'Cat.', key: 'category', isSortable: true },
+    { title: 'Created At', key: 'createdAt', isSortable: true },
     {}
   ];
 
@@ -47,6 +48,12 @@ export class WordListComponent implements OnInit {
       .subscribe(partsOfSpeech => this.partsOfSpeech = partsOfSpeech);
 
     this.populateWords();
+  }
+
+  ngAfterViewInit(){    
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip()
+    })
   }
 
   private populateWords() {
@@ -72,7 +79,7 @@ export class WordListComponent implements OnInit {
 
   clearFilter() {
     this.query = {
-      page:1,
+      page: 1,
       pageSize: this.PAGE_SIZE
     };
     this.subcategories = [];
@@ -90,7 +97,7 @@ export class WordListComponent implements OnInit {
   }
 
   onPageChange(page) {
-    this.query.page = page; 
+    this.query.page = page;
     this.populateWords();
   }
 
