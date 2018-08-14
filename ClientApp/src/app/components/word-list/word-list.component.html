@@ -63,7 +63,9 @@
       <td>{{ w.meaning }}</td>
       <td>{{ w.pronunciation.uk }}</td>
       <td>{{ w.pronunciation.us }}</td>
-      <td>{{ w.example }}</td>
+      <td>
+        <div [froalaView]="w.example"></div>
+      </td>
       <td>{{ w.subcategory.name }}</td>
       <td>{{ w.category.name }}</td>
       <td>{{ w.createdAt | date :'short'}}</td>

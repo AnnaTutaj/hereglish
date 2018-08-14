@@ -19,12 +19,9 @@
     <input id="pronunciationUS" name="pronunciationUs" type="text" class="form-control" [(ngModel)]="word.pronunciation.us">
   </div>
   <div class="form-group">
-    <label for="examples">Examples</label>
-    <textarea id="examples" name="example" class="form-control" rows="4" [(ngModel)]="word.example"></textarea>
-  </div>
-  <div class="form-group">
     <label for="category">Category</label>
-    <select id="category" name="categoryId" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.categoryId" required #category="ngModel">
+    <select id="category" name="categoryId" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.categoryId"
+      required #category="ngModel">
       <option value=""></option>
       <option *ngFor="let c of categories" value="{{c.id}}">{{ c.name }}</option>
     </select>
@@ -61,5 +58,7 @@
       <input type="checkbox" id="feature {{ f.id}}" (change)="onFeatureToggle(f.id, $event)" [checked]="word.features.includes(f.id)"> {{ f.name }}
     </label>
   </div>
+  <div [froalaEditor]="froalaOptions" [(froalaModel)]="word.example"></div>
+  <br>
   <button class="btn btn-primary" [disabled]="!f.valid">Save</button>
 </form>

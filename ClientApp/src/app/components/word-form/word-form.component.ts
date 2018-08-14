@@ -36,6 +36,7 @@ export class WordFormComponent implements OnInit {
       Us: ''
     }
   };
+  froalaOptions: Object;
 
   constructor(
     private route: ActivatedRoute,
@@ -55,6 +56,10 @@ export class WordFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.froalaOptions = {
+      placeholderText: "Give an example of using the word in a sentence",
+    }
+
     var sources = [
       this.categoryService.getCategories(),
       this.featureService.getFeatures(),
@@ -115,12 +120,12 @@ export class WordFormComponent implements OnInit {
   }
 
   submit() {
-    var message = (this.word.id) ? 'The word has been sucessfully updated' : 'The word has been sucessfully added'; 
-    var result$ = (this.word.id) ? this.wordService.update(this.word) : this.wordService.create(this.word); 
+    var message = (this.word.id) ? 'The word has been sucessfully updated' : 'The word has been sucessfully added';
+    var result$ = (this.word.id) ? this.wordService.update(this.word) : this.wordService.create(this.word);
 
     result$.subscribe(word => {
       this.toastyService.success({
-        title: 'Success', 
+        title: 'Success',
         msg: message,
         showClose: true,
         timeout: 3000

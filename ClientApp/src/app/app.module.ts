@@ -11,6 +11,7 @@ import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
+import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
@@ -55,7 +56,8 @@ Raven
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
     ]),
-    ToastyModule.forRoot()
+    ToastyModule.forRoot(),
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
