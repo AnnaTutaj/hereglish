@@ -50,10 +50,12 @@ export class WordListComponent implements OnInit {
     this.populateWords();
   }
 
-  ngAfterViewInit(){    
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
+  ngAfterViewInit() {
+    $(document).ready(function () {
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    });
   }
 
   private populateWords() {
