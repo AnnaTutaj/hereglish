@@ -40,10 +40,12 @@ namespace Hereglish.Core.Models
         public DateTime? UpdatedAt { get; set; }
 
         public ICollection<WordFeature> Features { get; set; }
+        public ICollection<Photo> Photos { get; set; }
 
         public Word()
         {
             Features = new Collection<WordFeature>();
+            Photos = new Collection<Photo>();
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Hereglish.Persistance
         public DbSet<Feature> Features { get; set; }
         public DbSet<PartOfSpeech> PartsOfSpeech { get; set; }
         public DbSet<Word> Words { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
 
         public HereglishDbContext(DbContextOptions<HereglishDbContext> options)
