@@ -26,6 +26,7 @@
     "@nguniversal/module-map-ngfactory-loader": "^5.0.0",
     "@types/jquery": "^3.3.5",
     "@types/underscore": "^1.8.8",
+    "angular-froala-wysiwyg": "^2.8.4-1",
     "aspnet-prerendering": "^3.0.1",
     "bootstrap": "^3.3.7",
     "core-js": "^2.5.7",
