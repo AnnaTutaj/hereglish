@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Hereglish.Controllers.Resources;
@@ -14,6 +15,8 @@ namespace Hereglish.Controllers
     [Route("/api/words/{wordId}/photos")]
     public class PhotosController : Controller
     {
+        private readonly int MAX_BYTES = 5 * 1024 * 1024;
+        private readonly string[] ACCEPTED_FILE_TYPES = new[] { ".jpg", ".jpeg", ".png", ".bmp" };
         private readonly IHostingEnvironment host;
         private readonly IWordRepository repository;
         private readonly IUnitOfWork unitOfWork;
@@ -33,6 +36,26 @@ namespace Hereglish.Controllers
             if (word == null)
             {
                 return NotFound();
+            }
+
+            if (file == null)
+            {
+                return BadRequest("Null file");
+            }
+
+            if (file.Length == 0)
+            {
+                return BadRequest("Empty file");
+            }
+
+            if (file.Length > MAX_BYTES)
+            {
+                return BadRequest("Max file size (5 MB) exceeded");
+            }
+
+            if (!ACCEPTED_FILE_TYPES.Any(s => s == Path.GetExtension(file.FileName)))
+            {
+                return BadRequest("Invalid file type");
             }
 
             var uploadsFolderPath = Path.Combine(host.WebRootPath, "uploads");
