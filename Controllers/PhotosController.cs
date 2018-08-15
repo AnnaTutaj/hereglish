@@ -9,20 +9,21 @@ using Hereglish.Core.Models;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Hereglish.Controllers
 {
     [Route("/api/words/{wordId}/photos")]
     public class PhotosController : Controller
     {
-        private readonly int MAX_BYTES = 5 * 1024 * 1024;
-        private readonly string[] ACCEPTED_FILE_TYPES = new[] { ".jpg", ".jpeg", ".png", ".bmp" };
         private readonly IHostingEnvironment host;
         private readonly IWordRepository repository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly PhotoSettings photoSettings;
         private readonly IMapper mapper;
-        public PhotosController(IHostingEnvironment host, IWordRepository repository, IUnitOfWork unitOfWork, IMapper mapper)
+        public PhotosController(IHostingEnvironment host, IWordRepository repository, IUnitOfWork unitOfWork, IMapper mapper, IOptionsSnapshot<PhotoSettings> options)
         {
+            this.photoSettings = options.Value;
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;
             this.repository = repository;
@@ -48,12 +49,12 @@ namespace Hereglish.Controllers
                 return BadRequest("Empty file");
             }
 
-            if (file.Length > MAX_BYTES)
+            if (file.Length > photoSettings.MaxBytes)
             {
                 return BadRequest("Max file size (5 MB) exceeded");
             }
 
-            if (!ACCEPTED_FILE_TYPES.Any(s => s == Path.GetExtension(file.FileName)))
+            if (!photoSettings.IsSupported(file.FileName))
             {
                 return BadRequest("Invalid file type");
             }
