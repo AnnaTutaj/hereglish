@@ -29,6 +29,8 @@ namespace Hereglish.Mapping
             .ForMember(wr => wr.Category, opt => opt.MapFrom(w => w.Subcategory.Category));
 
             CreateMap(typeof(QueryResult<>), typeof(QueryResultResource<>));
+
+            CreateMap<Photo, PhotoResource>();
            
             //API Resource to Domain
             CreateMap<SaveWordResource, Word>()
