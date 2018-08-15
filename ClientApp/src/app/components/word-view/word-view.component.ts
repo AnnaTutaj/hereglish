@@ -1,7 +1,8 @@
+import { PhotoService } from './../../services/photo.service';
 import { ToastyService } from 'ng2-toasty';
 import { WordService } from './../../services/word.service';
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
@@ -10,20 +11,22 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./word-view.component.css']
 })
 export class WordViewComponent implements OnInit {
+  @ViewChild('fileInput') fileInput: ElementRef;
   word: any;
-  wordId: number; 
+  wordId: number;
 
   constructor(
-    private route: ActivatedRoute, 
+    private route: ActivatedRoute,
     private router: Router,
     private toasty: ToastyService,
-    private wordService: WordService) { 
+    private photoService: PhotoService,
+    private wordService: WordService) {
 
     route.params.subscribe(p => {
       this.wordId = +p['id'];
       if (isNaN(this.wordId) || this.wordId <= 0) {
         router.navigate(['/words']);
-        return; 
+        return;
       }
     });
   }
@@ -35,7 +38,7 @@ export class WordViewComponent implements OnInit {
         err => {
           if (err.status == 404) {
             this.router.navigate(['/words']);
-            return; 
+            return;
           }
         });
   }
@@ -47,6 +50,12 @@ export class WordViewComponent implements OnInit {
           this.router.navigate(['/words']);
         });
     }
+  }
+
+  uploadPhoto() {
+    var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
+    this.photoService.upload(this.wordId, nativeElement.files[0])
+      .subscribe(x => console.log(x));
   }
 
 }

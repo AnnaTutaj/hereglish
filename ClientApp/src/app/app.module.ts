@@ -2,6 +2,7 @@ import * as Raven from 'raven-js'
 import { CategoryService } from './services/category.service'
 import { FeatureService } from './services/feature.service'
 import { PartOfSpeechService } from './services/part-of-speech.service'
+import { PhotoService } from './services/photo.service'
 import { WordService } from './services/word.service'
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -64,6 +65,7 @@ Raven
     CategoryService,
     FeatureService,
     PartOfSpeechService,
+    PhotoService,
     WordService
   ],
   bootstrap: [AppComponent]
