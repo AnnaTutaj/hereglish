@@ -6,6 +6,11 @@ export class PhotoService {
 
     constructor(private http: Http) { }
 
+    getPhotos(wordId) {
+        return this.http.get(`/api/words/${wordId}/photos`)
+            .map(res => res.json());
+    }
+
     upload(wordId, photo) {
         var formData = new FormData();
         formData.append('file', photo);

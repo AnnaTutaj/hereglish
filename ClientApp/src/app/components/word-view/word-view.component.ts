@@ -14,6 +14,7 @@ export class WordViewComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;
   word: any;
   wordId: number;
+  photos: any[];
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +42,9 @@ export class WordViewComponent implements OnInit {
             return;
           }
         });
+
+    this.photoService.getPhotos(this.wordId)
+      .subscribe(photos => this.photos = photos);
   }
 
   delete() {
@@ -55,7 +59,9 @@ export class WordViewComponent implements OnInit {
   uploadPhoto() {
     var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
     this.photoService.upload(this.wordId, nativeElement.files[0])
-      .subscribe(x => console.log(x));
+      .subscribe(photo => {
+        this.photos.push(photo)
+      });
   }
 
 }

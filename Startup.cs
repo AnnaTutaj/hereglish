@@ -26,7 +26,8 @@ namespace Hereglish
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
-           
+
+            services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IWordRepository, WordRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper();

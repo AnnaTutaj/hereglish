@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,23 +18,33 @@ namespace Hereglish.Controllers
     public class PhotosController : Controller
     {
         private readonly IHostingEnvironment host;
-        private readonly IWordRepository repository;
+        private readonly IWordRepository wordRepository;
         private readonly IUnitOfWork unitOfWork;
         private readonly PhotoSettings photoSettings;
         private readonly IMapper mapper;
-        public PhotosController(IHostingEnvironment host, IWordRepository repository, IUnitOfWork unitOfWork, IMapper mapper, IOptionsSnapshot<PhotoSettings> options)
+        private readonly IPhotoRepository photoRepository;
+        public PhotosController(IHostingEnvironment host, IWordRepository wordRepository, IPhotoRepository photoRepository, IUnitOfWork unitOfWork, IMapper mapper, IOptionsSnapshot<PhotoSettings> options)
         {
+            this.photoRepository = photoRepository;
             this.photoSettings = options.Value;
             this.mapper = mapper;
             this.unitOfWork = unitOfWork;
-            this.repository = repository;
+            this.wordRepository = wordRepository;
             this.host = host;
+        }
+        
+        [HttpGet]
+        public async Task<IEnumerable<PhotoResource>> GetPhotos(int wordId)
+        {
+            var photos = await photoRepository.GetPhotos(wordId);
+
+            return mapper.Map<IEnumerable<Photo>, IEnumerable<PhotoResource>>(photos);
         }
 
         [HttpPost]
         public async Task<IActionResult> Upload(int wordId, IFormFile file)
         {
-            var word = await repository.GetWord(wordId, includeRelated: false);
+            var word = await wordRepository.GetWord(wordId, includeRelated: false);
             if (word == null)
             {
                 return NotFound();
