@@ -8,7 +8,7 @@ import { WordService } from './services/word.service'
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
+import { HttpModule, BrowserXhr } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
@@ -24,6 +24,7 @@ import { AppErrorHandler } from './app.error-hander';
 import { WordListComponent } from './components/word-list/word-list.component';
 import { PaginationComponent } from './components/shared/pagination.component';
 import { WordViewComponent } from './components/word-view/word-view.component';
+import { ProgressService, BrowserXhrWithProgress } from './services/progress.service';
 
 
 Raven
@@ -62,11 +63,13 @@ Raven
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
+    { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
     CategoryService,
     FeatureService,
     PartOfSpeechService,
     PhotoService,
-    WordService
+    WordService,
+    ProgressService
   ],
   bootstrap: [AppComponent]
 })

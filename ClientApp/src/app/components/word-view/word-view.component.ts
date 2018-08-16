@@ -1,9 +1,10 @@
-import { PhotoService } from './../../services/photo.service';
+import { PhotoService } from '../../services/photo.service';
 import { ToastyService } from 'ng2-toasty';
-import { WordService } from './../../services/word.service';
+import { WordService } from '../../services/word.service';
 
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ProgressService } from '../../services/progress.service';
 
 @Component({
   selector: 'app-word-view',
@@ -21,7 +22,8 @@ export class WordViewComponent implements OnInit {
     private router: Router,
     private toasty: ToastyService,
     private photoService: PhotoService,
-    private wordService: WordService) {
+    private wordService: WordService,
+    private progressService: ProgressService) {
 
     route.params.subscribe(p => {
       this.wordId = +p['id'];
@@ -58,6 +60,10 @@ export class WordViewComponent implements OnInit {
 
   uploadPhoto() {
     var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
+
+    this.progressService.uploadProgress
+      .subscribe(x => console.log(x))
+
     this.photoService.upload(this.wordId, nativeElement.files[0])
       .subscribe(photo => {
         this.photos.push(photo)
