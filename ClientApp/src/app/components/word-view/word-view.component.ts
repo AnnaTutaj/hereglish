@@ -78,7 +78,16 @@ export class WordViewComponent implements OnInit {
     this.photoService.upload(this.wordId, nativeElement.files[0])
       .subscribe(photo => {
         this.photos.push(photo)
-      });
+      },
+        err => {
+          this.toasty.error({
+            title: 'Error',
+            msg: err.text(),
+            theme: 'bootstrap',
+            showClose: true,
+            timeout: 3000
+          });
+        });
   }
 
 }
