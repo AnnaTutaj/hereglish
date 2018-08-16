@@ -1,3 +1,4 @@
+import { NgZone } from '@angular/core';
 import { PhotoService } from '../../services/photo.service';
 import { ToastyService } from 'ng2-toasty';
 import { WordService } from '../../services/word.service';
@@ -16,8 +17,10 @@ export class WordViewComponent implements OnInit {
   word: any;
   wordId: number;
   photos: any[];
+  progress: any;
 
   constructor(
+    private zone: NgZone,
     private route: ActivatedRoute,
     private router: Router,
     private toasty: ToastyService,
@@ -62,7 +65,16 @@ export class WordViewComponent implements OnInit {
     var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
 
     this.progressService.uploadProgress
-      .subscribe(x => console.log(x))
+      .subscribe(progress => {
+        console.log(progress)
+        this.zone.run(() => {
+          this.progress = progress;
+        });
+      },
+        null,
+        () => {
+          this.progress.null
+        })
 
     this.photoService.upload(this.wordId, nativeElement.files[0])
       .subscribe(photo => {
