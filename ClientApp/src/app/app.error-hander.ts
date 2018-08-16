@@ -1,6 +1,6 @@
 import * as Raven from 'raven-js'
-import { ErrorHandler, Inject, NgZone, isDevMode } from "../../node_modules/@angular/core";
-import { ToastyService } from "../../node_modules/ng2-toasty";
+import { ErrorHandler, Inject, NgZone, isDevMode } from "@angular/core";
+import { ToastyService } from "ng2-toasty";
 
 export class AppErrorHandler implements ErrorHandler {
 

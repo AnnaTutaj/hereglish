@@ -1,5 +1,5 @@
 import * as _ from 'underscore';
-import { SaveWord } from './../../models/SaveWord';
+import { SaveWord } from '../../models/SaveWord';
 import { Word } from '../../models/Word';
 import { PartOfSpeechService } from '../../services/part-of-speech.service';
 import { FeatureService } from '../../services/feature.service';
@@ -8,8 +8,8 @@ import { WordService } from '../../services/word.service';
 import { ToastyService, ToastyConfig } from "ng2-toasty";
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from '../../../../node_modules/rxjs/Observable';
-import '../../../../node_modules/rxjs/add/observable/forkJoin';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/forkJoin';
 
 @Component({
   selector: 'app-word-form',
