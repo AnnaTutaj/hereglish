@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import * as Raven from 'raven-js'
 import { CategoryService } from './services/category.service'
 import { FeatureService } from './services/feature.service'
@@ -64,6 +65,7 @@ Raven
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
+    AuthService,
     CategoryService,
     FeatureService,
     PartOfSpeechService,

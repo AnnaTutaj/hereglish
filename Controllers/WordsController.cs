@@ -8,6 +8,7 @@ using Hereglish.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Hereglish.Controllers
 {
@@ -40,7 +41,7 @@ namespace Hereglish.Controllers
             return Ok(wordResource);
         }
 
-        
+
         [HttpGet]
         public async Task<QueryResultResource<WordResource>> GetWords(WordQueryResource filterResource)
         {
@@ -51,6 +52,7 @@ namespace Hereglish.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateWord([FromBody] SaveWordResource wordResource)
         {
             if (!ModelState.IsValid)
@@ -84,6 +86,7 @@ namespace Hereglish.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateWord(int id, [FromBody] SaveWordResource wordResource)
         {
             if (!ModelState.IsValid)
@@ -121,6 +124,7 @@ namespace Hereglish.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteWord(int id)
         {
             var word = await repository.GetWord(id, includeRelated: false);
