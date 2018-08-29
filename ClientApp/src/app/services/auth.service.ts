@@ -14,10 +14,11 @@ export class AuthService {
     responseType: 'token id_token',
     audience: 'https://hereglish.eu.auth0.com/userinfo',
     redirectUri: 'https://localhost:5001',
-    scope: 'openid'
+    scope: 'openid email  profile'
   });
 
-  constructor(public router: Router) {}
+  constructor(
+    public router: Router) { }
 
   public login(): void {
     this.auth0.authorize();
@@ -25,13 +26,23 @@ export class AuthService {
 
   public handleAuthentication(): void {
     this.auth0.parseHash((err, authResult) => {
+      if (err) {
+        this.router.navigate(['']);
+        return;
+      }
+
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.setSession(authResult);
         this.router.navigate(['']);
-      } else if (err) {
-        this.router.navigate(['']);
-        console.log(err);
+
+        this.auth0.client.userInfo(authResult.accessToken, function (err, profile) {
+          if (err) {
+            throw err
+          }
+          localStorage.setItem('profile', JSON.stringify(profile));
+          return;
+        });
       }
     });
   }
@@ -49,6 +60,8 @@ export class AuthService {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+    localStorage.removeItem('profile');
+
     // Go back to the home route
     this.router.navigate(['/']);
   }
