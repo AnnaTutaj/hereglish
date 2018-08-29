@@ -15,6 +15,7 @@ import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 
+import { AdminComponent } from './components/admin/admin.component';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
@@ -34,6 +35,7 @@ Raven
 
 @NgModule({
   declarations: [
+    AdminComponent,
     AppComponent,
     NavMenuComponent,
     HomeComponent,
@@ -51,6 +53,7 @@ Raven
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'words', pathMatch: 'full' },
+      { path: 'admin', component: AdminComponent },
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: 'words/new', component: WordFormComponent },
       { path: 'words/update/:id', component: WordFormComponent },

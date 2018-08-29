@@ -2,11 +2,15 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import * as auth0 from 'auth0-js';
+import { JwtHelper } from 'angular2-jwt';
+
 
 (window as any).global = window;
 
 @Injectable()
 export class AuthService {
+
+  private roles: string[] = [];
 
   auth0 = new auth0.WebAuth({
     clientID: 'uVcQ7NaOlw55P857aVoOqE8UkIpRRtmr',
@@ -18,7 +22,20 @@ export class AuthService {
   });
 
   constructor(
-    public router: Router) { }
+    public router: Router) {
+
+    var token = localStorage.getItem('id_token');
+    if (token) {
+      var jwtHelper = new JwtHelper();
+      var decodedToken = jwtHelper.decodeToken(token);
+      this.roles = decodedToken['https://herenglish.eu.com/roles'] || [];
+    }
+
+  }
+
+  public isInRole(roleName) {
+    return this.roles.indexOf(roleName) > -1;
+  }
 
   public login(): void {
     this.auth0.authorize();
@@ -34,6 +51,11 @@ export class AuthService {
       if (authResult && authResult.accessToken && authResult.idToken) {
         window.location.hash = '';
         this.setSession(authResult);
+
+        var jwtHelper = new JwtHelper();
+        var decodedToken = jwtHelper.decodeToken(authResult.idToken);
+        this.roles = decodedToken['https://herenglish.eu.com/roles'] || [];
+
         this.router.navigate(['']);
 
         this.auth0.client.userInfo(authResult.accessToken, function (err, profile) {
@@ -61,6 +83,7 @@ export class AuthService {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
     localStorage.removeItem('profile');
+    this.roles = [];
 
     // Go back to the home route
     this.router.navigate(['/']);

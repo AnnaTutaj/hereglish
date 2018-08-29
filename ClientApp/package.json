@@ -27,6 +27,7 @@
     "@types/jquery": "^3.3.5",
     "@types/underscore": "^1.8.8",
     "angular-froala-wysiwyg": "^2.8.4-1",
+    "angular2-jwt": "^0.2.3",
     "aspnet-prerendering": "^3.0.1",
     "auth0-js": "^9.7.3",
     "bootstrap": "^3.3.7",
