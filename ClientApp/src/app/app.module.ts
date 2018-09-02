@@ -1,3 +1,5 @@
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { AuthGuard } from './services/auth-guard.service';
 import { AuthService } from './services/auth.service';
 import * as Raven from 'raven-js'
 import { CategoryService } from './services/category.service'
@@ -53,7 +55,7 @@ Raven
     HttpClientModule,
     RouterModule.forRoot([
       { path: '', redirectTo: 'words', pathMatch: 'full' },
-      { path: 'admin', component: AdminComponent },
+      { path: 'admin', component: AdminComponent, canActivate: [ AdminAuthGuard ] },
       { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: 'words/new', component: WordFormComponent },
       { path: 'words/update/:id', component: WordFormComponent },
@@ -69,6 +71,8 @@ Raven
     { provide: ErrorHandler, useClass: AppErrorHandler },
     { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
     AuthService,
+    AuthGuard,
+    AdminAuthGuard,
     CategoryService,
     FeatureService,
     PartOfSpeechService,
