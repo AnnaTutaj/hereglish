@@ -31,6 +31,10 @@ export class AuthService {
     return this.roles.indexOf(roleName) > -1;
   }
 
+  public unauthorizedAccess(){
+    this.router.navigate(['unauthorized-access']);
+  }
+
   public login(): void {
     this.auth0.authorize();
   }

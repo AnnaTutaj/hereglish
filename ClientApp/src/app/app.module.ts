@@ -29,6 +29,7 @@ import { WordListComponent } from './components/word-list/word-list.component';
 import { PaginationComponent } from './components/shared/pagination.component';
 import { WordViewComponent } from './components/word-view/word-view.component';
 import { ProgressService, BrowserXhrWithProgress } from './services/progress.service';
+import { UnauthorizatedAccessComponent } from './components/unauthorizated-access/unauthorizated-access.component';
 
 
 Raven
@@ -46,7 +47,8 @@ Raven
     PaginationComponent,
     WordFormComponent,
     WordListComponent,
-    WordViewComponent
+    WordViewComponent,
+    UnauthorizatedAccessComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,6 +65,7 @@ Raven
       { path: 'words', component: WordListComponent },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
+      { path: 'unauthorized-access', component: UnauthorizatedAccessComponent },
     ]),
     ToastyModule.forRoot(),
     FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
