@@ -11,6 +11,7 @@ import { JwtHelper } from 'angular2-jwt';
 export class AuthService {
 
   private roles: string[] = [];
+  profile: any;
 
   auth0 = new auth0.WebAuth({
     clientID: 'uVcQ7NaOlw55P857aVoOqE8UkIpRRtmr',
@@ -18,19 +19,12 @@ export class AuthService {
     responseType: 'token id_token',
     audience: 'https://hereglish.eu.auth0.com/userinfo',
     redirectUri: 'https://localhost:5001',
-    scope: 'openid email  profile'
+    scope: 'openid email profile'
   });
 
   constructor(
     public router: Router) {
-
-    var token = localStorage.getItem('id_token');
-    if (token) {
-      var jwtHelper = new JwtHelper();
-      var decodedToken = jwtHelper.decodeToken(token);
-      this.roles = decodedToken['https://herenglish.eu.com/roles'] || [];
-    }
-
+    this.readUserFromLocalStorage();
   }
 
   public isInRole(roleName) {
@@ -52,21 +46,29 @@ export class AuthService {
         window.location.hash = '';
         this.setSession(authResult);
 
-        var jwtHelper = new JwtHelper();
-        var decodedToken = jwtHelper.decodeToken(authResult.idToken);
-        this.roles = decodedToken['https://herenglish.eu.com/roles'] || [];
-
-        this.router.navigate(['']);
-
-        this.auth0.client.userInfo(authResult.accessToken, function (err, profile) {
+        this.auth0.client.userInfo(authResult.accessToken, (err, profile) => {
           if (err) {
             throw err
           }
+
           localStorage.setItem('profile', JSON.stringify(profile));
-          return;
+          this.readUserFromLocalStorage();
         });
+
+        this.router.navigate(['']);
       }
     });
+  }
+
+  private readUserFromLocalStorage() {
+    this.profile = JSON.parse(localStorage.getItem('profile'));
+
+    var token = localStorage.getItem('id_token');
+    if (token) {
+      var jwtHelper = new JwtHelper();
+      var decodedToken = jwtHelper.decodeToken(token);
+      this.roles = decodedToken['https://herenglish.eu.com/roles'] || [];
+    }
   }
 
   private setSession(authResult): void {
