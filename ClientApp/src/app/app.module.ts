@@ -16,6 +16,7 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { AUTH_PROVIDERS } from 'angular2-jwt';
 
 import { AdminComponent } from './components/admin/admin.component';
 import { AppComponent } from './components/app/app.component';
@@ -72,16 +73,15 @@ Raven
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },
-    { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
     AuthService,
     AuthGuard,
+    AUTH_PROVIDERS,
     AdminAuthGuard,
     CategoryService,
     FeatureService,
     PartOfSpeechService,
     PhotoService,
-    WordService,
-    ProgressService
+    WordService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,3 +1,5 @@
+import { BrowserXhr } from '@angular/http';
+import { BrowserXhrWithProgress } from '../../services/progress.service';
 import { NgZone } from '@angular/core';
 import { PhotoService } from '../../services/photo.service';
 import { ToastyService } from 'ng2-toasty';
@@ -10,7 +12,11 @@ import { ProgressService } from '../../services/progress.service';
 @Component({
   selector: 'app-word-view',
   templateUrl: './word-view.component.html',
-  styleUrls: ['./word-view.component.css']
+  styleUrls: ['./word-view.component.css'],
+  providers:[
+    { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
+    ProgressService
+  ]
 })
 export class WordViewComponent implements OnInit {
   @ViewChild('fileInput') fileInput: ElementRef;

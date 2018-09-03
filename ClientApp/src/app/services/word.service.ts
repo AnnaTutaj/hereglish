@@ -2,16 +2,17 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { SaveWord } from '../models/SaveWord';
+import { AuthHttp } from "angular2-jwt/angular2-jwt";
 
 @Injectable()
 export class WordService {
 
   private readonly wordEndpoint = '/api/words'
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private authHttp: AuthHttp) { }
 
   create(word) {
-    return this.http.post(this.wordEndpoint, word)
+    return this.authHttp.post(this.wordEndpoint, word)
       .map(res => res.json());
   }
 
@@ -38,12 +39,12 @@ export class WordService {
   }
 
   update(word: SaveWord) {
-    return this.http.put(this.wordEndpoint + '/' + word.id, word)
+    return this.authHttp.put(this.wordEndpoint + '/' + word.id, word)
       .map(res => res.json());
   }
 
   delete(id) {
-    return this.http.delete(this.wordEndpoint + '/' + id)
+    return this.authHttp.delete(this.wordEndpoint + '/' + id)
       .map(res => res.json());
   }
 
