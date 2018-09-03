@@ -1,5 +1,5 @@
 <h2>Vehicles</h2>
-<p>
+<p *ngIf="auth.isAuthenticated()">
   <a [routerLink]="['/words/new']" class="btn btn-primary">Add a Word</a>
 </p>
 <div class="well">

@@ -1,19 +1,20 @@
 import { BrowserXhr } from '@angular/http';
-import { BrowserXhrWithProgress } from '../../services/progress.service';
 import { NgZone } from '@angular/core';
-import { PhotoService } from '../../services/photo.service';
 import { ToastyService } from 'ng2-toasty';
-import { WordService } from '../../services/word.service';
-
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
+import { AuthService } from './../../services/auth.service';
+import { BrowserXhrWithProgress } from '../../services/progress.service';
+import { PhotoService } from '../../services/photo.service';
 import { ProgressService } from '../../services/progress.service';
+import { WordService } from '../../services/word.service';
 
 @Component({
   selector: 'app-word-view',
   templateUrl: './word-view.component.html',
   styleUrls: ['./word-view.component.css'],
-  providers:[
+  providers: [
     { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
     ProgressService
   ]
@@ -32,7 +33,8 @@ export class WordViewComponent implements OnInit {
     private toasty: ToastyService,
     private photoService: PhotoService,
     private wordService: WordService,
-    private progressService: ProgressService) {
+    private progressService: ProgressService,
+    private auth: AuthService) {
 
     route.params.subscribe(p => {
       this.wordId = +p['id'];

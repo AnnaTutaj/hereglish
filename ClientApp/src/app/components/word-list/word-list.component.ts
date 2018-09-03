@@ -4,6 +4,7 @@ declare var $: any;
 import { KeyValuePair } from '../../models/KeyValuePair';
 import { Word } from '../../models/Word';
 
+import { AuthService } from './../../services/auth.service';
 import { CategoryService } from '../../services/category.service';
 import { PartOfSpeechService } from '../../services/part-of-speech.service';
 import { WordService } from '../../services/word.service';
@@ -38,7 +39,8 @@ export class WordListComponent implements OnInit {
   constructor(
     private wordService: WordService,
     private categoryService: CategoryService,
-    private partOfSpeechService: PartOfSpeechService) { }
+    private partOfSpeechService: PartOfSpeechService,
+    private auth: AuthService) { }
 
   ngOnInit() {
     this.categoryService.getCategories()
