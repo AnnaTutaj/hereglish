@@ -1,4 +1,5 @@
 using AutoMapper;
+using Hereglish.Controllers;
 using Hereglish.Core;
 using Hereglish.Core.Models;
 using Hereglish.Persistance;
@@ -51,6 +52,10 @@ namespace Hereglish
             {
                 options.Authority = "https://hereglish.eu.auth0.com/";
                 options.Audience = "https://api.hereglish.com";
+            });
+
+            services.AddAuthorization(options => {
+                options.AddPolicy(Policies.RequireAdminRole, policy => policy.RequireClaim("https://herenglish.eu.com/roles", "Admin"));
             });
         }
 

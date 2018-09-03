@@ -52,7 +52,7 @@ namespace Hereglish.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policies.RequireAdminRole)]
         public async Task<IActionResult> CreateWord([FromBody] SaveWordResource wordResource)
         {
             if (!ModelState.IsValid)
@@ -86,7 +86,7 @@ namespace Hereglish.Controllers
         }
 
         [HttpPut("{id}")]
-        [Authorize]
+        [Authorize(Policies.RequireAdminRole)]
         public async Task<IActionResult> UpdateWord(int id, [FromBody] SaveWordResource wordResource)
         {
             if (!ModelState.IsValid)
@@ -124,7 +124,7 @@ namespace Hereglish.Controllers
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Policies.RequireAdminRole)]
         public async Task<IActionResult> DeleteWord(int id)
         {
             var word = await repository.GetWord(id, includeRelated: false);
