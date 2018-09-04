@@ -47,35 +47,7 @@ namespace Hereglish.Persistance
                 .ThenInclude(m => m.Category)
                 .AsQueryable();
 
-            if (queryObj.CategoryId.HasValue)
-            {
-                query = query.Where(w => w.Subcategory.CategoryId == queryObj.CategoryId.Value);
-            }
-
-            if (queryObj.SubcategoryId.HasValue)
-            {
-                query = query.Where(w => w.SubcategoryId == queryObj.SubcategoryId.Value);
-            }
-
-            if (queryObj.PartOfSpeechId.HasValue)
-            {
-                query = query.Where(w => w.PartOfSpeechId == queryObj.PartOfSpeechId.Value);
-            }
-
-            if (!String.IsNullOrEmpty(queryObj.Name))
-            {
-                query = query.Where(w => w.Name.Contains(queryObj.Name));
-            }
-
-            if (!String.IsNullOrEmpty(queryObj.Meaning))
-            {
-                query = query.Where(w => w.Meaning.Contains(queryObj.Meaning));
-            }
-
-            if (!String.IsNullOrEmpty(queryObj.Example))
-            {
-                query = query.Where(w => w.Example.Contains(queryObj.Example));
-            }
+            query = query.ApplyFiltering(queryObj);
 
             var columnsMap = new Dictionary<string, Expression<Func<Word, object>>>()
             {
@@ -85,14 +57,13 @@ namespace Hereglish.Persistance
                 ["meaning"] = w => w.Meaning,
                 ["createdAt"] = w => w.CreatedAt
             };
-
             query = query.ApplyOrdering(queryObj, columnsMap);
 
             result.TotalItems = await query.CountAsync();
-            
+
             query = query.ApplyPaging(queryObj);
 
-            result.Items =  await query.ToListAsync();
+            result.Items = await query.ToListAsync();
 
             return result;
         }
