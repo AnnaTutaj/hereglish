@@ -8,6 +8,7 @@ import { PartOfSpeechService } from './services/part-of-speech.service'
 import { PhotoService } from './services/photo.service'
 import { WordService } from './services/word.service'
 
+import { ChartsModule } from 'ng2-charts';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
@@ -53,6 +54,7 @@ Raven
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    ChartsModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
