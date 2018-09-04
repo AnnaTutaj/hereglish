@@ -32,6 +32,10 @@ namespace Hereglish
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IWordRepository, WordRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            services.AddTransient<IPhotoService, PhotoService>();
+            services.AddTransient<IPhotoStorage, FileSystemPhotoStorage>();
+
             services.AddAutoMapper();
             services.AddDbContext<HereglishDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -54,7 +58,8 @@ namespace Hereglish
                 options.Audience = "https://api.hereglish.com";
             });
 
-            services.AddAuthorization(options => {
+            services.AddAuthorization(options =>
+            {
                 options.AddPolicy(Policies.RequireAdminRole, policy => policy.RequireClaim("https://herenglish.eu.com/roles", "Admin"));
             });
         }
