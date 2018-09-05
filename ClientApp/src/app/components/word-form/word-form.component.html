@@ -1,62 +1,98 @@
 <h1>New Word</h1>
 <form #f="ngForm" (ngSubmit)="submit()">
-  <div class="form-group">
-    <label for="word">Word</label>
-    <input id="word" name="name" type="text" class="form-control" [(ngModel)]="word.name" required #name="ngModel">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="word">Word</label>
+        <input id="word" name="name" type="text" class="form-control" [(ngModel)]="word.name" required #name="ngModel">
+      </div>
+      <div class="alert alert-danger" *ngIf="name.touched && !name.valid">Please type a name</div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="meaning">Meaning</label>
+        <input id="meaning" name="meaning" type="text" class="form-control" [(ngModel)]="word.meaning" required
+          #meaning="ngModel">
+      </div>
+      <div class="alert alert-danger" *ngIf="meaning.touched && !meaning.valid">Please type a meaning</div>
+    </div>
   </div>
-  <div class="alert alert-danger" *ngIf="name.touched && !name.valid">Please type a name</div>
-  <div class="form-group">
-    <label for="meaning">Meaning</label>
-    <input id="meaning" name="meaning" type="text" class="form-control" [(ngModel)]="word.meaning" required #meaning="ngModel">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="pronunciationUK">Pronunciation UK</label>
+        <input id="pronunciationUK" name="pronunciationUk" type="text" class="form-control" [(ngModel)]="word.pronunciation.uk">
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="pronunciationUS">Pronunciation US</label>
+        <input id="pronunciationUS" name="pronunciationUs" type="text" class="form-control" [(ngModel)]="word.pronunciation.us">
+      </div>
+    </div>
   </div>
-  <div class="alert alert-danger" *ngIf="meaning.touched && !meaning.valid">Please type a meaning</div>
-  <div class="form-group">
-    <label for="pronunciationUK">Pronunciation UK</label>
-    <input id="pronunciationUK" name="pronunciationUk" type="text" class="form-control" [(ngModel)]="word.pronunciation.uk">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="category">Category</label>
+        <select id="category" name="categoryId" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.categoryId"
+          required #category="ngModel">
+          <option value=""></option>
+          <option *ngFor="let c of categories" value="{{c.id}}">{{ c.name }}</option>
+        </select>
+      </div>
+      <div class="alert alert-danger" *ngIf="category.touched && !category.valid">Please select the category</div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="subcategory">Subcategory</label>
+        <select id="subcategory" name="subcategoryId" class="form-control" [(ngModel)]="word.subcategoryId" required
+          #subcategory="ngModel">
+          <option value=""></option>
+          <option *ngFor="let s of subcategories" value="{{s.id}}">{{ s.name }}</option>
+        </select>
+      </div>
+      <div class="alert alert-danger" *ngIf="subcategory.touched && !subcategory.valid">Please select the subcategory</div>
+    </div>
   </div>
-  <div class="form-group">
-    <label for="pronunciationUS">Pronunciation US</label>
-    <input id="pronunciationUS" name="pronunciationUs" type="text" class="form-control" [(ngModel)]="word.pronunciation.us">
-  </div>
-  <div class="form-group">
-    <label for="category">Category</label>
-    <select id="category" name="categoryId" class="form-control" (change)="onCategoryChange()" [(ngModel)]="word.categoryId"
-      required #category="ngModel">
-      <option value=""></option>
-      <option *ngFor="let c of categories" value="{{c.id}}">{{ c.name }}</option>
-    </select>
-  </div>
-  <div class="alert alert-danger" *ngIf="category.touched && !category.valid">Please select the category</div>
-  <div class="form-group">
-    <label for="subcategory">Subcategory</label>
-    <select id="subcategory" name="subcategoryId" class="form-control" [(ngModel)]="word.subcategoryId" required #subcategory="ngModel">
-      <option value=""></option>
-      <option *ngFor="let s of subcategories" value="{{s.id}}">{{ s.name }}</option>
-    </select>
-  </div>
-  <div class="alert alert-danger" *ngIf="subcategory.touched && !subcategory.valid">Please select the subcategory</div>
-  <div class="form-group">
-    <label for="partOfSpeech">Part of speech</label>
-    <select id="partOfSpeech" name="partOfSpeechId" class="form-control" [(ngModel)]="word.partOfSpeechId" required #partOfSpeech="ngModel">
-      <option value=""></option>
-      <option *ngFor="let p of partsOfSpeech" value="{{p.id}}">{{ p.name }}</option>
-    </select>
-  </div>
-  <div class="alert alert-danger" *ngIf="partOfSpeech.touched && !partOfSpeech.valid">Please select the part of speech</div>
-  <label> Mark as learned?</label>
-  <div class="radio">
-    <label for="learned" class="radio-inline">
-      <input type="radio" id="learned" name="isLearned" [value]="true" [(ngModel)]="word.isLearned"> Yes
-    </label>
-    <label for="notLearned" class="radio-inline">
-      <input type="radio" id="notLearned" name="isLearned" [value]="false" [(ngModel)]="word.isLearned"> No
-    </label>
-  </div>
-  <h2>Features</h2>
-  <div *ngFor="let f of features" class="checkbox">
-    <label for="feature {{ f.id }}">
-      <input type="checkbox" id="feature {{ f.id}}" (change)="onFeatureToggle(f.id, $event)" [checked]="word.features.includes(f.id)"> {{ f.name }}
-    </label>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="partOfSpeech">Part of speech</label>
+        <select id="partOfSpeech" name="partOfSpeechId" class="form-control" [(ngModel)]="word.partOfSpeechId" required
+          #partOfSpeech="ngModel">
+          <option value=""></option>
+          <option *ngFor="let p of partsOfSpeech" value="{{p.id}}">{{ p.name }}</option>
+        </select>
+      </div>
+      <div class="alert alert-danger" *ngIf="partOfSpeech.touched && !partOfSpeech.valid">Please select the part of
+        speech</div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label> Mark as learned?</label>
+        <div class="radio">
+          <label for="learned" class="radio-inline">
+            <input type="radio" id="learned" name="isLearned" [value]="true" [(ngModel)]="word.isLearned"> Yes
+          </label>
+          <label for="notLearned" class="radio-inline">
+            <input type="radio" id="notLearned" name="isLearned" [value]="false" [(ngModel)]="word.isLearned"> No
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Features</label>
+        <br>
+        <div *ngFor="let f of features" class="checkbox-inline">
+          <label for="feature{{ f.id }}">
+            <input type="checkbox" id="feature{{ f.id }}" (change)="onFeatureToggle(f.id, $event)" [checked]="word.features.includes(f.id)">
+            {{ f.name }}
+          </label>
+        </div>
+      </div>
+    </div>
   </div>
   <div [froalaEditor]="froalaOptions" [(froalaModel)]="word.example"></div>
   <br>
