@@ -22,9 +22,6 @@ import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { AdminComponent } from './components/admin/admin.component';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
-import { HomeComponent } from './components/home/home.component';
-import { CounterComponent } from './components/counter/counter.component';
-import { FetchDataComponent } from './components/fetch-data/fetch-data.component';
 import { WordFormComponent } from './components/word-form/word-form.component';
 import { AppErrorHandler } from './app.error-hander';
 import { WordListComponent } from './components/word-list/word-list.component';
@@ -43,9 +40,6 @@ Raven
     AdminComponent,
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    CounterComponent,
-    FetchDataComponent,
     PaginationComponent,
     WordFormComponent,
     WordListComponent,
@@ -61,13 +55,10 @@ Raven
     RouterModule.forRoot([
       { path: '', redirectTo: 'words', pathMatch: 'full' },
       { path: 'admin', component: AdminComponent, canActivate: [ AdminAuthGuard ] },
-      { path: 'home', component: HomeComponent, pathMatch: 'full' },
       { path: 'words/new', component: WordFormComponent, canActivate: [ AuthGuard ]},
       { path: 'words/update/:id', component: WordFormComponent, canActivate: [ AuthGuard ] },
       { path: 'words/:id', component: WordViewComponent },
       { path: 'words', component: WordListComponent },
-      { path: 'counter', component: CounterComponent },
-      { path: 'fetch-data', component: FetchDataComponent },
       { path: 'unauthorized-access', component: UnauthorizatedAccessComponent },
     ]),
     ToastyModule.forRoot(),

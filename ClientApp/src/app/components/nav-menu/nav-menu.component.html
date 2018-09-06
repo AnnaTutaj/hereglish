@@ -26,11 +26,6 @@
             <span class='glyphicon glyphicon-star'></span> Admin
           </a>
         </li>
-        <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-          <a [routerLink]='["/"]' (click)='collapse()'>
-            <span class='glyphicon glyphicon-home'></span> Home
-          </a>
-        </li>
         <li [routerLinkActive]='["link-active"]'>
           <a [routerLink]='["/words/new"]' (click)='collapse()'>
             <span class='glyphicon glyphicon-plus'></span> New Word
@@ -39,16 +34,6 @@
         <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
           <a [routerLink]='["/words"]' (click)='collapse()'>
             <span class='glyphicon glyphicon-list'></span> Words
-          </a>
-        </li>
-        <li [routerLinkActive]='["link-active"]'>
-          <a [routerLink]='["/counter"]' (click)='collapse()'>
-            <span class='glyphicon glyphicon-education'></span> Counter
-          </a>
-        </li>
-        <li [routerLinkActive]='["link-active"]'>
-          <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
-            <span class='glyphicon glyphicon-th-list'></span> Fetch data
           </a>
         </li>
       </ul>
