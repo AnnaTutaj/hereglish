@@ -10,6 +10,15 @@ namespace Hereglish.Extensions
     {
         public static IQueryable<Word> ApplyFiltering(this IQueryable<Word> query, WordQuery queryObj)
         {
+            if (!String.IsNullOrEmpty(queryObj.Query))
+            {
+                query = query.Where(w => w.Name.Contains(queryObj.Query) 
+                || w.Meaning.Contains(queryObj.Query)
+                || w.Example.Contains(queryObj.Query)
+                || w.PronunciationUK.Contains(queryObj.Query)
+                || w.PronunciationUS.Contains(queryObj.Query));
+            }
+
             if (queryObj.CategoryId.HasValue)
             {
                 query = query.Where(w => w.Subcategory.CategoryId == queryObj.CategoryId.Value);

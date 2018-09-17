@@ -4,6 +4,7 @@ namespace Hereglish.Core.Models
 {
     public class WordQuery : IQueryObject
     {
+        public string Query { get; set; }
         public int? CategoryId { get; set; }
         public int? SubcategoryId { get; set; }
         public int? PartOfSpeechId { get; set; }
