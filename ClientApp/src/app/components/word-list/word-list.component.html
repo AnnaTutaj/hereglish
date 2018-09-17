@@ -2,45 +2,71 @@
 <p *ngIf="auth.isAuthenticated()">
   <a [routerLink]="['/words/new']" class="btn btn-primary">Add a Word</a>
 </p>
-<div class="well">
-  <div class="row">
-    <div class="col-md-2 form-group">
-      <label for="category">Category</label>
-      <select name="" id="category" class="form-control" [(ngModel)]="query.categoryId" (change)="onCategoryChange()">
-        <option value=""></option>
-        <option *ngFor="let c of categories" value="{{ c.id }}">{{ c.name }}</option>
-      </select>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="input-group">
+      <input id="search" type="text" class="form-control" name="search" placeholder="Search...">
+      <span class="input-group-addon"><i class="fa fa-search"></i></span>
     </div>
-    <div class="col-md-2 form-group">
-      <label for="subcategory">Subcategory</label>
-      <select name="" id="subcategory" class="form-control" [(ngModel)]="query.subcategoryId" (change)="onFilterChange()">
-        <option value=""></option>
-        <option *ngFor="let s of subcategories" value="{{ s.id }}">{{ s.name }}</option>
-      </select>
-    </div>
-    <div class="col-md-2 form-group">
-      <label for="partOfSpeech">Part of speech</label>
-      <select name="" id="partOfSpeech" class="form-control" [(ngModel)]="query.partOfSpeechId" (change)="onFilterChange()">
-        <option value=""></option>
-        <option *ngFor="let p of partsOfSpeech" value="{{ p.id }}">{{ p.name }}</option>
-      </select>
+    <a class="one_line cur_p pull-right">
+      <small (click)="showAdvanced()">Advanced Search</small>
+    </a>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-9">
+    <div class="well well-sm">
+      <div class="row">
+        <div class="col-md-3 form-group">
+          <label for="category">Category</label>
+          <select name="" id="category" class="form-control" [(ngModel)]="query.categoryId" (change)="onCategoryChange()">
+            <option value=""></option>
+            <option *ngFor="let c of categories" value="{{ c.id }}">{{ c.name }}</option>
+          </select>
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="subcategory">Subcategory</label>
+          <select name="" id="subcategory" class="form-control" [(ngModel)]="query.subcategoryId" (change)="onFilterChange()">
+            <option value=""></option>
+            <option *ngFor="let s of subcategories" value="{{ s.id }}">{{ s.name }}</option>
+          </select>
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="partOfSpeech">Part of speech</label>
+          <select name="" id="partOfSpeech" class="form-control" [(ngModel)]="query.partOfSpeechId" (change)="onFilterChange()">
+            <option value=""></option>
+            <option *ngFor="let p of partsOfSpeech" value="{{ p.id }}">{{ p.name }}</option>
+          </select>
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="isLearned">Learned</label>
+          <br>
+          <ui-switch id="isLearned" [(ngModel)]="isLearned" (change)="onChangeLearnedSwitch($event)"></ui-switch>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3 form-group">
+          <label for="name">Name</label>
+          <input name="name" type="text" class="form-control" [(ngModel)]="query.name" (blur)="onFilterChange()">
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="meaning">Meaning</label>
+          <input name="meaning" type="text" class="form-control" [(ngModel)]="query.meaning" (blur)="onFilterChange()">
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="example">Example</label>
+          <input name="example" type="text" class="form-control" [(ngModel)]="query.example" (blur)="onFilterChange()">
+        </div>
+        <div class="col-md-3 form-group">
+          <label for="isNotLearned">Not learned</label>
+          <br>
+          <ui-switch id="isNotLearned" [(ngModel)]="isNotLearned" (change)="onChangeNotLearnedSwitch($event)"></ui-switch>
+        </div>
+      </div>
+      <button class="btn btn-default" (click)="clearFilter()">Clear</button>
     </div>
   </div>
-  <div class="row">
-    <div class="col-md-2 form-group">
-      <label for="name">Name</label>
-      <input name="name" type="text" class="form-control" [(ngModel)]="query.name" (blur)="onFilterChange()">
-    </div>
-    <div class="col-md-2 form-group">
-      <label for="meaning">Meaning</label>
-      <input name="meaning" type="text" class="form-control" [(ngModel)]="query.meaning" (blur)="onFilterChange()">
-    </div>
-    <div class="col-md-2 form-group">
-      <label for="example">Example</label>
-      <input name="example" type="text" class="form-control" [(ngModel)]="query.example" (blur)="onFilterChange()">
-    </div>
-  </div>
-  <button class="btn btn-default" (click)="clearFilter()">Clear</button>
 </div>
 <table class="table table-stripped">
   <thead>
@@ -73,7 +99,8 @@
         <a [routerLink]="['/words/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="View">
           <i class="fa fa-search" aria-hidden="true"></i>
         </a>
-        <a [routerLink]="['/words/update/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="Edit">
+        <a [routerLink]="['/words/update/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom"
+          title="Edit">
           <i class="fa fa-pencil"></i>
         </a>
       </td>

@@ -18,6 +18,7 @@ import { RouterModule } from '@angular/router';
 import { ToastyModule } from 'ng2-toasty';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
+import { UiSwitchModule } from 'angular2-ui-switch'
 
 import { AdminComponent } from './components/admin/admin.component';
 import { AppComponent } from './components/app/app.component';
@@ -62,7 +63,8 @@ Raven
       { path: 'unauthorized-access', component: UnauthorizatedAccessComponent },
     ]),
     ToastyModule.forRoot(),
-    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot()
+    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
+    UiSwitchModule
   ],
   providers: [
     { provide: ErrorHandler, useClass: AppErrorHandler },

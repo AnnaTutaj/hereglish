@@ -21,6 +21,8 @@ export class WordListComponent implements OnInit {
   categories: any[];
   subcategories: KeyValuePair[];
   partsOfSpeech: KeyValuePair[];
+  isNotLearned: any;
+  isLearned: any;
   query: any = {
     pageSize: this.PAGE_SIZE
   };
@@ -76,6 +78,22 @@ export class WordListComponent implements OnInit {
     this.onFilterChange();
   }
 
+  onChangeLearnedSwitch($event) {
+    this.query.isLearned = $event ? true : null
+    if (this.query.isLearned) {
+      this.isNotLearned = false;
+    }
+    this.onFilterChange();
+  }
+
+  onChangeNotLearnedSwitch($event) {
+    this.query.isLearned = $event ? false : null
+    if (!this.query.isLearned) {
+      this.isLearned = false;
+    }
+    this.onFilterChange();
+  }
+
   private populateSubcategories() {
     let selectedCategory = this.categories.find(c => c.id == this.query.categoryId);
     this.subcategories = selectedCategory ? selectedCategory.subcategories : [];
@@ -103,6 +121,10 @@ export class WordListComponent implements OnInit {
   onPageChange(page) {
     this.query.page = page;
     this.populateWords();
+  }
+
+  showAdvanced() {
+    console.log("show advances");
   }
 
 }
