@@ -122,9 +122,4 @@ export class WordListComponent implements OnInit {
     this.query.page = page;
     this.populateWords();
   }
-
-  showAdvanced() {
-    console.log("show advances");
-  }
-
 }
