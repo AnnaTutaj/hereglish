@@ -40,6 +40,11 @@ namespace Hereglish.Extensions
                 query = query.Where(w => w.Example.Contains(queryObj.Example));
             }
 
+            if (queryObj.IsLearned.HasValue)
+            {
+                query = query.Where(w => w.IsLearned == queryObj.IsLearned.Value);
+            }
+
             return query;
         }
         public static IQueryable<T> ApplyOrdering<T>(this IQueryable<T> query, IQueryObject queryObj, Dictionary<string, Expression<Func<T, object>>> columnsMap)
