@@ -1,36 +1,29 @@
-import { AdminAuthGuard } from './services/admin-auth-guard.service';
-import { AuthGuard } from './services/auth-guard.service';
-import { AuthService } from './services/auth.service';
-import * as Raven from 'raven-js'
-import { CategoryService } from './services/category.service'
-import { FeatureService } from './services/feature.service'
-import { PartOfSpeechService } from './services/part-of-speech.service'
-import { PhotoService } from './services/photo.service'
-import { WordService } from './services/word.service'
+import { AdminAuthGuard } from './common/services/admin-auth-guard.service';
+import { AuthGuard } from './common/services/auth-guard.service';
+import { AuthService } from './common/services/auth.service';
 
-import { ChartsModule } from 'ng2-charts';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { HttpModule, BrowserXhr } from '@angular/http';
-import { NgModule, ErrorHandler } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import * as Raven from 'raven-js'
 import { ToastyModule } from 'ng2-toasty';
-import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { AUTH_PROVIDERS } from 'angular2-jwt';
 import { UiSwitchModule } from 'angular2-ui-switch'
 
-import { AdminComponent } from './components/admin/admin.component';
-import { AppComponent } from './components/app/app.component';
-import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
-import { WordFormComponent } from './components/word-form/word-form.component';
-import { AppErrorHandler } from './app.error-hander';
-import { WordListComponent } from './components/word-list/word-list.component';
-import { PaginationComponent } from './components/shared/pagination.component';
-import { WordViewComponent } from './components/word-view/word-view.component';
-import { ProgressService, BrowserXhrWithProgress } from './services/progress.service';
-import { UnauthorizatedAccessComponent } from './components/unauthorizated-access/unauthorizated-access.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { HttpModule } from '@angular/http';
+import { NgModule, ErrorHandler } from '@angular/core';
 
+import { AppComponent } from './app.component';
+import { AppErrorHandler } from './app.error-hander';
+
+import { NavMenuComponent } from './common/components/nav-menu/nav-menu.component';
+import { PaginationComponent } from './common/components/pagination.component';
+import { UnauthorizatedAccessComponent } from './common/components/unauthorizated-access.component';
+
+import { WordsModule } from './modules/words/words.module';
+import { AdminModule } from './modules/admin/admin.module';
+
+import { AppRoutingModule } from './app-routing.module';
 
 Raven
 .config('https://3428ccb1649d48e38ad21196ba93758c@sentry.io/1252571')
@@ -38,32 +31,22 @@ Raven
 
 @NgModule({
   declarations: [
-    AdminComponent,
     AppComponent,
     NavMenuComponent,
     PaginationComponent,
-    WordFormComponent,
-    WordListComponent,
-    WordViewComponent,
     UnauthorizatedAccessComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
-    ChartsModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
-    RouterModule.forRoot([
-      { path: '', redirectTo: 'words', pathMatch: 'full' },
-      { path: 'admin', component: AdminComponent, canActivate: [ AdminAuthGuard ] },
-      { path: 'words/new', component: WordFormComponent, canActivate: [ AuthGuard ]},
-      { path: 'words/update/:id', component: WordFormComponent, canActivate: [ AuthGuard ] },
-      { path: 'words/:id', component: WordViewComponent },
-      { path: 'words', component: WordListComponent },
-      { path: 'unauthorized-access', component: UnauthorizatedAccessComponent },
-    ]),
+
+    WordsModule,
+    AdminModule,
+    AppRoutingModule,
+
     ToastyModule.forRoot(),
-    FroalaEditorModule.forRoot(), FroalaViewModule.forRoot(),
     UiSwitchModule
   ],
   providers: [
@@ -72,11 +55,6 @@ Raven
     AuthGuard,
     AUTH_PROVIDERS,
     AdminAuthGuard,
-    CategoryService,
-    FeatureService,
-    PartOfSpeechService,
-    PhotoService,
-    WordService
   ],
   bootstrap: [AppComponent]
 })

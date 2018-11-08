@@ -1,5 +1,5 @@
 <h2>Vehicles</h2>
-<p *ngIf="auth.isAuthenticated()">
+ <p *ngIf="auth.isAuthenticated()">
   <a [routerLink]="['/words/new']" class="btn btn-primary">Add a Word</a>
 </p>
 
@@ -14,7 +14,7 @@
       <small>Advanced Search</small>
     </a>
   </div>
-</div>
+</div> 
 <div id="advancedSearch" class="row collapse">
   <div class="col-md-9">
     <div class="well well-sm">
@@ -68,7 +68,7 @@
       <button class="btn btn-default" (click)="clearFilter()">Clear</button>
     </div>
   </div>
-</div>
+</div> 
 <table class="table table-stripped">
   <thead>
     <tr>
@@ -108,4 +108,4 @@
     </tr>
   </tbody>
 </table>
-<pagination [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination>
+<!-- <pagination [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination> -->

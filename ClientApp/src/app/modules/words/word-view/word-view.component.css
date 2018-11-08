@@ -1,0 +1,49 @@
+.container {
+    width: 100%;
+    background: rgb(244, 245, 154);
+    padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  /* moze z tym, a jak mozna, to bez */
+  .container {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+  
+  .m-addresses {
+    margin-top: 80px;
+    margin-bottom: 20px;
+  }
+  
+  .box {
+    text-align: left;
+    max-width: 33%;
+    border: 1px solid red;
+  }
+  
+  .box-left {
+    float: left;
+  }
+  
+  .box-middle {
+    margin: 0 auto;
+    display: table;
+  }
+  
+  .box-right {
+    float: right;
+  }
+  
+  .lab {
+    color: #0CABD9;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+  }
+  
+  .p-text-rows {
+    padding-bottom: 8px;
+  }
+  

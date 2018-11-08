@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 declare var $: any;
 
-import { KeyValuePair } from '../../models/KeyValuePair';
-import { Word } from '../../models/Word';
+import { KeyValuePair } from '../../../common/models/KeyValuePair';
 
-import { AuthService } from './../../services/auth.service';
-import { CategoryService } from '../../services/category.service';
-import { PartOfSpeechService } from '../../services/part-of-speech.service';
-import { WordService } from '../../services/word.service';
+import { AuthService } from '../../../common/services/auth.service';
+import { CategoryService } from '../shared/category.service';
+import { PartOfSpeechService } from '../shared/part-of-speech.service';
+import { WordService } from '../shared/word.service';
 
 @Component({
   selector: 'app-word-list',

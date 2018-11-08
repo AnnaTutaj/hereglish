@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    templateUrl: './admin.component.html',
+    templateUrl: './admin-view.component.html',
 })
 
-export class AdminComponent implements OnInit {
+export class AdminViewComponent implements OnInit {
     //Line
     public lineChartData: Array<any> = [
         { data: [65, 59, 80, 81, 56, 55, 40], label: 'Learned' },

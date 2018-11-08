@@ -4,11 +4,11 @@ import { ToastyService } from 'ng2-toasty';
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { AuthService } from './../../services/auth.service';
-import { BrowserXhrWithProgress } from '../../services/progress.service';
-import { PhotoService } from '../../services/photo.service';
-import { ProgressService } from '../../services/progress.service';
-import { WordService } from '../../services/word.service';
+import { AuthService } from '../../../common/services/auth.service';
+import { BrowserXhrWithProgress } from '../shared/progress.service';
+import { PhotoService } from '../shared/photo.service';
+import { ProgressService } from '../shared/progress.service';
+import { WordService } from '../shared/word.service';
 
 @Component({
   selector: 'app-word-view',
@@ -71,6 +71,7 @@ export class WordViewComponent implements OnInit {
 
   uploadPhoto() {
     this.progressService.startTracking()
+    //fixme progress bar doesn't appears
       .subscribe(progress => {
         this.zone.run(() => {
           this.progress = progress;
@@ -80,11 +81,11 @@ export class WordViewComponent implements OnInit {
         () => {
           this.progress.null
         });
-
     var nativeElement: HTMLInputElement = this.fileInput.nativeElement;
     var file = nativeElement.files[0];
 
     this.photoService.upload(this.wordId, file)
+    
       .subscribe(photo => {
         this.photos.push(photo);
         nativeElement.value = '';

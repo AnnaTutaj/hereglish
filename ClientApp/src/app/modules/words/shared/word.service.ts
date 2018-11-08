@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
-import { SaveWord } from '../models/SaveWord';
-import { AuthHttp } from "angular2-jwt/angular2-jwt";
+import { SaveWord } from '../../../common/models/SaveWord';
+import { AuthHttp } from "angular2-jwt";
 
 @Injectable()
 export class WordService {

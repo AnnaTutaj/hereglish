@@ -1,10 +1,10 @@
 import * as _ from 'underscore';
-import { SaveWord } from '../../models/SaveWord';
-import { Word } from '../../models/Word';
-import { PartOfSpeechService } from '../../services/part-of-speech.service';
-import { FeatureService } from '../../services/feature.service';
-import { CategoryService } from '../../services/category.service';
-import { WordService } from '../../services/word.service';
+import { SaveWord } from '../../../common/models/SaveWord';
+import { Word } from '../../../common/models/Word';
+import { PartOfSpeechService } from '../shared/part-of-speech.service';
+import { FeatureService } from '../shared/feature.service';
+import { CategoryService } from '../shared/category.service';
+import { WordService } from '../shared/word.service';
 import { ToastyService, ToastyConfig } from "ng2-toasty";
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
