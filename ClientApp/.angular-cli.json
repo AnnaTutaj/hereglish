@@ -22,7 +22,7 @@
         "../node_modules/ng2-toasty/bundles/style-bootstrap.css",
         "../node_modules/froala-editor/css/froala_editor.pkgd.min.css",
         "../node_modules/froala-editor/css/froala_style.min.css",
-        "styles.css"
+        "./layout/styles.scss"
       ],
       "scripts": [
         "../node_modules/jquery/dist/jquery.min.js",

@@ -9,6 +9,8 @@ import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { FormsModule } from '@angular/forms';
 import { UiSwitchModule } from 'angular2-ui-switch'
 
+import { CommonComponentsModule } from './../../common/components/common-components.module';
+
 import { WordsRoutingModule } from './words-routing.module';
 import { CategoryService } from './shared/category.service';
 import { FeatureService } from './shared/feature.service';
@@ -23,12 +25,13 @@ import { WordService } from './shared/word.service';
     FroalaEditorModule,
     FroalaViewModule,
     FormsModule,
-    UiSwitchModule
+    UiSwitchModule,
+    CommonComponentsModule
   ],
   declarations: [
     WordFormComponent,
     WordListComponent,
-    WordViewComponent
+    WordViewComponent    
   ],
   providers: [
     CategoryService,

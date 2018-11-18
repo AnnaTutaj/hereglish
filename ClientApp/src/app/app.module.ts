@@ -17,7 +17,6 @@ import { AppComponent } from './app.component';
 import { AppErrorHandler } from './app.error-hander';
 
 import { NavMenuComponent } from './common/components/nav-menu/nav-menu.component';
-import { PaginationComponent } from './common/components/pagination.component';
 import { UnauthorizatedAccessComponent } from './common/components/unauthorizated-access.component';
 
 import { WordsModule } from './modules/words/words.module';
@@ -33,8 +32,7 @@ Raven
   declarations: [
     AppComponent,
     NavMenuComponent,
-    PaginationComponent,
-    UnauthorizatedAccessComponent
+    UnauthorizatedAccessComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

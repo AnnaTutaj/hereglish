@@ -16,6 +16,9 @@ import { WordService } from '../shared/word.service';
 export class WordListComponent implements OnInit {
   private readonly PAGE_SIZE = 20;
 
+  headerText: string = "Words";
+  descriptionText: string = "List of words";
+
   queryResult: any = {};
   categories: any[];
   subcategories: KeyValuePair[];
@@ -36,7 +39,7 @@ export class WordListComponent implements OnInit {
     { title: 'Created At', key: 'createdAt', isSortable: true },
     {}
   ];
-
+  
   constructor(
     private wordService: WordService,
     private categoryService: CategoryService,
