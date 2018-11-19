@@ -17,6 +17,8 @@ import 'rxjs/add/observable/forkJoin';
   styleUrls: ['./word-form.component.css']
 })
 export class WordFormComponent implements OnInit {
+  headerText: string;
+  
   categories: any[];
   subcategories: any[];
   features: any[];
@@ -56,6 +58,8 @@ export class WordFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.headerText = this.word.id ? "Edit the Word" : "Add a Word"
+
     this.froalaOptions = {
       placeholderText: "Give an example of using the word in a sentence",
     }
