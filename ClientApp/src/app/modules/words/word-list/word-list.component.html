@@ -1,5 +1,5 @@
-<page-header [header]="headerText" [description]= "descriptionText"></page-header>
- <p *ngIf="auth.isAuthenticated()">
+<page-header [header]="headerText" [description]="descriptionText"></page-header>
+<p *ngIf="auth.isAuthenticated()">
   <a [routerLink]="['/words/new']" class="btn btn-primary">Add a Word</a>
 </p>
 
@@ -14,7 +14,7 @@
       <small>Advanced Search</small>
     </a>
   </div>
-</div> 
+</div>
 <div id="advancedSearch" class="row collapse">
   <div class="col-md-9">
     <div class="well well-sm">
@@ -68,44 +68,47 @@
       <button class="btn btn-default" (click)="clearFilter()">Clear</button>
     </div>
   </div>
-</div> 
-<table class="table table-stripped">
-  <thead>
-    <tr>
-      <th *ngFor="let h of headers">
-        <span *ngIf="h.isSortable" (click)="sortBy(h.key)" class="cur_p">
-          {{ h.title }}
-          <i *ngIf="query.sortBy != h.key" class="fa fa-sort"></i>
-          <i *ngIf="query.sortBy === h.key" class="fa" [class.fa-sort-asc]="query.isSortAscending" [class.fa-sort-desc]="!query.isSortAscending"></i>
-        </span>
-        <span *ngIf="!h.isSortable">
-          {{ h.title }}
-        </span>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let w of queryResult.items">
-      <td>{{ w.name }}</td>
-      <td>{{ w.meaning }}</td>
-      <td>{{ w.pronunciation.uk }}</td>
-      <td>{{ w.pronunciation.us }}</td>
-      <td>
-        <div [froalaView]="w.example"></div>
-      </td>
-      <td>{{ w.subcategory.name }}</td>
-      <td>{{ w.category.name }}</td>
-      <td>{{ w.createdAt | date :'short'}}</td>
-      <td>
-        <a [routerLink]="['/words/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="View">
-          <i class="fa fa-search" aria-hidden="true"></i>
-        </a>
-        <a [routerLink]="['/words/update/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom"
-          title="Edit">
-          <i class="fa fa-pencil"></i>
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+</div>
+<div class="table-responsive">
+  <table class="table table-stripped table-hover">
+    <thead>
+      <tr>
+        <th *ngFor="let h of headers">
+          <span *ngIf="h.isSortable" (click)="sortBy(h.key)" class="cur_p">
+            {{ h.title }}
+            <i *ngIf="query.sortBy != h.key" class="fa fa-sort"></i>
+            <i *ngIf="query.sortBy === h.key" class="fa" [class.fa-sort-asc]="query.isSortAscending"
+              [class.fa-sort-desc]="!query.isSortAscending"></i>
+          </span>
+          <span *ngIf="!h.isSortable">
+            {{ h.title }}
+          </span>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let w of queryResult.items">
+        <td>{{ w.name }}</td>
+        <td>{{ w.meaning }}</td>
+        <td>{{ w.pronunciation.uk }}</td>
+        <td>{{ w.pronunciation.us }}</td>
+        <td>
+          <div [froalaView]="w.example"></div>
+        </td>
+        <td>{{ w.subcategory.name }}</td>
+        <td>{{ w.category.name }}</td>
+        <td>{{ w.createdAt | date :'short'}}</td>
+        <td>
+          <a [routerLink]="['/words/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="View">
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </a>
+          <a [routerLink]="['/words/update/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom"
+            title="Edit">
+            <i class="fa fa-pencil"></i>
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 <pagination [total-items]="queryResult.totalItems" [page-size]="query.pageSize" (page-changed)="onPageChange($event)"></pagination>
