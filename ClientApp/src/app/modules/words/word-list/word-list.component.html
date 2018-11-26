@@ -4,68 +4,74 @@
 </p>
 
 <div class="row">
-  <div class="col-md-4">
-    <div class="input-group">
-      <input id="search" name="search" type="text" class="form-control" [(ngModel)]="query.query" (blur)="onFilterChange()"
-        placeholder="Search...">
-      <span class="input-group-addon"><i class="fa fa-search"></i></span>
+  <div class="input-group input-group-sm col-md-5 mb-3">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <a href="#advancedSearch" data-toggle="collapse">
+          <i class="fas fa-search-plus" data-toggle="tooltip" data-placement="bottom" title="Advanced search"></i>
+        </a>
+      </div>
     </div>
-    <a href="#advancedSearch" class="one_line cur_p pull-right" data-toggle="collapse">
-      <small>Advanced Search</small>
-    </a>
+    <input id="search" name="search" type="text" class="form-control" placeholder="Search..." [(ngModel)]="query.query"
+      (blur)="onFilterChange()">
+    <div class="input-group-append">
+      <div class="input-group-text"><i class="fa fa-search"></i></div>
+    </div>
   </div>
 </div>
-<div id="advancedSearch" class="row collapse">
+<div id="advancedSearch" class="row collapse mb-3">
   <div class="col-md-9">
     <div class="well well-sm">
       <div class="row">
         <div class="col-md-3 form-group">
-          <label for="category">Category</label>
-          <select name="" id="category" class="form-control" [(ngModel)]="query.categoryId" (change)="onCategoryChange()">
+          <label for="category" class="col-form-label-sm">Category</label>
+          <select name="" id="category" class="form-control form-control-sm" [(ngModel)]="query.categoryId" (change)="onCategoryChange()">
             <option value=""></option>
             <option *ngFor="let c of categories" value="{{ c.id }}">{{ c.name }}</option>
           </select>
         </div>
         <div class="col-md-3 form-group">
-          <label for="subcategory">Subcategory</label>
-          <select name="" id="subcategory" class="form-control" [(ngModel)]="query.subcategoryId" (change)="onFilterChange()">
+          <label for="subcategory" class="col-form-label-sm">Subcategory</label>
+          <select name="" id="subcategory" class="form-control form-control-sm" [(ngModel)]="query.subcategoryId"
+            (change)="onFilterChange()">
             <option value=""></option>
             <option *ngFor="let s of subcategories" value="{{ s.id }}">{{ s.name }}</option>
           </select>
         </div>
         <div class="col-md-3 form-group">
-          <label for="partOfSpeech">Part of speech</label>
-          <select name="" id="partOfSpeech" class="form-control" [(ngModel)]="query.partOfSpeechId" (change)="onFilterChange()">
+          <label for="partOfSpeech" class="col-form-label-sm">Part of speech</label>
+          <select name="" id="partOfSpeech" class="form-control form-control-sm" [(ngModel)]="query.partOfSpeechId"
+            (change)="onFilterChange()">
             <option value=""></option>
             <option *ngFor="let p of partsOfSpeech" value="{{ p.id }}">{{ p.name }}</option>
           </select>
         </div>
         <div class="col-md-3 form-group">
-          <label for="isLearned">Learned</label>
+          <label for="isLearned" class="col-form-label-sm">Learned</label>
           <br>
-          <ui-switch id="isLearned" [(ngModel)]="isLearned" (change)="onChangeLearnedSwitch($event)"></ui-switch>
+          <ui-switch id="isLearned" size="small" [(ngModel)]="isLearned" (change)="onChangeLearnedSwitch($event)"></ui-switch>
         </div>
       </div>
       <div class="row">
         <div class="col-md-3 form-group">
-          <label for="name">Name</label>
+          <label for="name" class="col-form-label-sm">Name</label>
           <input name="name" type="text" class="form-control" [(ngModel)]="query.name" (blur)="onFilterChange()">
         </div>
         <div class="col-md-3 form-group">
-          <label for="meaning">Meaning</label>
-          <input name="meaning" type="text" class="form-control" [(ngModel)]="query.meaning" (blur)="onFilterChange()">
+          <label for="meaning" class="col-form-label-sm">Meaning</label>
+          <input name="meaning" type="text" class="form-control form-control-sm" [(ngModel)]="query.meaning" (blur)="onFilterChange()">
         </div>
         <div class="col-md-3 form-group">
-          <label for="example">Example</label>
-          <input name="example" type="text" class="form-control" [(ngModel)]="query.example" (blur)="onFilterChange()">
+          <label for="example" class="col-form-label-sm">Example</label>
+          <input name="example" type="text" class="form-control form-control-sm" [(ngModel)]="query.example" (blur)="onFilterChange()">
         </div>
         <div class="col-md-3 form-group">
-          <label for="isNotLearned">Not learned</label>
+          <label for="isNotLearned" class="col-form-label-sm">Not learned</label>
           <br>
-          <ui-switch id="isNotLearned" [(ngModel)]="isNotLearned" (change)="onChangeNotLearnedSwitch($event)"></ui-switch>
+          <ui-switch id="isNotLearned" size="small" [(ngModel)]="isNotLearned" (change)="onChangeNotLearnedSwitch($event)"></ui-switch>
         </div>
       </div>
-      <button class="btn btn-default" (click)="clearFilter()">Clear</button>
+      <button class="btn btn-sm btn-default" (click)="clearFilter()">Clear</button>
     </div>
   </div>
 </div>
