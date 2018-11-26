@@ -79,7 +79,7 @@
   <table class="table table-stripped table-hover">
     <thead>
       <tr>
-        <th *ngFor="let h of headers">
+        <th *ngFor="let h of headers" class="text-nowrap">
           <span *ngIf="h.isSortable" (click)="sortBy(h.key)" class="cur_p">
             {{ h.title }}
             <i *ngIf="query.sortBy != h.key" class="fa fa-sort"></i>
@@ -103,7 +103,7 @@
         </td>
         <td>{{ w.subcategory.name }}</td>
         <td>{{ w.category.name }}</td>
-        <td>{{ w.createdAt | date :'short'}}</td>
+        <td class="text-nowrap">{{ w.createdAt | date :'short'}}</td>
         <td>
           <a [routerLink]="['/words/', w.id]" class="btn btn-link" data-toggle="tooltip" data-placement="bottom" title="View">
             <i class="fa fa-search" aria-hidden="true"></i>
