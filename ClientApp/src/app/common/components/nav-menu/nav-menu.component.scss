@@ -1,0 +1,13 @@
+@import '~layout/_variables.scss';
+
+li .fas {
+  margin-right: 3px;
+}
+
+/* Highlighting rules for nav menu items */
+li.link-active a,
+li.link-active a:hover,
+li.link-active a:focus {
+  /* background-color: #4189C7; */
+  color: $text-selected;
+}
