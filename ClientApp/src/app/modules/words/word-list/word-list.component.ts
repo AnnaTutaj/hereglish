@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 declare var $: any;
 
@@ -39,7 +40,7 @@ export class WordListComponent implements OnInit {
     { title: 'Created At', key: 'createdAt', isSortable: true },
     {}
   ];
-  
+
   constructor(
     private wordService: WordService,
     private categoryService: CategoryService,
@@ -59,7 +60,12 @@ export class WordListComponent implements OnInit {
   ngAfterViewInit() {
     $(document).ready(function () {
       $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+        $('[data-toggle="tooltip"]').tooltip({ trigger: "hover" })
+
+        $(".btn").on("click", function () {
+          $("div[role=tooltip]").remove();
+        });
+
       })
     });
   }
