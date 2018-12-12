@@ -1,59 +1,57 @@
 <page-header header="Word" description="Word details"></page-header>
-<div>
-  <ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active">
-      <a href="#basicInfo" aria-controls="basic" role="tab" data-toggle="tab">Word</a>
-    </li>
-    <li role="presentation">
-      <a href="#photos" aria-controls="photos" role="tab" data-toggle="tab">Photos</a>
-    </li>
-  </ul>
-  <div class="tab-content" *ngIf="word">
-    <div role="tabpanel" class="tab-pane active" id="basicInfo">
-      <h2>Word</h2>
-      <ul>
-        <li>Word: {{ word.name }}</li>
-        <li>Meaning: {{ word.meaning }}</li>
-      </ul>
-      <h2>Pronunciation</h2>
-      <ul>
-        <li>UK: {{ word.pronunciation.uk }}</li>
-        <li>US: {{ word.pronunciation.us }}</li>
-      </ul>
-      <h2>Example</h2>
-      <div [froalaView]="word.example"></div>
-      <h2>Basic Info</h2>
-      <ul>
-        <li>Category: {{ word.category.name }}</li>
-        <li>Subcategory: {{ word.subcategory.name }}</li>
-        <li>Part of speech: {{ word.partOfSpeech.name }}</li>
-        <li>Learned: {{ word.isLearned ? 'Yes' : 'No' }}
-      </ul>
-      <h2>Features</h2>
-      <ul>
-        <li *ngFor="let f of word.features">{{ f.name }}</li>
-      </ul>
-      <h2>Dates</h2>
-      <ul>
-        <li>Created at: {{ word.createdAt | date :'short' }}</li>
-        <li>Updated at: {{ word.updatedAt | date :'short' }}</li>
-      </ul>
-      <br/>
-      <p>
-        <a *ngIf="auth.isAuthenticated()" class="btn btn-primary" [routerLink]="['/words/update/', word.id]">Update</a>
-        <button *ngIf="auth.isAuthenticated()" class="btn btn-danger" (click)="delete()">Delete</button>
-        <a class="btn btn-default" [routerLink]="['/words']">View All Words</a>
-      </p>
-    </div>
-    <div role="tabpanel" class="tab-pane" id="photos">
-      <h2>Photos</h2>
-      <input *ngIf="auth.isAuthenticated()" type="file" (change)="uploadPhoto()" #fileInput>
-      <div class="progress" *ngIf="progress && progress.percentage < 100">
-        <div class="progress-bar" [style.width] ="progress.percentage + '%'">
-          <span class="sr-only"></span> {{ progress.percentage }} % Complete
-        </div>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-basic-tab" data-toggle="tab" href="#nav-basic" role="tab" aria-controls="nav-basic"
+      aria-selected="true">Basic Info</a>
+    <a class="nav-item nav-link" id="nav-photos-tab" data-toggle="tab" href="#nav-photos" role="tab" aria-controls="nav-photos"
+      aria-selected="false">Photos</a>
+  </div>
+</nav>
+<div class="tab-content" id="nav-tabContent" *ngIf="word">
+  <div class="tab-pane fade show active" id="nav-basic" role="tabpanel" aria-labelledby="nav-basic-tab">
+    <h2>Word</h2>
+    <ul>
+      <li>Word: {{ word.name }}</li>
+      <li>Meaning: {{ word.meaning }}</li>
+    </ul>
+    <h2>Pronunciation</h2>
+    <ul>
+      <li>UK: {{ word.pronunciation.uk }}</li>
+      <li>US: {{ word.pronunciation.us }}</li>
+    </ul>
+    <h2>Example</h2>
+    <div [froalaView]="word.example"></div>
+    <h2>Basic Info</h2>
+    <ul>
+      <li>Category: {{ word.category.name }}</li>
+      <li>Subcategory: {{ word.subcategory.name }}</li>
+      <li>Part of speech: {{ word.partOfSpeech.name }}</li>
+      <li>Learned: {{ word.isLearned ? 'Yes' : 'No' }}
+    </ul>
+    <h2>Features</h2>
+    <ul>
+      <li *ngFor="let f of word.features">{{ f.name }}</li>
+    </ul>
+    <h2>Dates</h2>
+    <ul>
+      <li>Created at: {{ word.createdAt | date :'short' }}</li>
+      <li>Updated at: {{ word.updatedAt | date :'short' }}</li>
+    </ul>
+    <br />
+    <p>
+      <a *ngIf="auth.isAuthenticated()" class="btn btn-primary" [routerLink]="['/words/update/', word.id]">Update</a>
+      <button *ngIf="auth.isAuthenticated()" class="btn btn-danger" (click)="delete()">Delete</button>
+      <a class="btn btn-default" [routerLink]="['/words']">View All Words</a>
+    </p>
+  </div>
+  <div class="tab-pane fade" id="nav-photos" role="tabpanel" aria-labelledby="nav-photos-tab">
+    <h2>Photos</h2>
+    <input *ngIf="auth.isAuthenticated()" type="file" (change)="uploadPhoto()" #fileInput>
+    <div class="progress" *ngIf="progress && progress.percentage < 100">
+      <div class="progress-bar" [style.width]="progress.percentage + '%'">
+        <span class="sr-only"></span> {{ progress.percentage }} % Complete
       </div>
-      <img *ngFor="let photo of photos" src="/uploads/{{ photo.fileName }}" class="img-thumbnail">
     </div>
+    <img *ngFor="let photo of photos" src="/uploads/{{ photo.fileName }}" class="img-thumbnail">
   </div>
 </div>
