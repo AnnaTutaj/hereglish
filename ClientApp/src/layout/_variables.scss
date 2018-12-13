@@ -1,10 +1,24 @@
 // Basic Colors
 $text-color: #090A0C; // Body text
-$text-selected: rgb(126, 177, 170); // Selected text eg. in nav menu
+$text-selected: rgb(101, 50, 155); // Selected text eg. in nav menu
+$text-page-header: rgb(255, 255, 255); // Page header text
 
 //Background Colors
-$bg-light-gray: #CDD6D5; // Background header color
-$bg-color: #EEF4F2; // Background body color
-$hover-color: #F5FFFC; //Hover background color
+$bg-color: rgb(238, 238, 238); // Background body color
+$hover-color:rgb(255, 227, 192); //Hover background color
 
-//TODO: Define more colors
+$gradient-middle: rgb(254, 081, 144); // Page heder middle color
+$gradient-end:rgb(253, 162, 107); //Page header end color
+
+$success-green: #97d546;
+$info-yellow: #f7fa3c;
+
+$theme-colors: (
+  primary: $text-selected,
+  success: $success-green,
+);
+
+@import "~bootstrap/scss/bootstrap";
+
+
+

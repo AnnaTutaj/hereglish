@@ -13,8 +13,8 @@ body {
   overflow-x: hidden;
 }
 
-.gray-bg {
-  background-color: $bg-light-gray;
+.gradient-bg {
+  background: linear-gradient(to bottom right, $text-selected, $gradient-middle, $gradient-end);
 }
 
 .table-hover tbody tr:hover td,
