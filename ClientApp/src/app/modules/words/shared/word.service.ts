@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, ResponseContentType } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { SaveWord } from '../../../common/models/SaveWord';
 import { AuthHttp } from "angular2-jwt";
@@ -46,6 +46,13 @@ export class WordService {
   delete(id) {
     return this.authHttp.delete(this.wordEndpoint + '/' + id)
       .map(res => res.json());
+  }
+
+  getPdf() {
+    return this.http.get(this.wordEndpoint + "/" + "pdf", { responseType: ResponseContentType.Blob })
+      .map((res) => {
+        return new Blob([res.blob()], { type: 'application/vnd.ms-excel' })
+      })
   }
 
 }

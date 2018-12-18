@@ -1,8 +1,8 @@
 <page-header [header]="headerText" [description]="descriptionText"></page-header>
-<p *ngIf="auth.isAuthenticated()">
-  <a [routerLink]="['/words/new']" class="btn btn-primary">Add a Word</a>
+<p>
+  <a *ngIf="auth.isAuthenticated()" [routerLink]="['/words/new']" class="btn btn-primary">Add a Word</a>
+  <button class="btn btn-primary" (click)="downloadXls()">Download xls</button>
 </p>
-
 <div class="row">
   <div class="input-group input-group-sm col-md-5 mb-3">
     <div class="input-group-prepend">

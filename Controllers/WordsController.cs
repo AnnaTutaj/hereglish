@@ -9,6 +9,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using System.IO;
+using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
+using NPOI.SS.Util;
+using NPOI.HSSF.Util;
 
 namespace Hereglish.Controllers
 {
@@ -138,6 +143,22 @@ namespace Hereglish.Controllers
             await unitOfWork.CompleteAsync();
 
             return Ok(id);
+        }
+
+        [HttpGet("pdf")]
+        public FileResult GetPdf()
+        {
+            
+            IWorkbook workbook = new XSSFWorkbook();
+            ISheet sheet1 = workbook.CreateSheet("Sheet1");
+
+            var row = sheet1.CreateRow(0);
+            var cell = row.CreateCell(0);
+            cell.SetCellValue("Test");
+            var stream = new MemoryStream();
+            workbook.Write(stream);
+            
+            return File(new MemoryStream(stream.GetBuffer()), "application/vnd.ms-excel", "plik.xls");
         }
     }
 }

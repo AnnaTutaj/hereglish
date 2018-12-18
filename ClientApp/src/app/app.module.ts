@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import { NgModule, ErrorHandler } from '@angular/core';
+import { DatePipe } from '@angular/common';
 
 import { AppComponent } from './app.component';
 import { AppErrorHandler } from './app.error-hander';
@@ -53,6 +54,7 @@ Raven
     AuthGuard,
     AUTH_PROVIDERS,
     AdminAuthGuard,
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

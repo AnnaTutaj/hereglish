@@ -1,5 +1,8 @@
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { saveAs } from 'file-saver';
+
 declare var $: any;
 
 import { KeyValuePair } from '../../../common/models/KeyValuePair';
@@ -8,7 +11,6 @@ import { AuthService } from '../../../common/services/auth.service';
 import { CategoryService } from '../shared/category.service';
 import { PartOfSpeechService } from '../shared/part-of-speech.service';
 import { WordService } from '../shared/word.service';
-
 @Component({
   selector: 'app-word-list',
   templateUrl: './word-list.component.html',
@@ -45,7 +47,8 @@ export class WordListComponent implements OnInit {
     private wordService: WordService,
     private categoryService: CategoryService,
     private partOfSpeechService: PartOfSpeechService,
-    private auth: AuthService) { }
+    private auth: AuthService,
+    private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.categoryService.getCategories()
@@ -129,5 +132,16 @@ export class WordListComponent implements OnInit {
   onPageChange(page) {
     this.query.page = page;
     this.populateWords();
+  }
+
+  downloadXls() {
+    var date = new Date();
+    var dateFile = this.datePipe.transform(date, "yyyy-MM-dd");
+    var extension = "xls"
+    var fileName = "words" + "-" + dateFile + "." + extension;
+    this.wordService.getPdf().subscribe(response => {
+      var FileSaver = require('file-saver');
+      FileSaver.saveAs(response, fileName);
+    })
   }
 }
