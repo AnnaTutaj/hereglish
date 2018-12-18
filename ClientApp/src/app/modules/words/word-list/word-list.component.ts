@@ -140,8 +140,7 @@ export class WordListComponent implements OnInit {
     var extension = "xls"
     var fileName = "words" + "-" + dateFile + "." + extension;
     this.wordService.getPdf().subscribe(response => {
-      var FileSaver = require('file-saver');
-      FileSaver.saveAs(response, fileName);
+      saveAs(response, fileName);
     })
   }
 }
