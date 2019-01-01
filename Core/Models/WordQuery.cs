@@ -16,5 +16,6 @@ namespace Hereglish.Core.Models
         public bool IsSortAscending { get; set; }
         public int Page { get; set; }
         public byte PageSize { get; set; }
+        public bool WithoutPagination { get; set; }
     }
 }

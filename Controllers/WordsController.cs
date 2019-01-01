@@ -14,6 +14,7 @@ using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using NPOI.SS.Util;
 using NPOI.HSSF.Util;
+using System.Text.RegularExpressions;
 
 namespace Hereglish.Controllers
 {
@@ -146,19 +147,53 @@ namespace Hereglish.Controllers
         }
 
         [HttpGet("pdf")]
-        public FileResult GetPdf()
+        public async Task<FileResult> GetPdf()
         {
-            
             IWorkbook workbook = new XSSFWorkbook();
             ISheet sheet1 = workbook.CreateSheet("Sheet1");
 
-            var row = sheet1.CreateRow(0);
-            var cell = row.CreateCell(0);
-            cell.SetCellValue("Test");
+            var titleFont = workbook.CreateFont();
+            titleFont.Boldweight = (short)NPOI.SS.UserModel.FontBoldWeight.Bold;
+
+            var titleStyle = workbook.CreateCellStyle();
+            titleStyle.SetFont(titleFont);
+
+            IRow row = sheet1.CreateRow(0);
+            string[] headers = new string[] { "Word", "Meaning", "UK", "US", "Example", "Subcategory", "Category", "Date add" };
+            for (var i = 0; i < headers.Length; i++)
+            {
+                ICell cell = row.CreateCell(i);
+                cell.SetCellValue(headers[i]);
+                cell.CellStyle = titleStyle;
+            }
+
+            var filter = new WordQuery();
+            filter.WithoutPagination = true;
+            var queryResult = await repository.GetWords(filter);
+
+            for (var i = 0; i < queryResult.Items.Count(); i++)
+            {
+                row = sheet1.CreateRow(i + 1);
+                var word = queryResult.Items.ElementAt(i);
+                row.CreateCell(0).SetCellValue(word.Name);
+                row.CreateCell(1).SetCellValue(word.Meaning);
+                row.CreateCell(2).SetCellValue(word.PronunciationUK);
+                row.CreateCell(3).SetCellValue(word.PronunciationUS);
+                row.CreateCell(4).SetCellValue(Regex.Replace(word.Example, "<.*?>", String.Empty));
+                row.CreateCell(5).SetCellValue(word.Subcategory.Name);
+                row.CreateCell(6).SetCellValue(word.Subcategory.Category.Name);
+                row.CreateCell(7).SetCellValue(String.Format("{0:MM-dd-yyyy}", word.CreatedAt));
+            }
+
+            for (var i = 0; i < headers.Length; i++)
+            {
+                sheet1.AutoSizeColumn(i);
+            }
+
             var stream = new MemoryStream();
             workbook.Write(stream);
-            
-            return File(new MemoryStream(stream.GetBuffer()), "application/vnd.ms-excel", "plik.xls");
+
+            return File(new MemoryStream(stream.ToArray()), "application/vnd.ms-excel", "plik.xls");
         }
     }
 }

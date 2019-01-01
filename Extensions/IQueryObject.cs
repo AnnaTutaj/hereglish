@@ -6,6 +6,7 @@ namespace Hereglish.Extensions
         bool IsSortAscending { get; set; }
         int Page { get; set; }
         byte PageSize { get; set; }
+        bool WithoutPagination { get; set; }
 
     }
 }

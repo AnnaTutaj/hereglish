@@ -12,7 +12,7 @@ namespace Hereglish.Extensions
         {
             if (!String.IsNullOrEmpty(queryObj.Query))
             {
-                query = query.Where(w => w.Name.Contains(queryObj.Query) 
+                query = query.Where(w => w.Name.Contains(queryObj.Query)
                 || w.Meaning.Contains(queryObj.Query)
                 || w.Example.Contains(queryObj.Query)
                 || w.PronunciationUK.Contains(queryObj.Query)
@@ -75,6 +75,11 @@ namespace Hereglish.Extensions
 
         public static IQueryable<T> ApplyPaging<T>(this IQueryable<T> query, IQueryObject queryObj)
         {
+            if (queryObj.WithoutPagination == true)
+            {
+                return query;
+            }
+
             if (queryObj.Page <= 0)
             {
                 queryObj.Page = 1;
