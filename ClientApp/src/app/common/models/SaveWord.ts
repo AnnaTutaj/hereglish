@@ -4,6 +4,7 @@ export interface SaveWord {
     name: string;
     meaning: string;
     example: string;
+    link: string;
     isLearned: boolean;
     categoryId: number;
     subcategoryId: number;

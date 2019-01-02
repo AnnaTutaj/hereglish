@@ -21,6 +21,8 @@ namespace Hereglish.Controllers.Resources
         public string Name { get; set; }
 
         public string Meaning { get; set; }
+       
+        public string Link { get; set; }
 
         public PronunciationResource Pronunciation { get; set; }
 

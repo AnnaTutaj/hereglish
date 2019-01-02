@@ -7,6 +7,7 @@ export interface Word {
     example: string;
     createdAt: string;
     updatedAt: string;
+    link: string;
     isLearned: boolean;
     category: KeyValuePair;
     subcategory: KeyValuePair;

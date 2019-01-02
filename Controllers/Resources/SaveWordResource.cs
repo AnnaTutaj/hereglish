@@ -25,6 +25,10 @@ namespace Hereglish.Controllers.Resources
         [Required]
         [StringLength(255)]
         public string Meaning { get; set; }
+        
+        [Required]
+        [StringLength(255)]
+        public string Link { get; set; }
 
         public PronunciationResource Pronunciation { get; set; }
         
