@@ -11,5 +11,7 @@ namespace Hereglish.Core.Models
         [Required]
         [StringLength(255)]
         public string Name { get; set; }
+        public int? ParentId { get; set; }
+
     }
 }
