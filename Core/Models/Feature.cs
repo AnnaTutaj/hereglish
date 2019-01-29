@@ -13,5 +13,13 @@ namespace Hereglish.Core.Models
         public string Name { get; set; }
         public int? ParentId { get; set; }
 
+        public virtual Feature Parent { get; set; }
+        public ICollection<Feature> Subfeatures { get; set; }
+
+         public Feature()
+        {
+            Subfeatures = new Collection<Feature>();
+        }
+
     }
 }

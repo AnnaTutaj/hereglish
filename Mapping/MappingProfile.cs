@@ -59,6 +59,8 @@ namespace Hereglish.Mapping
 
             CreateMap<WordQueryResource, WordQuery>();
 
+            CreateMap<Feature, FeatureResource>()
+            .ForMember(dest => dest.Subfeatures, opt => opt.MapFrom(src => src.Subfeatures));
         }
     }
 }

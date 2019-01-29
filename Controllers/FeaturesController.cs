@@ -19,12 +19,21 @@ namespace Hereglish.Controllers
             this.context = context;
         }
 
-        [HttpGet("api/features")]
-        public async Task<IEnumerable<KeyValuePairResource>> GetFeature()
+        [HttpGet("api/flat-features")]
+        public async Task<IEnumerable<KeyValuePairResource>> GetFlatFeatures()
         {
             var features = await context.Features.ToListAsync();
 
             return mapper.Map<List<Feature>, List<KeyValuePairResource>>(features);
+        }
+
+        [HttpGet("api/features")]
+        public async Task<IEnumerable<FeatureResource>> GetFeatures()
+        {
+            var features = await context.Features.Include(s => s.Subfeatures).ToListAsync();
+            var featuresTree = mapper.Map<List<Feature>, List<FeatureResource>>(features);
+            featuresTree.RemoveAll(item => item.ParentId != null);
+            return featuresTree;
         }
     }
 }
