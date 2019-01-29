@@ -93,11 +93,23 @@
       <div class="form-group">
         <label>Features</label>
         <br>
-        <div *ngFor="let f of features" class="checkbox-inline">
-          <label for="feature{{ f.id }}">
-            <input type="checkbox" id="feature{{ f.id }}" (change)="onFeatureToggle(f.id, $event)" [checked]="word.features.includes(f.id)">
-            {{ f.name }}
-          </label>
+        <div *ngFor="let f of features">
+          <div *ngIf="!f.subfeatures.length" class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input w17" id="feature{{ f.id }}" (change)="onFeatureToggle(f.id, $event)"
+              [checked]="word.features.includes(f.id)">
+            <label class="custom-control-label" for="feature{{ f.id }}"> {{ f.name }} </label>
+          </div>
+          <div *ngIf="f.subfeatures.length">
+            <i class="fas fa-caret-right text-center w17 main-color"></i>
+            <label class="control-label" for="feature{{ f.id }}"> {{ f.name }} </label>
+            <div *ngFor="let sf of f.subfeatures" class="ml20">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input w17" id="feature{{ sf.id }}" (change)="onFeatureToggle(sf.id, $event)"
+                      [checked]="word.features.includes(sf.id)">
+                    <label class="custom-control-label" for="feature{{ sf.id }}"> {{ sf.name }} </label>
+                  </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
