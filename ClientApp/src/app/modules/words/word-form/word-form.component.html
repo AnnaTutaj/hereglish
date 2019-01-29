@@ -79,13 +79,16 @@
     <div class="col-md-6">
       <div class="form-group">
         <label> Mark as learned?</label>
-        <div class="radio">
-          <label for="learned" class="radio-inline">
-            <input type="radio" id="learned" name="isLearned" [value]="true" [(ngModel)]="word.isLearned"> Yes
-          </label>
-          <label for="notLearned" class="radio-inline">
-            <input type="radio" id="notLearned" name="isLearned" [value]="false" [(ngModel)]="word.isLearned"> No
-          </label>
+        <div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="learned" name="isLearned" class="custom-control-input" [value]="true" [(ngModel)]="word.isLearned">
+            <label class="custom-control-label" for="learned">Yes</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="notLearned" name="isLearned" class="custom-control-input" [value]="false"
+              [(ngModel)]="word.isLearned">
+            <label class="custom-control-label" for="notLearned">No</label>
+          </div>
         </div>
       </div>
     </div>
