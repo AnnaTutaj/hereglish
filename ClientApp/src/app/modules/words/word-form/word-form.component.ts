@@ -18,7 +18,7 @@ import 'rxjs/add/observable/forkJoin';
 })
 export class WordFormComponent implements OnInit {
   headerText: string;
-  
+
   categories: any[];
   subcategories: any[];
   features: any[];
@@ -39,6 +39,7 @@ export class WordFormComponent implements OnInit {
       Us: ''
     }
   };
+  collapsedFeatures: any[] = [];
   froalaOptions: Object;
 
   constructor(
@@ -123,6 +124,11 @@ export class WordFormComponent implements OnInit {
       var index = this.word.features.indexOf(featureId);
       this.word.features.splice(index, 1);
     }
+  }
+
+  onCollapse(featureId) {
+    var index = this.collapsedFeatures.indexOf(featureId);
+    index > -1 ? this.collapsedFeatures.splice(index, 1) : this.collapsedFeatures.push(featureId);
   }
 
   submit() {

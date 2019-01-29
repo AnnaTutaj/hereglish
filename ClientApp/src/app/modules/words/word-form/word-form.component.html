@@ -100,14 +100,17 @@
             <label class="custom-control-label" for="feature{{ f.id }}"> {{ f.name }} </label>
           </div>
           <div *ngIf="f.subfeatures.length">
-            <i class="fas fa-caret-right text-center w17 main-color"></i>
+            <i class="fas text-center w17 main-color cur_p" [ngClass]="collapsedFeatures.includes(f.id) ? 'fa-caret-down': 'fa-caret-right'"
+              id="feature{{ f.id }}" (click)="onCollapse(f.id)"></i>
             <label class="control-label" for="feature{{ f.id }}"> {{ f.name }} </label>
-            <div *ngFor="let sf of f.subfeatures" class="ml20">
+            <div *ngIf="collapsedFeatures.includes(f.id)">
+              <div *ngFor="let sf of f.subfeatures" class="ml20">
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" class="custom-control-input w17" id="feature{{ sf.id }}" (change)="onFeatureToggle(sf.id, $event)"
-                      [checked]="word.features.includes(sf.id)">
-                    <label class="custom-control-label" for="feature{{ sf.id }}"> {{ sf.name }} </label>
-                  </div>
+                  <input type="checkbox" class="custom-control-input w17" id="feature{{ sf.id }}" (change)="onFeatureToggle(sf.id, $event)"
+                    [checked]="word.features.includes(sf.id)">
+                  <label class="custom-control-label" for="feature{{ sf.id }}"> {{ sf.name }} </label>
+                </div>
+              </div>
             </div>
           </div>
         </div>
