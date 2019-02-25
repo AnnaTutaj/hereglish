@@ -89,6 +89,16 @@ export class WordFormComponent implements OnInit {
         if (err.status == 404) {
           this.router.navigate(['']);
         }
+      },
+      () => {
+        this.route.queryParams.subscribe(p => {
+          if (!p || !p['model']) {
+            return;
+          }
+          let word = JSON.parse(p['model']);
+          this.setWord(word);
+          this.populateSubcategories();
+        });
       });
   }
 

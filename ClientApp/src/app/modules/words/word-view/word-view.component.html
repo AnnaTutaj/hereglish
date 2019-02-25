@@ -40,6 +40,7 @@
     <br />
     <p>
       <a *ngIf="auth.isAuthenticated()" class="btn btn-primary" [routerLink]="['/words/update/', word.id]">Update</a>
+      <button *ngIf="auth.isAuthenticated()" class="btn btn-primary" (click)="addSimilar()">Add similar</button>
       <button *ngIf="auth.isAuthenticated()" class="btn btn-danger" (click)="delete()">Delete</button>
       <a class="btn btn-default" [routerLink]="['/words']">View All Words</a>
     </p>

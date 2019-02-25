@@ -71,7 +71,7 @@ export class WordViewComponent implements OnInit {
 
   uploadPhoto() {
     this.progressService.startTracking()
-    //fixme progress bar doesn't appears
+      //fixme progress bar doesn't appears
       .subscribe(progress => {
         this.zone.run(() => {
           this.progress = progress;
@@ -85,7 +85,7 @@ export class WordViewComponent implements OnInit {
     var file = nativeElement.files[0];
 
     this.photoService.upload(this.wordId, file)
-    
+
       .subscribe(photo => {
         this.photos.push(photo);
         nativeElement.value = '';
@@ -99,7 +99,13 @@ export class WordViewComponent implements OnInit {
             timeout: 3000
           });
         });
+        
+  }
 
+  addSimilar() {
+    let word = Object.assign({}, this.word);
+    delete word.id;
+    this.router.navigate(['/words/new'], { queryParams: { model: JSON.stringify(word) } });
   }
 
 }
