@@ -18,6 +18,11 @@
       <div class="input-group-text"><i class="fa fa-search"></i></div>
     </div>
   </div>
+  <div class="input-group col-md-2 form-group">
+    <select name="" id="pageSize" class="form-control form-control-sm" [(ngModel)]="query.pageSize" (change)="onPageSizeChange()">
+      <option *ngFor="let p of params.pagination.items" value="{{ p }}">{{ p }} results</option>
+    </select>
+  </div>
 </div>
 <div id="advancedSearch" class="row collapse mb-3">
   <div class="col-md-9">

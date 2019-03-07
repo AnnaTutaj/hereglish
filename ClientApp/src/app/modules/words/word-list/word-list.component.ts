@@ -8,6 +8,7 @@ declare var $: any;
 import { KeyValuePair } from '../../../common/models/KeyValuePair';
 
 import { AuthService } from '../../../common/services/auth.service';
+import { ConfigService } from './../../../common/services/config.service';
 import { CategoryService } from '../shared/category.service';
 import { PartOfSpeechService } from '../shared/part-of-speech.service';
 import { WordService } from '../shared/word.service';
@@ -17,8 +18,9 @@ import { WordService } from '../shared/word.service';
   styleUrls: ['./word-list.component.css']
 })
 export class WordListComponent implements OnInit {
-  private readonly PAGE_SIZE = 20;
-
+  params: any = {
+    pagination: this.configService.params.pageSize.large
+  }
   headerText: string = "Words";
   descriptionText: string = "List of words";
 
@@ -29,7 +31,7 @@ export class WordListComponent implements OnInit {
   isNotLearned: any;
   isLearned: any;
   query: any = {
-    pageSize: this.PAGE_SIZE
+    pageSize: this.params.pagination.default
   };
   headers = [
     { title: 'Word', key: 'name', isSortable: true },
@@ -48,7 +50,9 @@ export class WordListComponent implements OnInit {
     private categoryService: CategoryService,
     private partOfSpeechService: PartOfSpeechService,
     private auth: AuthService,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private configService: ConfigService,
+  ) { }
 
   ngOnInit() {
     this.categoryService.getCategories()
@@ -113,7 +117,7 @@ export class WordListComponent implements OnInit {
   clearFilter() {
     this.query = {
       page: 1,
-      pageSize: this.PAGE_SIZE
+      pageSize: this.params.pagination.default
     };
     this.subcategories = [];
     this.populateWords();
@@ -131,6 +135,10 @@ export class WordListComponent implements OnInit {
 
   onPageChange(page) {
     this.query.page = page;
+    this.populateWords();
+  }
+
+  onPageSizeChange() {
     this.populateWords();
   }
 

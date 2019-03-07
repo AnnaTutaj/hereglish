@@ -1,3 +1,4 @@
+import { ConfigService } from './common/services/config.service';
 import { AdminAuthGuard } from './common/services/admin-auth-guard.service';
 import { AuthGuard } from './common/services/auth-guard.service';
 import { AuthService } from './common/services/auth.service';
@@ -54,7 +55,8 @@ Raven
     AuthGuard,
     AUTH_PROVIDERS,
     AdminAuthGuard,
-    DatePipe
+    DatePipe,
+    ConfigService
   ],
   bootstrap: [AppComponent]
 })
