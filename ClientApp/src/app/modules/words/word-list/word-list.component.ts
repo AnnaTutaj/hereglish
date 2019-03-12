@@ -19,7 +19,11 @@ import { WordService } from '../shared/word.service';
 })
 export class WordListComponent implements OnInit {
   params: any = {
-    pagination: this.configService.params.pageSize.large
+    pagination: this.configService.params.pageSize.large,
+    sort: {
+      name: 'createdAt',
+      isAscending: false
+    }
   }
   headerText: string = "Words";
   descriptionText: string = "List of words";
@@ -31,7 +35,9 @@ export class WordListComponent implements OnInit {
   isNotLearned: any;
   isLearned: any;
   query: any = {
-    pageSize: this.params.pagination.default
+    pageSize: this.params.pagination.default,
+    sortBy: this.params.sort.name,
+    isSortAscending: this.params.sort.isAscending
   };
   headers = [
     { title: 'Word', key: 'name', isSortable: true },
