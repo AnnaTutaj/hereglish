@@ -29,6 +29,11 @@
           <i class="fas fa-book"></i>Words
         </a>
       </li>
+      <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+        <a class="nav-item nav-link" [routerLink]='["/calendar"]' (click)='collapse()'>
+          <i class="fas fa-calendar-alt"></i>Calendar
+        </a>
+      </li>
     </div>
   </div>
 </nav>

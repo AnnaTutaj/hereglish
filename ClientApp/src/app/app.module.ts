@@ -1,4 +1,5 @@
 import { ConfigService } from './common/services/config.service';
+import { EventService } from './common/services/event.service';
 import { AdminAuthGuard } from './common/services/admin-auth-guard.service';
 import { AuthGuard } from './common/services/auth-guard.service';
 import { AuthService } from './common/services/auth.service';
@@ -23,6 +24,7 @@ import { UnauthorizatedAccessComponent } from './common/components/unauthorizate
 
 import { WordsModule } from './modules/words/words.module';
 import { AdminModule } from './modules/admin/admin.module';
+import { CalendarModule } from './modules/calendar/calendar.module';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -44,6 +46,7 @@ Raven
 
     WordsModule,
     AdminModule,
+    CalendarModule,
     AppRoutingModule,
 
     ToastyModule.forRoot(),
@@ -56,7 +59,8 @@ Raven
     AUTH_PROVIDERS,
     AdminAuthGuard,
     DatePipe,
-    ConfigService
+    ConfigService,
+    EventService
   ],
   bootstrap: [AppComponent]
 })
