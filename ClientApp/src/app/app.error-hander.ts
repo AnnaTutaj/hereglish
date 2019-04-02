@@ -20,6 +20,11 @@ export class AppErrorHandler implements ErrorHandler {
 
     handleError(error: any) {
         let httpErrorCode = error.status;
+        if (error._body) {
+            let obj = JSON.parse(error._body);
+            this.showError(obj.error[0], error);
+            return;
+        }
         switch (httpErrorCode) {
             case UNAUTHORIZED:
                 this.showError(this.UNAUTHORIZED_ERROR_MESSAGE, error);
