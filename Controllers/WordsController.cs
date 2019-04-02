@@ -65,8 +65,7 @@ namespace Hereglish.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            var commasCount = wordResource.Meaning.TakeWhile(c => c == ',').Count();
+            int commasCount = wordResource.Meaning.ToCharArray().Count(c => c == ',');
             var limitOfCommas = 3;
 
             if (commasCount > limitOfCommas)
@@ -100,7 +99,7 @@ namespace Hereglish.Controllers
                 return BadRequest(ModelState);
             }
 
-            var commasCount = wordResource.Meaning.TakeWhile(c => c == ',').Count();
+            int commasCount = wordResource.Meaning.ToCharArray().Count(c => c == ',');
             var limitOfCommas = 3;
 
             if (commasCount > limitOfCommas)
