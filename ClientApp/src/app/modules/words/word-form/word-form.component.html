@@ -42,7 +42,7 @@
           <option *ngFor="let c of categories" value="{{c.id}}">{{ c.name }}</option>
         </select>
       </div>
-      <div class="alert alert-danger" *ngIf="category.touched && !category.valid">Please select the category</div>
+      <div class="alert alert-danger" *ngIf="category.touched && !category.valid">Please select a category</div>
     </div>
     <div class="col-md-6">
       <div class="form-group">
@@ -63,7 +63,7 @@
           <option *ngFor="let p of partsOfSpeech" value="{{p.id}}">{{ p.name }}</option>
         </select>
       </div>
-      <div class="alert alert-danger" *ngIf="partOfSpeech.touched && !partOfSpeech.valid">Please select the part of
+      <div class="alert alert-danger" *ngIf="partOfSpeech.touched && !partOfSpeech.valid">Please select a part of
         speech</div>
     </div>
     <div class="col-md-6">
