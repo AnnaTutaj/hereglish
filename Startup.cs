@@ -31,6 +31,7 @@ namespace Hereglish
 
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IWordRepository, WordRepository>();
+            services.AddScoped<ISubcategoryRepository, SubcategoryRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<IPhotoService, PhotoService>();

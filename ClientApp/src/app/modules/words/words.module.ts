@@ -8,6 +8,7 @@ import { WordViewComponent } from './word-view/word-view.component';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
 import { FormsModule } from '@angular/forms';
 import { UiSwitchModule } from 'angular2-ui-switch'
+import { NgSelectModule } from '@ng-select/ng-select';
 
 import { CommonComponentsModule } from './../../common/components/common-components.module';
 
@@ -17,6 +18,7 @@ import { FeatureService } from './shared/feature.service';
 import { PartOfSpeechService } from './shared/part-of-speech.service';
 import { PhotoService } from './shared/photo.service';
 import { WordService } from './shared/word.service';
+import { SubcategoryService } from './shared/subcategory.service';
 
 @NgModule({
   imports: [
@@ -26,6 +28,7 @@ import { WordService } from './shared/word.service';
     FroalaViewModule,
     FormsModule,
     UiSwitchModule,
+    NgSelectModule,
     CommonComponentsModule
   ],
   declarations: [
@@ -38,7 +41,8 @@ import { WordService } from './shared/word.service';
     FeatureService,
     PartOfSpeechService,
     PhotoService,
-    WordService
+    WordService,
+    SubcategoryService
   ],
 })
 export class WordsModule { }

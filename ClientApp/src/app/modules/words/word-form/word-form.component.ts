@@ -1,10 +1,14 @@
 import * as _ from 'underscore';
 import { SaveWord } from '../../../common/models/SaveWord';
+import { SaveSubcategory } from '../../../common/models/SaveSubcategory';
 import { Word } from '../../../common/models/Word';
+
 import { PartOfSpeechService } from '../shared/part-of-speech.service';
 import { FeatureService } from '../shared/feature.service';
 import { CategoryService } from '../shared/category.service';
 import { WordService } from '../shared/word.service';
+import { SubcategoryService } from './../shared/subcategory.service';
+
 import { ToastyService, ToastyConfig } from "ng2-toasty";
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -18,7 +22,7 @@ import 'rxjs/add/observable/forkJoin';
 })
 export class WordFormComponent implements OnInit {
   headerText: string;
-
+  loading: boolean;
   categories: any[];
   subcategories: any[];
   features: any[];
@@ -39,6 +43,13 @@ export class WordFormComponent implements OnInit {
       Us: ''
     }
   };
+
+  subcategory: SaveSubcategory = {
+    id: 0,
+    name: '',
+    categoryId: 0,
+  };
+
   collapsedFeatures: any[] = [];
   froalaOptions: Object;
 
@@ -50,7 +61,8 @@ export class WordFormComponent implements OnInit {
     private partOfSpeechService: PartOfSpeechService,
     private toastyService: ToastyService,
     private toastyConfig: ToastyConfig,
-    private wordService: WordService
+    private wordService: WordService,
+    private subcategoryService: SubcategoryService
   ) {
     route.params.subscribe(p => {
       this.word.id = +p['id'] || 0;
@@ -154,5 +166,35 @@ export class WordFormComponent implements OnInit {
       });
       this.router.navigate(['/words/', word.id])
     });
+  }
+  
+  private addSubcategoryToCategory(subcategory) {
+    let selectedCategory = this.categories.find(c => c.id == subcategory.categoryId);
+    var temp = { id: subcategory.id, name: subcategory.name };
+    selectedCategory.subcategories.push(temp);
+  }
+
+  addTagPromise = (name) => {
+    return new Promise((resolve) => {
+      this.loading = true;
+      setTimeout(() => {
+        this.subcategory.name = name;
+        this.subcategory.categoryId = this.word.categoryId;
+
+        var result$ = this.subcategoryService.create(this.subcategory);
+        result$.subscribe(result => {
+          this.toastyService.success({
+            title: 'Success',
+            msg: "The subcategory has been added",
+            showClose: true,
+            timeout: 3000
+          });
+          this.addSubcategoryToCategory(result);
+          this.word.subcategoryId = result.id;
+          resolve({ id: result.id, name: result.name, valid: true });
+          this.loading = false;
+        });
+      }, 1000);
+    })
   }
 }
