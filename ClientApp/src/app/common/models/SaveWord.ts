@@ -3,6 +3,7 @@ export interface SaveWord {
     id?: number;
     name: string;
     meaning: string;
+    definition: string;
     example: string;
     link: string;
     isLearned: boolean;

@@ -4,6 +4,7 @@ export interface Word {
     id: number;
     name: string;
     meaning: string;
+    definition: string;
     example: string;
     createdAt: string;
     updatedAt: string;

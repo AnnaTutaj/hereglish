@@ -76,6 +76,12 @@
   <div class="row">
     <div class="col-md-6">
       <div class="form-group">
+        <label for="definition">Definition</label>
+        <input id="definition" name="definition" type="text" class="form-control" [(ngModel)]="word.definition">
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
         <label> Mark as learned?</label>
         <div>
           <div class="custom-control custom-radio custom-control-inline">
@@ -90,7 +96,7 @@
         </div>
       </div>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <div class="form-group">
         <label>Features</label>
         <br>

@@ -31,6 +31,7 @@ export class WordFormComponent implements OnInit {
     id: 0,
     name: '',
     meaning: '',
+    definition: '',
     example: '',
     link: '',
     isLearned: false,
@@ -118,6 +119,7 @@ export class WordFormComponent implements OnInit {
     this.word.id = w.id;
     this.word.name = w.name;
     this.word.meaning = w.meaning;
+    this.word.definition = w.definition;
     this.word.example = w.example;
     this.word.link = w.link;
     this.word.isLearned = w.isLearned;

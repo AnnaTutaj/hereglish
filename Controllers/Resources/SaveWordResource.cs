@@ -25,6 +25,9 @@ namespace Hereglish.Controllers.Resources
         [Required]
         [StringLength(255)]
         public string Meaning { get; set; }
+
+        [StringLength(255)]
+        public string Definition { get; set; }
         
         [StringLength(255)]
         public string Link { get; set; }

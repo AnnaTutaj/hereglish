@@ -32,6 +32,9 @@ namespace Hereglish.Core.Models
         public string Meaning { get; set; }
 
         [StringLength(255)]
+        public string Definition { get; set; }
+
+        [StringLength(255)]
         public string Link { get; set; }
 
         public string PronunciationUK { get; set; }
