@@ -44,6 +44,7 @@ export class WordListComponent implements OnInit {
     { title: 'Meaning', key: 'meaning', isSortable: true },
     { title: 'UK' },
     { title: 'US' },
+    { title: 'Definition' },
     { title: 'Example' },
     { title: 'Subcat.', key: 'subcategory', isSortable: true },
     { title: 'Cat.', key: 'category', isSortable: true },
