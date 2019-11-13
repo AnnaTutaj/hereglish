@@ -19,7 +19,7 @@ import { WordService } from '../shared/word.service';
 })
 export class WordListComponent implements OnInit {
   params: any = {
-    pagination: this.configService.params.pageSize.large,
+    pagination: this.configService.params.pageSize.medium,
     sort: {
       name: 'createdAt',
       isAscending: false
