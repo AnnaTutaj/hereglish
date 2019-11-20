@@ -73,6 +73,8 @@ export class WordFormComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.word = this.route.snapshot.data['word'];
+
     this.headerText = this.word.id ? "Edit the Word" : "Add a Word"
 
     this.froalaOptions = {
@@ -85,49 +87,17 @@ export class WordFormComponent implements OnInit {
       this.partOfSpeechService.getPartsOfSpeech()
     ];
 
-    if (this.word.id) {
-      sources.push(this.wordService.getById(this.word.id))
-    }
-
     Observable.forkJoin(sources).subscribe(data => {
       this.categories = data[0];
       this.features = data[1];
       this.partsOfSpeech = data[2];
-      if (this.word.id) {
-        this.setWord(data[3]);
-        this.populateSubcategories();
-      }
+      this.populateSubcategories();
     },
       err => {
         if (err.status == 404) {
           this.router.navigate(['']);
         }
-      },
-      () => {
-        this.route.queryParams.subscribe(p => {
-          if (!p || !p['model']) {
-            return;
-          }
-          let word = JSON.parse(p['model']);
-          this.setWord(word);
-          this.populateSubcategories();
-        });
       });
-  }
-
-  setWord(w: Word) {
-    this.word.id = w.id;
-    this.word.name = w.name;
-    this.word.meaning = w.meaning;
-    this.word.definition = w.definition;
-    this.word.example = w.example;
-    this.word.link = w.link;
-    this.word.isLearned = w.isLearned;
-    this.word.categoryId = w.category.id;
-    this.word.subcategoryId = w.subcategory.id;
-    this.word.partOfSpeechId = w.partOfSpeech.id;
-    this.word.pronunciation = w.pronunciation;
-    this.word.features = _.pluck(w.features, 'id');
   }
 
   onCategoryChange() {

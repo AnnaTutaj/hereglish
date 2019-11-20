@@ -20,6 +20,8 @@ import { PhotoService } from './shared/photo.service';
 import { WordService } from './shared/word.service';
 import { SubcategoryService } from './shared/subcategory.service';
 
+import { SaveWordResolver } from './shared/resolvers/save-word.resolver';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { SubcategoryService } from './shared/subcategory.service';
     PartOfSpeechService,
     PhotoService,
     WordService,
-    SubcategoryService
+    SubcategoryService,
+    SaveWordResolver
   ],
 })
 export class WordsModule { }
