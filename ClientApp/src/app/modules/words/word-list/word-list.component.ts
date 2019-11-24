@@ -37,7 +37,8 @@ export class WordListComponent implements OnInit {
   query: any = {
     pageSize: this.params.pagination.default,
     sortBy: this.params.sort.name,
-    isSortAscending: this.params.sort.isAscending
+    isSortAscending: this.params.sort.isAscending,
+    partOfSpeechIds: []
   };
   headers = [
     { title: 'Word', key: 'name', isSortable: true },
@@ -157,5 +158,16 @@ export class WordListComponent implements OnInit {
     this.wordService.getPdf().subscribe(response => {
       saveAs(response, fileName);
     })
+  }
+
+  onPartOfSpeechToggle(id, $event){
+    if ($event.target.checked) {
+      this.query.partOfSpeechIds.push(id);
+    }
+    else {
+      var index = this.query.partOfSpeechIds.indexOf(id);
+      this.query.partOfSpeechIds.splice(index, 1);
+    }
+    this.onFilterChange();
   }
 }

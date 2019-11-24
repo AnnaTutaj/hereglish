@@ -30,8 +30,16 @@ export class WordService {
     var queryParts = [];
     for (var property in obj) {
       var value = obj[property];
-      if (value != null && value != undefined) {
+
+      if (value != null && value != undefined && !Array.isArray(value)) {
         queryParts.push(encodeURIComponent(property) + "=" + encodeURIComponent(value));
+      } 
+
+      if (value != null && value != undefined && Array.isArray(value)) {
+        for (var arrayProperty in value) {
+          var arrayValue = value[arrayProperty];
+          queryParts.push(encodeURIComponent(property) + "=" + encodeURIComponent(arrayValue));
+        }
       }
     }
 
