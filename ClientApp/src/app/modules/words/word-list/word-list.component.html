@@ -47,15 +47,33 @@
           </div>
         </div>
         <div class="col-md-3 form-group">
-            <h3>Part of speech</h3>
-            <div *ngFor="let p of partsOfSpeech">
-                <div class="custom-control custom-checkbox">
-                  <input type="checkbox" class="custom-control-input w17" id="part-of-speech-{{ p.id }}" (change)="onPartOfSpeechToggle(p.id, $event)"
-                    [checked]="query.partOfSpeechIds.includes(p.id)">
-                  <label class="custom-control-label" for="part-of-speech-{{ p.id }}"> {{ p.name }} </label>
-                </div>
-              </div>
+          <h3>Part of speech</h3>
+          <div *ngFor="let p of partsOfSpeech">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input w17" id="part-of-speech-{{ p.id }}"
+                (change)="onPartOfSpeechToggle(p.id, $event)" [checked]="query.partOfSpeechIds.includes(p.id)">
+              <label class="custom-control-label" for="part-of-speech-{{ p.id }}"> {{ p.name }} </label>
+            </div>
           </div>
+        </div>
+        <div class="col-md-3 form-group">
+          <h3>Learned</h3>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="learned" name="isLearned" class="custom-control-input" [value]="true"
+              [(ngModel)]="query.isLearned" (blur)="onFilterChange()">
+            <label class="custom-control-label" for="learned">Yes</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="notLearned" name="isLearned" class="custom-control-input" [value]="false"
+              [(ngModel)]="query.isLearned" (blur)="onFilterChange()">
+            <label class="custom-control-label" for="notLearned">No</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="noPreference" name="isLearned" class="custom-control-input" [value]="null"
+              [(ngModel)]="query.isLearned" (blur)="onFilterChange()">
+            <label class="custom-control-label" for="noPreference">No preference</label>
+          </div>
+        </div>
       </div>
       <button class="btn btn-sm btn-default" (click)="clearFilter()">Clear</button>
     </div>

@@ -32,13 +32,12 @@ export class WordListComponent implements OnInit {
   categories: any[];
   subcategories: KeyValuePair[];
   partsOfSpeech: KeyValuePair[];
-  isNotLearned: any;
-  isLearned: any;
   query: any = {
     pageSize: this.params.pagination.default,
     sortBy: this.params.sort.name,
     isSortAscending: this.params.sort.isAscending,
-    partOfSpeechIds: []
+    partOfSpeechIds: [],
+    isLearned: null
   };
   headers = [
     { title: 'Word', key: 'name', isSortable: true },
@@ -98,22 +97,6 @@ export class WordListComponent implements OnInit {
   onCategoryChange() {
     this.populateSubcategories();
     delete this.query.subcategoryId;
-    this.onFilterChange();
-  }
-
-  onChangeLearnedSwitch($event) {
-    this.query.isLearned = $event ? true : null
-    if (this.query.isLearned) {
-      this.isNotLearned = false;
-    }
-    this.onFilterChange();
-  }
-
-  onChangeNotLearnedSwitch($event) {
-    this.query.isLearned = $event ? false : null
-    if (!this.query.isLearned) {
-      this.isLearned = false;
-    }
     this.onFilterChange();
   }
 
