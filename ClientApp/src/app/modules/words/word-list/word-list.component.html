@@ -56,6 +56,31 @@
             </div>
           </div>
         </div>
+        <div class=col-md-3 form-group>
+          <h3>Feature</h3>
+          <div *ngFor="let f of features">
+            <div *ngIf="!f.subfeatures.length" class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input w17" id="feature{{ f.id }}"
+                (change)="onFeatureToggle(f.id, $event)" [checked]="query.featureIds.includes(f.id)">
+              <label class="custom-control-label" for="feature{{ f.id }}"> {{ f.name }} </label>
+            </div>
+            <div *ngIf="f.subfeatures.length">
+              <i class="fas text-center w17 main-color cur_p"
+                [ngClass]="collapsedFeatures.includes(f.id) ? 'fa-caret-down': 'fa-caret-right'" id="feature{{ f.id }}"
+                (click)="onCollapse(f.id)"></i>
+              <label class="control-label" for="feature{{ f.id }}"> {{ f.name }} </label>
+              <div *ngIf="collapsedFeatures.includes(f.id)">
+                <div *ngFor="let sf of f.subfeatures" class="ml20">
+                  <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input w17" id="feature{{ sf.id }}"
+                      (change)="onFeatureToggle(sf.id, $event)" [checked]="query.featureIds.includes(sf.id)">
+                    <label class="custom-control-label" for="feature{{ sf.id }}"> {{ sf.name }} </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="col-md-3 form-group">
           <h3>Learned</h3>
           <div class="custom-control custom-radio">

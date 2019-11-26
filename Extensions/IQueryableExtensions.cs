@@ -39,6 +39,11 @@ namespace Hereglish.Extensions
                 query = query.Where(w => queryObj.PartOfSpeechIds.Contains(w.PartOfSpeechId));
             }
 
+             if (queryObj.FeatureIds.Length > 0)
+            {
+                query = query.Where(w => w.Features.Any(x => queryObj.FeatureIds.Contains(x.FeatureId)));
+            }
+
             if (!String.IsNullOrEmpty(queryObj.Name))
             {
                 query = query.Where(w => w.Name.Contains(queryObj.Name));

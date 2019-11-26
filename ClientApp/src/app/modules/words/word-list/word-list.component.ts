@@ -10,6 +10,7 @@ import { KeyValuePair } from '../../../common/models/KeyValuePair';
 import { AuthService } from '../../../common/services/auth.service';
 import { ConfigService } from './../../../common/services/config.service';
 import { CategoryService } from '../shared/category.service';
+import { FeatureService } from '../shared/feature.service';
 import { PartOfSpeechService } from '../shared/part-of-speech.service';
 import { WordService } from '../shared/word.service';
 @Component({
@@ -30,6 +31,7 @@ export class WordListComponent implements OnInit {
 
   queryResult: any = {};
   categories: any[];
+  features: KeyValuePair[];
   subcategories: KeyValuePair[];
   partsOfSpeech: KeyValuePair[];
   query: any = {
@@ -37,6 +39,7 @@ export class WordListComponent implements OnInit {
     sortBy: this.params.sort.name,
     isSortAscending: this.params.sort.isAscending,
     partOfSpeechIds: [],
+    featureIds: [],
     isLearned: null
   };
   headers = [
@@ -52,8 +55,11 @@ export class WordListComponent implements OnInit {
     {}
   ];
 
+  collapsedFeatures: any[] = [];
+
   constructor(
     private wordService: WordService,
+    private featureService: FeatureService,
     private categoryService: CategoryService,
     private partOfSpeechService: PartOfSpeechService,
     private auth: AuthService,
@@ -68,6 +74,9 @@ export class WordListComponent implements OnInit {
     this.partOfSpeechService.getPartsOfSpeech()
       .subscribe(partsOfSpeech => this.partsOfSpeech = partsOfSpeech);
 
+    this.featureService.getFeatures()
+      .subscribe(features => this.features = features);
+      
     this.populateWords();
   }
 
@@ -152,5 +161,21 @@ export class WordListComponent implements OnInit {
       this.query.partOfSpeechIds.splice(index, 1);
     }
     this.onFilterChange();
+  }
+
+  onFeatureToggle(featureId, $event) {
+    if ($event.target.checked) {
+      this.query.featureIds.push(featureId);
+    }
+    else {
+      var index = this.query.featureIds.indexOf(featureId);
+      this.query.featureIds.splice(index, 1);
+    }
+    this.onFilterChange();
+  }
+
+  onCollapse(featureId) {
+    var index = this.collapsedFeatures.indexOf(featureId);
+    index > -1 ? this.collapsedFeatures.splice(index, 1) : this.collapsedFeatures.push(featureId);
   }
 }
