@@ -40,7 +40,8 @@ export class WordListComponent implements OnInit {
     isSortAscending: this.params.sort.isAscending,
     partOfSpeechIds: [],
     featureIds: [],
-    isLearned: null
+    isLearned: null,
+    categoryId: null
   };
   headers = [
     { title: 'Word', key: 'name', isSortable: true },
@@ -177,5 +178,10 @@ export class WordListComponent implements OnInit {
   onCollapse(featureId) {
     var index = this.collapsedFeatures.indexOf(featureId);
     index > -1 ? this.collapsedFeatures.splice(index, 1) : this.collapsedFeatures.push(featureId);
+  }
+
+  onSelectCategory(id) {
+    this.query.categoryId = this.query.categoryId !== id ? id : null;
+    this.onFilterChange();
   }
 }

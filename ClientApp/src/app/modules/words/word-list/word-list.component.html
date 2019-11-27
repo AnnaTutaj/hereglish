@@ -29,7 +29,7 @@
   <div class="col-md-9">
     <div class="well well-sm">
       <div class="row">
-        <div class="col-md-3 form-group">
+        <div class="col-md-2 form-group">
           <h3>Search in field</h3>
           <div class="form-group">
             <label for="name" class="col-form-label-sm">Name</label>
@@ -46,7 +46,7 @@
               (blur)="onFilterChange()">
           </div>
         </div>
-        <div class="col-md-3 form-group">
+        <div class="col-md-2 form-group">
           <h3>Part of speech</h3>
           <div *ngFor="let p of partsOfSpeech">
             <div class="custom-control custom-checkbox">
@@ -56,7 +56,7 @@
             </div>
           </div>
         </div>
-        <div class=col-md-3 form-group>
+        <div class="col-md-2 form-group">
           <h3>Feature</h3>
           <div *ngFor="let f of features">
             <div *ngIf="!f.subfeatures.length" class="custom-control custom-checkbox">
@@ -81,7 +81,7 @@
             </div>
           </div>
         </div>
-        <div class="col-md-3 form-group">
+        <div class="col-md-2 form-group">
           <h3>Learned</h3>
           <div class="custom-control custom-radio">
             <input type="radio" id="learned" name="isLearned" class="custom-control-input" [value]="true"
@@ -98,6 +98,15 @@
               [(ngModel)]="query.isLearned" (blur)="onFilterChange()">
             <label class="custom-control-label" for="noPreference">No preference</label>
           </div>
+        </div>
+        <div class="col-md-2 form-group">
+          <h3>Category</h3>
+          <ul class="filter-icons-ul">
+            <li *ngFor="let c of categories active">
+              <img [class.active]="query.categoryId === c.id" width="64"
+                src="/images/categories/category-{{ c.id }}.png" (click)=onSelectCategory(c.id) />
+            </li>
+          </ul>
         </div>
       </div>
       <button class="btn btn-sm btn-default" (click)="clearFilter()">Clear</button>

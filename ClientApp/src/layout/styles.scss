@@ -28,14 +28,68 @@ body {
   padding-left: 1rem;
 }
 
-.ml20{
-  margin-left:20px;
+@for $i from 1 through 500 {
+  .w#{$i} {
+    width: #{$i}px;
+  }
 }
 
-.w17{
-  width: 17px;
+@for $i from 1 through 100 {
+  .m#{$i} {
+    margin: #{$i}px;
+  }
+  .mt#{$i} {
+    margin-top: #{$i}px;
+  }
+  .mr#{$i} {
+    margin-right: #{$i}px;
+  }
+  .mb#{$i} {
+    margin-bottom: #{$i}px;
+  }
+  .ml#{$i} {
+    margin-left: #{$i}px;
+  }
+}
+
+@for $i from 1 through 100 {
+  .p#{$i} {
+    padding: #{$i}px;
+  }
+  .pt#{$i} {
+    padding-top: #{$i}px;
+  }
+  .pr#{$i} {
+    padding-right: #{$i}px;
+  }
+  .pb#{$i} {
+    padding-bottom: #{$i}px;
+  }
+  .pl#{$i} {
+    padding-left: #{$i}px;
+  }
 }
 
 .main-color{
   color: $text-selected;
+}
+
+.filter-icons-ul {
+  padding-left: 0;
+
+  li {
+    display: inline-block;
+    margin: 0 5px 5px 0;
+
+    img {
+      border: 1px solid;
+      padding: 4px;
+      cursor: pointer;
+      &.active{
+        border: 2px solid $danger;
+        padding: 3px;
+      }
+    }
+   
+  }
 }
