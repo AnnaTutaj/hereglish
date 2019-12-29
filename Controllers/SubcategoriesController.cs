@@ -15,12 +15,22 @@ namespace Hereglish.Controllers
         private readonly IMapper mapper;
         private readonly ISubcategoryRepository repository;
         private readonly IUnitOfWork unitOfWork;
+        private readonly HereglishDbContext context;
 
-        public SubcategoriesController(IMapper mapper, ISubcategoryRepository repository, IUnitOfWork unitOfWork)
+        public SubcategoriesController(IMapper mapper, ISubcategoryRepository repository, IUnitOfWork unitOfWork, HereglishDbContext context)
         {
             this.mapper = mapper;
             this.repository = repository;
             this.unitOfWork = unitOfWork;
+            this.context = context;
+        }
+
+        [HttpGet("api/subcategories")]
+        public async Task<IEnumerable<KeyValuePairResource>> GetSubcategories()
+        {
+            var subcategories = await context.Subcategories.ToListAsync();
+
+            return mapper.Map<List<Subcategory>, List<KeyValuePairResource>>(subcategories);
         }
 
         [HttpPost("api/subcategories")]

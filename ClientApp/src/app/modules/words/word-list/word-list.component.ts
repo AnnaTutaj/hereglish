@@ -10,6 +10,7 @@ import { KeyValuePair } from '../../../common/models/KeyValuePair';
 import { AuthService } from '../../../common/services/auth.service';
 import { ConfigService } from './../../../common/services/config.service';
 import { CategoryService } from '../shared/category.service';
+import { SubcategoryService } from '../shared/subcategory.service';
 import { FeatureService } from '../shared/feature.service';
 import { PartOfSpeechService } from '../shared/part-of-speech.service';
 import { WordService } from '../shared/word.service';
@@ -41,7 +42,8 @@ export class WordListComponent implements OnInit {
     partOfSpeechIds: [],
     featureIds: [],
     isLearned: null,
-    categoryId: null
+    categoryId: null,
+    subcategoryIds: []
   };
   headers = [
     { title: 'Word', key: 'name', isSortable: true },
@@ -62,6 +64,7 @@ export class WordListComponent implements OnInit {
     private wordService: WordService,
     private featureService: FeatureService,
     private categoryService: CategoryService,
+    private subcategoryService: SubcategoryService,
     private partOfSpeechService: PartOfSpeechService,
     private auth: AuthService,
     private datePipe: DatePipe,
@@ -71,6 +74,9 @@ export class WordListComponent implements OnInit {
   ngOnInit() {
     this.categoryService.getCategories()
       .subscribe(categories => this.categories = categories);
+
+    this.subcategoryService.getSubcategories()
+      .subscribe(subcategories => this.subcategories = subcategories);
 
     this.partOfSpeechService.getPartsOfSpeech()
       .subscribe(partsOfSpeech => this.partsOfSpeech = partsOfSpeech);
@@ -182,6 +188,17 @@ export class WordListComponent implements OnInit {
 
   onSelectCategory(id) {
     this.query.categoryId = this.query.categoryId !== id ? id : null;
+    this.onFilterChange();
+  }
+
+  onSubcategoryToggle(subcategoryId, $event){
+    if ($event.target.checked) {
+      this.query.subcategoryIds.push(subcategoryId);
+    }
+    else {
+      var index = this.query.subcategoryIds.indexOf(subcategoryId);
+      this.query.subcategoryIds.splice(index, 1);
+    }
     this.onFilterChange();
   }
 }

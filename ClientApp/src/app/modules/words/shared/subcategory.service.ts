@@ -8,6 +8,11 @@ export class SubcategoryService {
 
   constructor(private http: Http, private authHttp: AuthHttp) { }
 
+  getSubcategories() {
+    return this.http.get('/api/subcategories')
+      .map(res => res.json());
+  }
+
   create(subcategory) {
     return this.authHttp.post('/api/subcategories', subcategory)
       .map(res => res.json());

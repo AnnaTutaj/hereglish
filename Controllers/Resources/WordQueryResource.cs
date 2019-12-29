@@ -8,6 +8,7 @@ namespace Hereglish.Controllers.Resources
         public int? PartOfSpeechId { get; set; }
         public int[] PartOfSpeechIds { get; set; }
         public int[] FeatureIds { get; set; }
+        public int[] SubcategoryIds { get; set; }
         public string Name { get; set; }
         public string Meaning { get; set; }
         public string Example { get; set; }
